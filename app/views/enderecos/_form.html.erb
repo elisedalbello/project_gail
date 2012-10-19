@@ -1,0 +1,38 @@
+<%= form_for(@endereco) do |form| %>
+  <% if @endereco.errors.any? %>
+    <div id="error_explanation">
+      
+      #mantem o pluralize?
+      <h2><%= pluralize(paciente.errors.count, "error") %> prohibited this paciente from being saved:</h2>
+
+      <ul>
+      <% @endereco.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <p> <%= form.label :rua, "Rua: " %> </br>
+  <%= form.text_field :rua, :size => 60 %> </p>
+  
+  <p> <%= form.label :nr, "Número: " %> </br>
+  <%= form.text_field :nr, :size => 5 %> </p>
+  
+  <p> <%= form.label :bairro, "Bairro: " %> </br>
+  <%= form.text_field :bairro, :size => 60 %> </p>
+  
+  <p> <%= form.label :complemento, "Complemento: " %> </br>
+    <%= form.select :complemento, ([["Casa", "casa"], ["Apartamento", "apartamento"], 
+    								["Conjunto", "conjunto"], ["Fazenda", "fazenda"],
+    								["Favela", "favela"], ["Frente", "frente"],
+    								["Fundos", "fundos"], ["Sítio", "sitio"]]) %>
+  </p>
+  
+  <p> <%= form.label :cidade, "Cidade: " %> </br>
+  <%= form.text_field :cidade, :size => 60 %> </p>
+
+  <p> <%= form.label :cep, "CEP: " %> </br>
+  <%= form.text_field :rua, :size => 60 %> </p>
+    
+<% end %>

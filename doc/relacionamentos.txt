@@ -1,0 +1,13 @@
+Cada escolaridade pode pertencer a 1 ou vários pacientes, cada paciente pode ter apenas um nível de escolaridade;
+
+Cada endereço pode pertencer a um ou vários pacientes, cada paciente só pode ter um endereço;
+
+Cada estado pode pertencer a um ou vários endereços, cada endereço só pode pertencer um estado;
+
+Cada questão pode pertencer a uma avaliação, cada avaliação pode ter várias questões;
+
+Cada alternativa pode pertencer a uma questão, cada questão pode ter várias alternativas;
+
+Cada alternativa pode pertencer a um ou vários paciente_resposta, cada paciente_resposta pode ter várias alternativas;
+
+Cada paciente pode pertencer a um paciente_resposta, cada paciente_resposta pertence a um paciente.

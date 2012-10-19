@@ -1,0 +1,2 @@
+module PacientesRespostasHelper
+end
