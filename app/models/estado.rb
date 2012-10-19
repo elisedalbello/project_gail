@@ -15,5 +15,4 @@ class Estado < ActiveRecord::Base
 
   has_many :endereco
 
-
 end

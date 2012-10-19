@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121011192335) do
+ActiveRecord::Schema.define(:version => 20121004015006) do
 
   create_table "tb_alternativas", :id => false, :force => true do |t|
     t.integer "sq_alternativa", :null => false
@@ -27,8 +27,7 @@ ActiveRecord::Schema.define(:version => 20121011192335) do
     t.integer "fg_ativo"
   end
 
-  create_table "tb_endereco", :id => false, :force => true do |t|
-    t.integer "id_endereco",               :null => false
+  create_table "tb_endereco", :primary_key => "id_endereco", :force => true do |t|
     t.integer "id_estado",                 :null => false
     t.string  "rua",         :limit => 60
     t.string  "nr",          :limit => 10
@@ -52,8 +51,7 @@ ActiveRecord::Schema.define(:version => 20121011192335) do
     t.integer "fg_ativo"
   end
 
-  create_table "tb_paciente", :id => false, :force => true do |t|
-    t.integer  "id_paciente",                   :null => false
+  create_table "tb_paciente", :primary_key => "id_paciente", :force => true do |t|
     t.integer  "id_endereco",                   :null => false
     t.integer  "id_escolaridade",               :null => false
     t.string   "nm_paciente",     :limit => 60
@@ -67,12 +65,11 @@ ActiveRecord::Schema.define(:version => 20121011192335) do
   end
 
   create_table "tb_paciente_resposta", :id => false, :force => true do |t|
-    t.integer  "id_paciente",                   :null => false
-    t.integer  "sq_questao",                    :null => false
-    t.integer  "id_avaliacao",                  :null => false
-    t.integer  "sq_alternativa",                :null => false
+    t.integer  "id_paciente",    :null => false
+    t.integer  "sq_questao",     :null => false
+    t.integer  "id_avaliacao",   :null => false
+    t.integer  "sq_alternativa", :null => false
     t.datetime "dh_inclusão"
-    t.integer  "fg_ativo",       :default => 1
   end
 
   create_table "tb_questao", :id => false, :force => true do |t|

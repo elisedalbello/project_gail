@@ -24,5 +24,7 @@ class Paciente < ActiveRecord::Base
   has_one :escolaridade
   has_one :endereco
   has_one :paciente_resposta
-    
+  
+  attr_accessible :nm_paciente, :idade,:dt_nascimento, :naturalidade, :nr_rg,:convenio, :ds_convenio, :fg_ativo,:id_escolaridade
+ 
 end

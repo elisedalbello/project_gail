@@ -26,6 +26,8 @@ class EscolaridadesController < ApplicationController
   def new
     @escolaridade = Escolaridade.new
 
+    @paciente = session[:paciente]
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render :json @escolaridade }

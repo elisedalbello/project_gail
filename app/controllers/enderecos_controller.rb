@@ -25,6 +25,14 @@ class EnderecosController < ApplicationController
   # GET /enderecos/new.json
   def new
     @endereco = Endereco.new
+    @estados = Estado.find(:all, :conditions => ["fg_ativo = :ativo", {:ativo => 1}])
+    
+    @paciente = session[:paciente]
+
+    if @paciente.nil? 
+      redirect_to new_paciente_path
+      return
+    end
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,11 +49,19 @@ class EnderecosController < ApplicationController
   # POST /enderecos.json
   def create
     @endereco = Endereco.new(params[:endereco])
-
+    
+    @paciente = session[:paciente]
+  
     respond_to do |format|
       if @endereco.save
-        format.html { redirect_to @endereco, :notice => 'Endereco was successfully created.' }
-        format.json { render :json => @endereco, :status => :created, location: @endereco }
+
+        @paciente.id_endereco = @endereco.id_endereco
+        
+        if @paciente.save
+          format.html { redirect_to new_paciente_resposta_path, :notice => 'Paciente was successfully created.' }
+          format.json { render :json => @paciente, :status => :created, location: @paciente }
+        end  
+
       else
         format.html { render :action => "new" }
         format.json { render :json => @endereco.errors, :status => :unprocessable_entity }

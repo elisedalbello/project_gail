@@ -39,14 +39,15 @@
   <%= form.hidden_field :fg_ativo, :value => 1 %>
 
   <p> Escolaridade: </br>
-	  <p> <%= form.label :id_escolaridade, "Escolaridade" %> </br>
-	  <%= form.select :id_escolaridade, Escolaridade.find(:all, :conditions => ["fg_ativo = :ativo", {:ativo => 1}]).collect {|esc| [esc.ds_escolaridade]} %>
+	   <%= form.label :id_escolaridade, "Escolaridade" %> </br>
+     <%= form.collection_select(:id_escolaridade, @escolaridade, :id_escolaridade, :ds_escolaridade) %> 
+	  
   </p>
 
 <!- Usar um redirect ou algo para resolver a parte do gravar/continuar -!>
-<p> <%= form.submit "Gravar" %> </p>
+<p> <%= form.submit "Avançar" %> </p>
 
 
-<%= link_to 'Continuar', questoes_path %>
+
 
 <% end %>

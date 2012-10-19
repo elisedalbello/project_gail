@@ -5,7 +5,7 @@ class CreateTbPaciente < ActiveRecord::Migration
   def up
     execute <<-SQL
       CREATE TABLE tb_paciente(
-        id_paciente     INTEGER NOT NULL,
+        id_paciente     SERIAL NOT NULL,
         id_endereco     INTEGER NOT NULL,
         id_escolaridade INTEGER NOT NULL,
         nm_paciente     VARCHAR(60) NULL,

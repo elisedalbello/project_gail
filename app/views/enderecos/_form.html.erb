@@ -12,7 +12,9 @@
       </ul>
     </div>
   <% end %>
-  
+
+  <%= debug @paciente %>
+
   <p> <%= form.label :rua, "Rua: " %> </br>
   <%= form.text_field :rua, :size => 60 %> </p>
   
@@ -28,11 +30,18 @@
     								["Favela", "favela"], ["Frente", "frente"],
     								["Fundos", "fundos"], ["Sítio", "sitio"]]) %>
   </p>
-  
+    <p> Estado: </br>
+    <p> <%= form.label :id_estado, "Estado" %> </br>
+   
+    <%= form.collection_select(:id_estado, @estados, :id_estado, :ds_estado) %> 
+  </p>
+
   <p> <%= form.label :cidade, "Cidade: " %> </br>
   <%= form.text_field :cidade, :size => 60 %> </p>
 
   <p> <%= form.label :cep, "CEP: " %> </br>
-  <%= form.text_field :rua, :size => 60 %> </p>
+    <%= form.text_field :rua, :size => 60 %> </p>
     
+   <%= form.hidden_field :fg_ativo, :value => 1 %>
+   <%= form.submit "Avançar" %>   
 <% end %>

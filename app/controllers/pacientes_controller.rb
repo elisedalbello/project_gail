@@ -25,7 +25,8 @@ class PacientesController < ApplicationController
   # GET /pacientes/new.json
   def new
     @paciente = Paciente.new
-    @escolaridade = Escolaridade.all
+    @escolaridade = Escolaridade.find(:all, :conditions => ["fg_ativo = :ativo", {:ativo => 1}])
+
     respond_to do |format|
       format.html # new.html.erb
       format.json{render :json => @paciente}
@@ -40,16 +41,19 @@ class PacientesController < ApplicationController
   # POST /pacientes
   # POST /pacientes.json
   def create
+    
     @paciente = Paciente.new(params[:paciente])
-    @paciente.id_escolaridade = Paciente.new(params[:id_escolaridade])
+    
+    session[:paciente] = @paciente
+    
     respond_to do |format|
-      if @paciente.save
-        format.html{ redirect_to enderecos_path(:id_paciente => @paciente.id), :notice => 'Paciente cadastrado com sucesso.'}
-        format.json{render :json =>  @paciente, :status => :created, :location => @paciente}
-      else
-        format.html{render :action => "new"}
-        format.json{render :json =>  @paciente.errors, :status => :unprocessable_entity}
-      end
+#     if @paciente.save
+      format.html{ redirect_to new_endereco_path }#(:id_paciente => @paciente.id), :notice => 'Paciente cadastrado com sucesso.'}
+#      format.json{render :json =>  @paciente, :status => :created, :location => @paciente}
+#     else
+#       format.html{render :action => "new"}
+#       format.json{render :json =>  @paciente.errors, :status => :unprocessable_entity}
+#     end
     end
   end
 

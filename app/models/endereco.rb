@@ -21,4 +21,6 @@ class Endereco < ActiveRecord::Base
   belongs_to :paciente
   belongs_to :estado
   
+  attr_accessible :rua, :nr, :bairro, :complemento, :cidade,  :id_estado, :fg_ativo
+
 end
