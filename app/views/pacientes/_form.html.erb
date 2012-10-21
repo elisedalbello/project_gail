@@ -2,7 +2,7 @@
   <% if @paciente.errors.any? %>
     <div id="error_explanation">
 
-      <h2><%= pluralize(paciente.errors.count, "error") %> prohibited this paciente from being saved:</h2>
+      <h2><%= pluralize(@paciente.errors.count, "error") %> prohibited this paciente from being saved:</h2>
 
       <ul>
       <% @paciente.errors.full_messages.each do |msg| %>
@@ -35,19 +35,16 @@
 
   <p> <%= form.label :ds_convenio, "Qual? " %> </br>
   <%= form.text_field :ds_convenio, :size => 60 %> </p>
+
+  <p>  
+     <%= form.label :id_escolaridade, "Escolaridade" %> </br>
+     <%= form.collection_select(:id_escolaridade, 
+              Escolaridade.find(:all, :conditions => ["fg_ativo = :ativo", {:ativo => 1}]), 
+              :id_escolaridade, :ds_escolaridade) %>   
+  </p>
   
   <%= form.hidden_field :fg_ativo, :value => 1 %>
-
-  <p> Escolaridade: </br>
-	   <%= form.label :id_escolaridade, "Escolaridade" %> </br>
-     <%= form.collection_select(:id_escolaridade, @escolaridade, :id_escolaridade, :ds_escolaridade) %> 
-	  
-  </p>
-
-<!- Usar um redirect ou algo para resolver a parte do gravar/continuar -!>
+ 
 <p> <%= form.submit "Avançar" %> </p>
-
-
-
 
 <% end %>

@@ -1,44 +1,33 @@
-<%= form_for(@paciente_resposta) do |f| %>
-  <% if @paciente_respostum.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@paciente_resposta.errors.count, "error") %> prohibited this paciente_respostum from being saved:</h2>
-
-      <ul>
-      <% @paciente_respostum.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= form_for(@pacientes_resposta) do |f| %>
+ 
   
-    <!-- Colocar um for ou algo que identifique as questões -!>
-  <p> <%= form.label :questao, "Você faz reposição hormonal? " %> </br>
+  <p> <%= f.label :questao, "Você faz reposição hormonal? " %> </br>
     <input type="radio" name="questao1" value="1" /> Sim <br />
     <input type="radio" name="questao1" value="2" /> Não <br />
   %> </p>
   
-  <p> <%= form.label :questao, "Há quanto tempo? " %> </br>
+  <p> <%= f.label :questao, "Há quanto tempo? " %> </br>
     <input type="radio" name="questao2" value="1" /> Menos que 1 ano <br />
     <input type="radio" name="questao2" value="2" /> De 1 á 5 anos <br />
     <input type="radio" name="questao2" value="3" /> Mais que 5 anos <br />
   %> </p>
   
-  <p> <%= form.label :questao, "Fumante? " %> </br>
+  <p> <%= f.label :questao, "Fumante? " %> </br>
     <input type="radio" name="questao3" value="1" /> Sim <br />
     <input type="radio" name="questao3" value="2" /> Não <br />
   %> </p>
   
-  <p> <%= form.label :questao, "Cor? " %> </br>
+  <p> <%= f.label :questao, "Cor? " %> </br>
     <input type="radio" name="questao4" value="1" /> Branca <br />
     <input type="radio" name="questao4" value="2" /> Preta <br />
   %> </p>
   
-  <p> <%= form.label :questao, "Já mestruou? " %> </br>
+  <p> <%= f.label :questao, "Já mestruou? " %> </br>
     <input type="radio" name="questao5" value="1" /> Sim <br />
     <input type="radio" name="questao5" value="2" /> Não <br />
   %> </p>
   
-  <p> <%= form.label :questao, "Idade com que teve o primeiro filho: " %> </br>
+  <p> <%= f.label :questao, "Idade com que teve o primeiro filho: " %> </br>
     <input type="radio" name="questao6" value="1" /> Ainda não tenho filhos <br />
     <input type="radio" name="questao6" value="2" /> Menos que 19 anos <br />
     <input type="radio" name="questao6" value="3" /> De 20 á 24 anos <br />
@@ -46,36 +35,36 @@
     <input type="radio" name="questao6" value="5" /> Mais que 30 anos <br />
   %> </p>
   
-  <p> <%= form.label :questao, "Tem parentes com câncer de ovário? " %> </br>
+  <p> <%= f.label :questao, "Tem parentes com câncer de ovário? " %> </br>
     <input type="radio" name="questao7" value="1" /> Não <br />
     <input type="radio" name="questao7" value="2" /> 1 <br />
     <input type="radio" name="questao7" value="3" /> 2 ou mais <br />
   %> </p>
   
-  <p> <%= form.label :questao, "Idade que ocorreu a primeira mentruação? " %> </br>
+  <p> <%= f.label :questao, "Idade que ocorreu a primeira mentruação? " %> </br>
     <input type="radio" name="questao8" value="1" /> 14 anos ou mais <br />
     <input type="radio" name="questao8" value="2" /> 12 ou 13 anos <br />
     <input type="radio" name="questao8" value="3" /> 11 anos ou menos <br />
   %> </p>
   
-  <p> <%= form.label :questao, "Biópsias Mamárias: " %> </br>
+  <p> <%= f.label :questao, "Biópsias Mamárias: " %> </br>
     <input type="radio" name="questao9" value="1" /> Nunca fiz uma biópsia <br />
     <input type="radio" name="questao9" value="2" /> 1 vez <br />
     <input type="radio" name="questao9" value="3" /> 2 ou mais <br />
   %> </p>
   
-  <p> <%= form.label :questao, "Hiperplásia Atípica: " %> </br>
+  <p> <%= f.label :questao, "Hiperplásia Atípica: " %> </br>
     <input type="radio" name="questao10" value="1" /> Não aplicado ou desconhecido <br />
     <input type="radio" name="questao10" value="2" /> Não <br />
     <input type="radio" name="questao10" value="3" /> Sim <br />
   %> </p>
   
-  <p> <%= form.label :questao, "Screening Mamográfico " %> </br>
+  <p> <%= f.label :questao, "Screening Mamográfico " %> </br>
     <input type="radio" name="questao11" value="1" /> Sim <br />
     <input type="radio" name="questao11" value="2" /> Não <br />
   %> </p>
   
-  <p> <%= form.label :questao, "CSI em biópsia: " %> </br>
+  <p> <%= f.label :questao, "CSI em biópsia: " %> </br>
     <input type="radio" name="questao12" value="1" /> Não aplicada <br />
     <input type="radio" name="questao12" value="2" /> Menos de 40 anos <br />
     <input type="radio" name="questao12" value="3" /> Entre 40 e 44 anos <br />
@@ -84,7 +73,7 @@
     <input type="radio" name="questao12" value="6" /> Mais que 54 anos <br />
   %> </p>
   
-  <p> <%= form.label :questao, "Uso de álcool: " %> </br>
+  <p> <%= f.label :questao, "Uso de álcool: " %> </br>
     <p>Uma lata de cerveja contém 14 gramas de álcool, uma dose de 50 ml de bebidas destiladas tem em torno de 13 gramas. </p>
     <input type="radio" name="questao13" value="1" /> Não especificado <br />
     <input type="radio" name="questao13" value="2" /> Nenhum <br />
@@ -96,7 +85,7 @@
     <input type="radio" name="questao13" value="8" /> 60gm/dia ou mais <br />
   %> </p>
   
-  <p> <%= form.label :questao, "Densidade mamográfica: " %> </br>
+  <p> <%= f.label :questao, "Densidade mamográfica: " %> </br>
     <input type="radio" name="questao14" value="1" /> Não especificado <br />
     <input type="radio" name="questao14" value="2" /> 0% de tecido adiposo <br />
     <input type="radio" name="questao14" value="3" /> Entre 1% e 24% <br />
@@ -105,12 +94,12 @@
     <input type="radio" name="questao14" value="6" /> Entre 75% e 100% <br />
   %> </p>
   
-  <p> <%= form.label :questao, "Faz uso do Tamoxifeno? " %> </br>
+  <p> <%= f.label :questao, "Faz uso do Tamoxifeno? " %> </br>
     <input type="radio" name="questao15" value="1" /> Sim <br />
     <input type="radio" name="questao15" value="2" /> Não <br />
   %> </p>
   
-  <p> <%= form.label :questao, "Usa contraceptivo oral " %> </br>
+  <p> <%= f.label :questao, "Usa contraceptivo oral " %> </br>
     <input type="radio" name="questao16" value="1" /> Nunca usou <br />
     <input type="radio" name="questao16" value="2" /> Parou há 1-4 anos <br />
     <input type="radio" name="questao16" value="3" /> Parou há 5-9 anos <br />
@@ -119,14 +108,14 @@
     <input type="radio" name="questao16" value="6" /> Parou há  15 anos ou mais <br />
   %> </p>
   
-  <p> <%= form.label :questao, "Com que idade começou a usar? " %> </br>
+  <p> <%= f.label :questao, "Com que idade começou a usar? " %> </br>
     <input type="radio" name="questao17" value="1" /> Menos que 20 anos <br />
     <input type="radio" name="questao17" value="2" /> Entre 20 e 24 anos <br />
     <input type="radio" name="questao17" value="3" /> Entre 25 e 29 anos <br />
     <input type="radio" name="questao17" value="4" /> Mais que 29 anos <br />
   %> </p>
   
-  <p> <%= form.label :questao, "Número de parentes de 1ºGrau com cancer de mama: " %> </br>
+  <p> <%= f.label :questao, "Número de parentes de 1ºGrau com cancer de mama: " %> </br>
     <input type="radio" name="questao18" value="1" /> Nenhum <br />
     <input type="radio" name="questao18" value="2" /> 1 <br />
     <input type="radio" name="questao18" value="3" /> 2 ou mais <br />
@@ -136,12 +125,6 @@
     <input type="radio" name="questao18" value="3" /> Maior de 30 anos <br />
   %> </p>
   
-  <p> <%= form.? "Calcular" %> </p>
-  
-  <p> <%= form.label :?, "Índice de Gail: " %> </br>
-  <%= form.text_field :?, :size => 10 %> </p>
-  
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<p> <%= f.submit "Salvar" %> </p>
+
 <% end %>

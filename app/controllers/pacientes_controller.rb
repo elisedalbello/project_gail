@@ -25,8 +25,7 @@ class PacientesController < ApplicationController
   # GET /pacientes/new.json
   def new
     @paciente = Paciente.new
-    @escolaridade = Escolaridade.find(:all, :conditions => ["fg_ativo = :ativo", {:ativo => 1}])
-
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json{render :json => @paciente}
@@ -44,16 +43,18 @@ class PacientesController < ApplicationController
     
     @paciente = Paciente.new(params[:paciente])
     
-    session[:paciente] = @paciente
-    
     respond_to do |format|
-#     if @paciente.save
+     
+     if @paciente.valid?
+
+      session[:paciente] = @paciente
       format.html{ redirect_to new_endereco_path }#(:id_paciente => @paciente.id), :notice => 'Paciente cadastrado com sucesso.'}
 #      format.json{render :json =>  @paciente, :status => :created, :location => @paciente}
-#     else
-#       format.html{render :action => "new"}
-#       format.json{render :json =>  @paciente.errors, :status => :unprocessable_entity}
-#     end
+     else
+       
+       format.html{render :action => "new"}
+       format.json{render :json =>  @paciente.errors, :status => :unprocessable_entity}
+     end
     end
   end
 

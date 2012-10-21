@@ -2,7 +2,7 @@ class PacientesRespostasController < ApplicationController
   # GET /paciente_resposta
   # GET /paciente_resposta.json
   def index
-    @paciente_resposta = Paciente_resposta.all
+    @paciente_resposta = PacienteResposta.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +13,7 @@ class PacientesRespostasController < ApplicationController
   # GET /paciente_resposta/1
   # GET /paciente_resposta/1.json
   def show
-    @paciente_resposta = Paciente_resposta.find(params[:id])
+    @paciente_resposta = PacienteResposta.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,7 +24,7 @@ class PacientesRespostasController < ApplicationController
   # GET /paciente_resposta/new
   # GET /paciente_resposta/new.json
   def new
-    @paciente_resposta = Paciente_resposta.new
+    @paciente_resposta = PacienteResposta.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,13 +34,13 @@ class PacientesRespostasController < ApplicationController
 
   # GET /paciente_resposta/1/edit
   def edit
-    @paciente_resposta = Paciente_resposta.find(params[:id])
+    @paciente_resposta = PacienteResposta.find(params[:id])
   end
 
   # POST /paciente_resposta
   # POST /paciente_resposta.json
   def create
-    @paciente_resposta = Paciente_resposta.new(params[:paciente_resposta])
+    @paciente_resposta = PacienteResposta.new(params[:paciente_resposta])
 
     respond_to do |format|
       if @paciente_resposta.save
@@ -56,7 +56,7 @@ class PacientesRespostasController < ApplicationController
   # PUT /paciente_resposta/1
   # PUT /paciente_resposta/1.json
   def update
-    @paciente_resposta = Paciente_resposta.find(params[:id])
+    @paciente_resposta = PacienteResposta.find(params[:id])
 
     respond_to do |format|
       if @paciente_resposta.update_attributes(params[:paciente_resposta])
@@ -72,7 +72,7 @@ class PacientesRespostasController < ApplicationController
   # DELETE /paciente_resposta/1
   # DELETE /paciente_resposta/1.json
   def destroy
-    @paciente_resposta = Paciente_resposta.find(params[:id])
+    @paciente_resposta = PacienteResposta.find(params[:id])
     @paciente_resposta.destroy
 
     respond_to do |format|

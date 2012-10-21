@@ -27,4 +27,6 @@ class Paciente < ActiveRecord::Base
   
   attr_accessible :nm_paciente, :idade,:dt_nascimento, :naturalidade, :nr_rg,:convenio, :ds_convenio, :fg_ativo,:id_escolaridade
  
+  validates :idade,  :presence => true
+
 end

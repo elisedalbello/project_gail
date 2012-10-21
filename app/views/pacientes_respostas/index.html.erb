@@ -7,15 +7,15 @@
     <th></th>
   </tr>
 
-<% @paciente_resposta.each do |paciente_respostum| %>
+<% @paciente_resposta.each do |paciente_resposta| %>
   <tr>
-    <td><%= link_to 'Show', paciente_respostum %></td>
-    <td><%= link_to 'Edit', edit_paciente_respostum_path(paciente_respostum) %></td>
-    <td><%= link_to 'Destroy', paciente_respostum, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Show', paciente_resposta %></td>
+    <td><%= link_to 'Edit', edit_paciente_resposta_path(paciente_resposta) %></td>
+    <td><%= link_to 'Destroy', paciente_resposta, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Paciente respostum', new_paciente_respostum_path %>
+<%= link_to 'New Paciente resposta', new_paciente_resposta_path %>
