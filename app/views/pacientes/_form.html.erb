@@ -37,10 +37,8 @@
   <%= form.text_field :ds_convenio, :size => 60 %> </p>
 
   <p>  
-     <%= form.label :id_escolaridade, "Escolaridade" %> </br>
-     <%= form.collection_select(:id_escolaridade, 
-              Escolaridade.find(:all, :conditions => ["fg_ativo = :ativo", {:ativo => 1}]), 
-              :id_escolaridade, :ds_escolaridade) %>   
+     <%= form.label :escolaridade_id, "Escolaridade" %> </br>
+     <%= form.collection_select(:escolaridade_id, @escolaridades, :id, :ds_escolaridade) %>   
   </p>
   
   <%= form.hidden_field :fg_ativo, :value => 1 %>

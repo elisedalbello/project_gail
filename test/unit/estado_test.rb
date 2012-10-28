@@ -1,11 +1,11 @@
 # == Schema Information
 #
-# Table name: tb_estado
+# Table name: tb_estados
 #
-#  id_estado :integer          not null, primary key
+#  id        :integer          not null
 #  ds_estado :string(60)
 #  sigla     :string(2)
-#  fg_ativo  :integer
+#  fg_ativo  :boolean          not null
 #
 
 require 'test_helper'

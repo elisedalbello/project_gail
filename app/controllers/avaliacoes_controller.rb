@@ -1,4 +1,4 @@
-class AvaliacaosController < ApplicationController
+class AvaliacoesController < ApplicationController
   # GET /avaliacaos
   # GET /avaliacaos.json
   def index
@@ -6,7 +6,7 @@ class AvaliacaosController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json @avaliacao }
+      format.json { render :json => @avaliacao }
     end
   end
 
@@ -14,10 +14,10 @@ class AvaliacaosController < ApplicationController
   # GET /avaliacaos/1.json
   def show
     @avaliacao = Avaliacao.find(params[:id])
-
+    
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render :json @avaliacao }
+      format.json { render :json => @avaliacao }
     end
   end
 
@@ -28,7 +28,7 @@ class AvaliacaosController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render :json @avaliacao }
+      format.json { render :json => @avaliacao }
     end
   end
 
@@ -44,11 +44,11 @@ class AvaliacaosController < ApplicationController
 
     respond_to do |format|
       if @avaliacao.save
-        format.html { redirect_to @avaliacao, :notice 'Avaliacao was successfully created.' }
-        format.json { render :json @avaliacao, :status :created, location: @avaliacao }
+        format.html { redirect_to @avaliacao, :notice => 'Avaliacao was successfully created.' }
+        #format.json { render :json => @avaliacao, :status => :created, location: => @avaliacao }
       else
-        format.html { render :action "new" }
-        format.json { render :json @avaliacao.errors, :status :unprocessable_entity }
+        format.html { render :action => "new" }
+        format.json { render :json => @avaliacao.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -60,11 +60,11 @@ class AvaliacaosController < ApplicationController
 
     respond_to do |format|
       if @avaliacao.update_attributes(params[:avaliacao])
-        format.html { redirect_to @avaliacao, :notice 'Avaliacao was successfully updated.' }
+        format.html { redirect_to @avaliacao, :notice => 'Avaliacao was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render :action "edit" }
-        format.json { render :json @avaliacao.errors, :status :unprocessable_entity }
+        format.html { render :action => "edit" }
+        format.json { render :json => @avaliacao.errors, :status => :unprocessable_entity }
       end
     end
   end

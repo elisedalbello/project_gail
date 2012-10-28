@@ -1,10 +1,10 @@
 # == Schema Information
 #
-# Table name: tb_escolaridade
+# Table name: tb_escolaridades
 #
-#  id_escolaridade :integer          not null, primary key
+#  id              :integer          not null
 #  ds_escolaridade :string(40)
-#  fg_ativo        :integer
+#  fg_ativo        :boolean          not null
 #
 
 require 'test_helper'

@@ -1,17 +1,16 @@
 # == Schema Information
 #
-# Table name: tb_escolaridade
+# Table name: tb_escolaridades
 #
-#  id_escolaridade :integer          not null, primary key
+#  id              :integer          not null
 #  ds_escolaridade :string(40)
-#  fg_ativo        :integer
+#  fg_ativo        :boolean          not null
 #
 
 class Escolaridade < ActiveRecord::Base
   
-  set_table_name "tb_escolaridade"
-  set_primary_key "id_escolaridade"
+  set_table_name "tb_escolaridades"
   
-  has_many :paciente
+  has_many :pacientes, :conditions => "fg_ativo = true"
   
 end

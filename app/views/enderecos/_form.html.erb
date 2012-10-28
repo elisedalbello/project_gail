@@ -13,8 +13,6 @@
     </div>
   <% end %>
 
-  <%= debug @paciente %>
-
   <p> <%= form.label :rua, "Rua: " %> </br>
   <%= form.text_field :rua, :size => 60 %> </p>
   
@@ -31,9 +29,9 @@
     								["Fundos", "fundos"], ["Sítio", "sitio"]]) %>
   </p>
     <p> Estado: </br>
-    <p> <%= form.label :id_estado, "Estado" %> </br>
+    <p> <%= form.label :estado_id, "Estado" %> </br>
    
-    <%= form.collection_select(:id_estado, @estados, :id_estado, :ds_estado) %> 
+    <%= form.collection_select(:estado_id, @estados, :id, :ds_estado) %> 
   </p>
 
   <p> <%= form.label :cidade, "Cidade: " %> </br>

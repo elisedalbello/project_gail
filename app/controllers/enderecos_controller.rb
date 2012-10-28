@@ -25,7 +25,7 @@ class EnderecosController < ApplicationController
   # GET /enderecos/new.json
   def new
     @endereco = Endereco.new
-    @estados = Estado.find(:all, :conditions => ["fg_ativo = :ativo", {:ativo => 1}])
+    @estados = Estado.all
     
     @paciente = session[:paciente]
 
@@ -55,7 +55,7 @@ class EnderecosController < ApplicationController
     respond_to do |format|
       if @endereco.save
 
-        @paciente.id_endereco = @endereco.id_endereco
+        @paciente.endereco_id = @endereco.id
         
         if @paciente.save
           format.html { redirect_to new_paciente_resposta_path, :notice => 'Paciente was successfully created.' }

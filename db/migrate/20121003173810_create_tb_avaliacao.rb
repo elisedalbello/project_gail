@@ -3,15 +3,15 @@
 class CreateTbAvaliacao < ActiveRecord::Migration
   def up
     execute <<-SQL
-      CREATE TABLE tb_avaliacao(
-        id_avaliacao INTEGER NOT NULL,
-        descricao    VARCHAR(60),
-        fg_ativo     INTEGER,
-        PRIMARY KEY (id_avaliacao)
+      CREATE TABLE tb_avaliacoes(
+        id           INTEGER NOT NULL,
+        descricao    VARCHAR(60) UNIQUE NOT NULL,
+        fg_ativo     BOOLEAN NOT NULL,
+        PRIMARY KEY (id)
       );
 
-      INSERT INTO tb_avaliacao(id_avaliacao, descricao, fg_ativo)
-      VALUES(1, 'Índice de Gail', 1);
+      INSERT INTO tb_avaliacoes(id, descricao, fg_ativo)
+      VALUES(1, 'Índice de Gail', true);
     SQL
   end
 

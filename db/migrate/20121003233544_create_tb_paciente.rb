@@ -4,10 +4,10 @@ class CreateTbPaciente < ActiveRecord::Migration
 
   def up
     execute <<-SQL
-      CREATE TABLE tb_paciente(
-        id_paciente     SERIAL NOT NULL,
-        id_endereco     INTEGER NOT NULL,
-        id_escolaridade INTEGER NOT NULL,
+      CREATE TABLE tb_pacientes(
+        id              SERIAL NOT NULL,
+        endereco_id     INTEGER NOT NULL,
+        escolaridade_id INTEGER NOT NULL,
         nm_paciente     VARCHAR(60) NULL,
         dt_nascimento   TIMESTAMP NULL,
         idade           INTEGER NULL,
@@ -15,12 +15,12 @@ class CreateTbPaciente < ActiveRecord::Migration
         nr_rg           VARCHAR(20) NULL,
         convenio        BOOLEAN NULL,
         ds_convenio     VARCHAR(60) NULL,
-        fg_ativo        INTEGER NULL,
-        PRIMARY KEY(id_paciente),
+        fg_ativo        BOOLEAN NOT NULL,
+        PRIMARY KEY(id),
         CONSTRAINT FK_TB_PACIENTE_1
-        FOREIGN KEY(id_endereco) REFERENCES tb_endereco(id_endereco),
+        FOREIGN KEY(endereco_id) REFERENCES tb_enderecos(id),
         CONSTRAINT FK_TB_PACIENTE_2
-        FOREIGN KEY(id_escolaridade) REFERENCES tb_escolaridade(id_escolaridade)
+        FOREIGN KEY(escolaridade_id) REFERENCES tb_escolaridades(id)
       );
     SQL
   end

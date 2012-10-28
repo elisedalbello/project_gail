@@ -9,7 +9,7 @@ class AlternativasController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json{render :json @alternativas}
+      format.json{render :json => @alternativas}
     end
   end
 
@@ -20,7 +20,7 @@ class AlternativasController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render :json @alternativa }
+      format.json { render :json => @alternativa }
     end
   end
 
@@ -31,7 +31,7 @@ class AlternativasController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render :json @alternativa }
+      format.json { render :json => @alternativa }
     end
   end
 
@@ -47,11 +47,11 @@ class AlternativasController < ApplicationController
 
     respond_to do |format|
       if @alternativa.save
-        format.html { redirect_to @alternativa, :notice 'Alternativa was successfully created.' }
-        format.json { render :json @alternativa, :status :created, location: @alternativa }
+        format.html { redirect_to @alternativa, :notice => 'Alternativa was successfully created.' }
+        format.json { render :json => @alternativa, :status => :created, location: => @alternativa }
       else
         format.html { render :action "new" }
-        format.json { render :json @alternativa.errors, :status :unprocessable_entity }
+        format.json { render :json => @alternativa.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -63,11 +63,11 @@ class AlternativasController < ApplicationController
 
     respond_to do |format|
       if @alternativa.update_attributes(params[:alternativa])
-        format.html { redirect_to @alternativa, :notice 'Alternativa was successfully updated.' }
+        format.html { redirect_to @alternativa, :notice => 'Alternativa was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render :action "edit" }
-        format.json { render :json @alternativa.errors, :status :unprocessable_entity }
+        format.json { render :json => @alternativa.errors, :status => :unprocessable_entity }
       end
     end
   end

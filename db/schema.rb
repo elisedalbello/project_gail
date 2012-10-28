@@ -14,46 +14,48 @@
 ActiveRecord::Schema.define(:version => 20121004015006) do
 
   create_table "tb_alternativas", :id => false, :force => true do |t|
-    t.integer "sq_alternativa", :null => false
-    t.integer "id_avaliacao",   :null => false
-    t.integer "sq_questao",     :null => false
+    t.integer "alternativa_id", :null => false
+    t.integer "avaliacao_id",   :null => false
+    t.integer "questao_id",     :null => false
     t.text    "ds_alternativa"
-    t.integer "fg_ativo"
+    t.boolean "fg_ativo",       :null => false
   end
 
-  create_table "tb_avaliacao", :id => false, :force => true do |t|
-    t.integer "id_avaliacao",               :null => false
-    t.string  "descricao",    :limit => 60
-    t.integer "fg_ativo"
+  create_table "tb_avaliacoes", :id => false, :force => true do |t|
+    t.integer "id",                      :null => false
+    t.string  "descricao", :limit => 60, :null => false
+    t.boolean "fg_ativo",                :null => false
   end
 
-  create_table "tb_endereco", :primary_key => "id_endereco", :force => true do |t|
-    t.integer "id_estado",                 :null => false
+  add_index "tb_avaliacoes", ["descricao"], :name => "tb_avaliacoes_descricao_key", :unique => true
+
+  create_table "tb_enderecos", :force => true do |t|
+    t.integer "estado_id",                 :null => false
     t.string  "rua",         :limit => 60
     t.string  "nr",          :limit => 10
     t.string  "complemento", :limit => 60
     t.string  "bairro",      :limit => 60
     t.string  "cep",         :limit => 10
     t.string  "cidade",      :limit => 60
-    t.integer "fg_ativo"
+    t.boolean "fg_ativo",                  :null => false
   end
 
-  create_table "tb_escolaridade", :id => false, :force => true do |t|
-    t.integer "id_escolaridade",               :null => false
+  create_table "tb_escolaridades", :id => false, :force => true do |t|
+    t.integer "id",                            :null => false
     t.string  "ds_escolaridade", :limit => 40
-    t.integer "fg_ativo"
+    t.boolean "fg_ativo",                      :null => false
   end
 
-  create_table "tb_estado", :id => false, :force => true do |t|
-    t.integer "id_estado",               :null => false
+  create_table "tb_estados", :id => false, :force => true do |t|
+    t.integer "id",                      :null => false
     t.string  "ds_estado", :limit => 60
     t.string  "sigla",     :limit => 2
-    t.integer "fg_ativo"
+    t.boolean "fg_ativo",                :null => false
   end
 
-  create_table "tb_paciente", :primary_key => "id_paciente", :force => true do |t|
-    t.integer  "id_endereco",                   :null => false
-    t.integer  "id_escolaridade",               :null => false
+  create_table "tb_pacientes", :force => true do |t|
+    t.integer  "endereco_id",                   :null => false
+    t.integer  "escolaridade_id",               :null => false
     t.string   "nm_paciente",     :limit => 60
     t.datetime "dt_nascimento"
     t.integer  "idade"
@@ -61,22 +63,21 @@ ActiveRecord::Schema.define(:version => 20121004015006) do
     t.string   "nr_rg",           :limit => 20
     t.boolean  "convenio"
     t.string   "ds_convenio",     :limit => 60
-    t.integer  "fg_ativo"
+    t.boolean  "fg_ativo",                      :null => false
   end
 
-  create_table "tb_paciente_resposta", :id => false, :force => true do |t|
-    t.integer  "id_paciente",    :null => false
-    t.integer  "sq_questao",     :null => false
-    t.integer  "id_avaliacao",   :null => false
-    t.integer  "sq_alternativa", :null => false
-    t.datetime "dh_inclusão"
+  create_table "tb_pacientes_respostas", :id => false, :force => true do |t|
+    t.integer "paciente_id",    :null => false
+    t.integer "questao_id",     :null => false
+    t.integer "avaliacao_id",   :null => false
+    t.integer "alternativa_id", :null => false
   end
 
-  create_table "tb_questao", :id => false, :force => true do |t|
-    t.integer "id_avaliacao", :null => false
-    t.integer "sq_questao",   :null => false
+  create_table "tb_questoes", :id => false, :force => true do |t|
+    t.integer "avaliacao_id", :null => false
+    t.integer "questao_id",   :null => false
     t.text    "ds_questao"
-    t.integer "fg_ativo"
+    t.boolean "fg_ativo",     :null => false
   end
 
 end

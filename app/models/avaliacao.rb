@@ -1,17 +1,17 @@
 # == Schema Information
 #
-# Table name: tb_avaliacao
+# Table name: tb_avaliacoes
 #
-#  id_avaliacao :integer          not null, primary key
-#  descricao    :string(60)
-#  fg_ativo     :integer
+#  id        :integer          not null
+#  descricao :string(60)       not null
+#  fg_ativo  :boolean          not null
 #
 
 class Avaliacao < ActiveRecord::Base
   
-  set_table_name "tb_avaliacao"
-  set_primary_key "id_avaliacao"
+  set_table_name "tb_avaliacoes"
   
-  has_many :questao
+  has_many :questoes, :conditions => "fg_ativo = true"
+  
   
 end

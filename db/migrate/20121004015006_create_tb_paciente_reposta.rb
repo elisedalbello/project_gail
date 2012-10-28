@@ -4,17 +4,16 @@ class CreateTbPacienteReposta < ActiveRecord::Migration
 
   def up
     execute <<-SQL
-      CREATE TABLE tb_paciente_resposta(
-        id_paciente    INTEGER NOT NULL,
-        sq_questao     INTEGER NOT NULL,
-        id_avaliacao   INTEGER NOT NULL,
-        sq_alternativa INTEGER NOT NULL,
-        dh_inclusão    TIMESTAMP WITHOUT TIME ZONE,
-        PRIMARY KEY(id_paciente, sq_questao, id_avaliacao),
+      CREATE TABLE tb_pacientes_respostas(
+        paciente_id    INTEGER NOT NULL,
+        questao_id     INTEGER NOT NULL,
+        avaliacao_id   INTEGER NOT NULL,
+        alternativa_id INTEGER NOT NULL,
+        PRIMARY KEY(paciente_id, questao_id, avaliacao_id, alternativa_id),
         CONSTRAINT FK_TB_PACIENTE_RESPOSTA 
-        FOREIGN KEY(sq_alternativa, sq_questao, id_avaliacao) REFERENCES tb_alternativas (sq_alternativa, sq_questao, id_avaliacao),
+        FOREIGN KEY(alternativa_id, questao_id, avaliacao_id) REFERENCES tb_alternativas(alternativa_id, questao_id, avaliacao_id),
         CONSTRAINT FK_TB_PACIENTE_RESPOSTA_1 
-        FOREIGN KEY(id_paciente) REFERENCES tb_paciente(id_paciente) 
+        FOREIGN KEY(paciente_id) REFERENCES tb_pacientes(id) 
       );
     SQL
   end

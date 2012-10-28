@@ -25,6 +25,7 @@ class PacientesController < ApplicationController
   # GET /pacientes/new.json
   def new
     @paciente = Paciente.new
+    @escolaridades = Escolaridade.all
     
     respond_to do |format|
       format.html # new.html.erb
