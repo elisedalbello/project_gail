@@ -7,4 +7,14 @@ class Questao < ActiveRecord::Base
   
   has_many :alternativas, :conditions => "fg_ativo = true"
   
+  def next
+    Questao.where("avaliacao_id = :avaliacao_id AND questao_id > :questao_id", 
+    	:avaliacao_id => avaliacao_id, :questao_id => questao_id).first
+  end
+
+  def prev(current_question)
+    Questao.where("avaliacao_id = :avaliacao_id AND questao_id < :questao_id", 
+    	:avaliacao_id => avaliacao_id, :questao_id => questao_id).first
+  end
+
 end

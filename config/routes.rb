@@ -5,19 +5,13 @@ Gail::Application.routes.draw do
 
   resources :pacientes_respostas
 
-  resources :pacientes
+  resources :pacientes 
 
   resources :enderecos
 
-  resources :avaliacoes
-
-  resources :questoes
-
-  resources :alternativas
-
-  resources :escolaridades
-
-  resources :estados
+  resources :questoes do
+    resources :alternativas
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

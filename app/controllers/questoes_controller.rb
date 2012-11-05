@@ -1,4 +1,4 @@
-class questaoController < ApplicationController
+class QuestoesController < ApplicationController
   # GET /questao
   # GET /questao.json
   def index
@@ -6,7 +6,7 @@ class questaoController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json @questao }
+      format.json { render :json => @questao }
     end
   end
 
@@ -14,10 +14,12 @@ class questaoController < ApplicationController
   # GET /questao/1.json
   def show
     @questao = Questao.find(params[:id])
-
+    
+    @paciente = session[:paciente]
+    
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render :json @questao }
+      format.json { render :json => @questao }
     end
   end
 
@@ -28,7 +30,7 @@ class questaoController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render :json @questao }
+      format.json { render :json => @questao }
     end
   end
 
@@ -44,11 +46,11 @@ class questaoController < ApplicationController
 
     respond_to do |format|
       if @questao.save
-        format.html { redirect_to @questao, :notice 'Questao was successfully created.' }
-        format.json { render :json @questao, :status :created, location: @questao }
+        format.html { redirect_to @questao, :notice => 'Questao was successfully created.' }
+        
       else
-        format.html { render :action "new" }
-        format.json { render :json @questao.errors, :status :unprocessable_entity }
+        format.html { render :action => "new" }
+        format.json { render :json => @questao.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -60,11 +62,11 @@ class questaoController < ApplicationController
 
     respond_to do |format|
       if @questao.update_attributes(params[:questao])
-        format.html { redirect_to @questao, :notice 'Questao was successfully updated.' }
+        format.html { redirect_to @questao, :notice => 'Questao was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render :action "edit" }
-        format.json { render :json @questao.errors, :status :unprocessable_entity }
+        format.html { render :action => "edit" }
+        format.json { render :json => @questao.errors, :status => :unprocessable_entity }
       end
     end
   end

@@ -28,8 +28,7 @@
     								["Favela", "favela"], ["Frente", "frente"],
     								["Fundos", "fundos"], ["Sítio", "sitio"]]) %>
   </p>
-    <p> Estado: </br>
-    <p> <%= form.label :estado_id, "Estado" %> </br>
+    <p> <%= form.label :estado_id, "Estado:" %> </br>
    
     <%= form.collection_select(:estado_id, @estados, :id, :ds_estado) %> 
   </p>

@@ -13,5 +13,6 @@ class Avaliacao < ActiveRecord::Base
   
   has_many :questoes, :conditions => "fg_ativo = true"
   
-  
+  attr_accessible :descricao, :fg_ativo
+    
 end

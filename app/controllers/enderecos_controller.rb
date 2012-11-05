@@ -58,7 +58,10 @@ class EnderecosController < ApplicationController
         @paciente.endereco_id = @endereco.id
         
         if @paciente.save
-          format.html { redirect_to new_paciente_resposta_path, :notice => 'Paciente was successfully created.' }
+          
+          session[:paciente] = @paciente
+          
+          format.html { redirect_to "/questoes/1,1", :notice => 'Paciente was successfully created.' }
           format.json { render :json => @paciente, :status => :created, location: @paciente }
         end  
 
