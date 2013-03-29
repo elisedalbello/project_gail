@@ -33,7 +33,8 @@ class CreateTbQuestoes < ActiveRecord::Migration
       (1, 15, 'Faz uso do Tamoxifeno?', true),
       (1, 16, 'Faz uso contraceptivo oral?', true),
       (1, 17, 'Com que idade começou a usar?', true),
-      (1, 18, 'Número de parentes de 1ºGrau com câncer de mama:', true);
+      (1, 18, 'Número de parentes de 1ºGrau com câncer de mama:', true),
+      (1, 19, 'Se tem parentes com cancer de mama, qual era a idade: ', true);
     SQL
   end
 

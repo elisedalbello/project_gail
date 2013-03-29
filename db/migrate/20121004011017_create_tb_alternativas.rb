@@ -82,10 +82,11 @@ class CreateTbAlternativas < ActiveRecord::Migration
       (1, 18, 1, 'Nenhum', true),
       (1, 18, 2, 'Um', true),
       (1, 18, 3, 'Dois ou mais', true),
-      (1, 18, 4, 'Menos que 20 anos', true),
-      (1, 18, 5, 'Entre 20 e 24 anos', true),
-      (1, 18, 6, 'Entre 25 e 29 anos', true),
-      (1, 18, 7, 'Mais que 30 anos', true);
+      (1, 19, 1, 'Nenhum', true),
+      (1, 19, 2, 'Menos que 20 anos', true),
+      (1, 19, 3, 'Entre 20 e 24 anos', true),
+      (1, 19, 4, 'Entre 25 e 29 anos', true),
+      (1, 19, 5, 'Mais que 30 anos', true);
     SQL
   end
 
