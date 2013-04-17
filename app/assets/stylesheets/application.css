@@ -11,3 +11,75 @@
  *= require_self
  *= require_tree .
  */
+
+
+* {
+	margin: 0px;
+	padding: 0px;
+	outline: none;
+	border: 0px;
+}
+
+body {
+	background-color:#FFDBE7 !important;
+	color:#6D6D6D !important;
+}
+
+input, textarea, select, a {
+	border: 1px solid #CCC;
+	border-radius: 4px;
+	color:#6D6D6D;
+}
+
+input[type="text"], textarea {
+	box-shadow: inset 1px 2px 1px #EEE;
+	padding: 5px;
+}
+
+input[type="submit"], a {
+	padding: 5px 10px;
+	border: 1px solid #CA6489;
+	box-shadow: 0px 1px 1px #BBB;
+	background:#FF8CA8;
+	color: #FFF !important;
+	text-shadow: 0px -1px #CA6489;
+	cursor:pointer;
+	font-size:13px;
+}
+
+input[type="submit"]:hover, a:hover {
+	background:#FF4A84;
+	box-shadow:0px 1px 3px #FF598E;
+}
+
+a {
+	text-decoration:none;
+	margin-right: 10px;
+}
+
+p {
+	margin: 15px 0px;
+}
+
+h1 {
+	margin:15px 0px;
+	color: #FF8CA8 !important;
+	text-shadow: 0px -1px #CA6A90;
+}
+
+tr {
+	display:block !important;
+	margin-bottom:15px;
+}
+
+.wrapper {
+	display:block;
+	width:800px;
+	margin:30px auto;
+	background: #FFF;
+	padding: 10px 30px;
+	border-radius:10px;
+	box-shadow: 0px 1px 10px #A86588;
+	
+}
+
