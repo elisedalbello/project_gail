@@ -87,3 +87,10 @@ form {
 	
 }
 
+#header-img {
+	background: url('/assets/bggail.jpg');
+	width: 100%;
+	display: block;
+	height: 250px;
+	margin-bottom: 30px;
+}
