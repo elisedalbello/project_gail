@@ -77694,3 +77694,2591 @@ ActionView::Template::Error (undefined method `map' for nil:NilClass):
   Rendered /Users/direx/.rvm/gems/ruby-1.9.3-p125@global/gems/actionpack-3.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.erb (3.4ms)
   Rendered /Users/direx/.rvm/gems/ruby-1.9.3-p125@global/gems/actionpack-3.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (0.8ms)
   Rendered /Users/direx/.rvm/gems/ruby-1.9.3-p125@global/gems/actionpack-3.2.6/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (9.4ms)
+Connecting to database specified by database.yml
+  [1m[36m (3.1ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (31.9ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'schema_migrations'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36m (3.8ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.6ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to CreateTbAvaliacao (20121003173810)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (17.2ms)[0m   CREATE TABLE tb_avaliacoes(
+ id INTEGER NOT NULL,
+ descricao VARCHAR(60) UNIQUE NOT NULL,
+ fg_ativo BOOLEAN NOT NULL,
+ PRIMARY KEY (id)
+ );
+
+ INSERT INTO tb_avaliacoes(id, descricao, fg_ativo)
+ VALUES(1, 'Índice de Gail', true);
+
+  [1m[36m (0.6ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20121003173810')[0m
+  [1m[35m (0.5ms)[0m  COMMIT
+Migrating to CreateTbEstado (20121003174329)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (4.3ms)[0m   CREATE TABLE tb_estados(
+ id INTEGER NOT NULL,
+ ds_estado VARCHAR(60) NULL,
+ sigla CHAR(2) NULL,
+ fg_ativo BOOLEAN NOT NULL,
+ PRIMARY KEY(id)
+ );
+
+ INSERT INTO tb_estados (id, ds_estado, sigla, fg_ativo)
+ VALUES
+ (1, 'Acre', 'AC', true),
+ (2, 'Alagoas', 'AL', true),
+ (3, 'Amapá', 'AP', true),
+ (4, 'Amazonas', 'AM', true),
+ (5, 'Bahia', 'BA', true),
+ (6, 'Ceará', 'CE', true),
+ (7, 'Distrito Federal', 'DF', true),
+ (8, 'Espírito Santo', 'ES', true),
+ (9, 'Goiás', 'GO', true),
+ (10, 'Maranhão', 'MA', true),
+ (11, 'Mato Grosso', 'MT', true),
+ (12, 'Mato Grosso do Sul', 'MS', true),
+ (13, 'Minas Gerais', 'MG', true),
+ (14, 'Pará', 'PA', true),
+ (15, 'Paraíba', 'PB', true),
+ (16, 'Paraná', 'PR', true),
+ (17, 'Pernambuco', 'PE', true),
+ (18, 'Piauí', 'PI', true),
+ (19, 'Rio de Janeiro', 'RJ', true),
+ (20, 'Rio Grande do Norte', 'RN', true),
+ (21, 'Rio Grande do Sul', 'RS', true),
+ (22, 'Rondônia', 'RO', true),
+ (23, 'Roraima', 'RR', true),
+ (24, 'Santa Catarina', 'SC', true),
+ (25, 'São Paulo', 'SP', true),
+ (26, 'Sergipe', 'SE', true),
+ (27, 'Tocantins', 'TO', true);
+
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20121003174329')[0m
+  [1m[35m (0.5ms)[0m  COMMIT
+Migrating to CreateTbEndereco (20121003230050)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (6.4ms)[0m   CREATE TABLE tb_enderecos(
+ id SERIAL NOT NULL,
+ estado_id INTEGER NOT NULL,
+ rua VARCHAR(60) NULL,
+ nr VARCHAR(10) NULL,
+ complemento VARCHAR(60) NULL,
+ bairro VARCHAR(60) NULL,
+ cep VARCHAR(10) NULL,
+ cidade VARCHAR(60) NULL,
+ fg_ativo 	BOOLEAN NOT NULL,
+ PRIMARY KEY(id),
+ CONSTRAINT FK_ENDERECO
+ FOREIGN KEY(estado_id) REFERENCES tb_estados(id)
+ );
+
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20121003230050')[0m
+  [1m[35m (0.6ms)[0m  COMMIT
+Migrating to CreateTbEscolaridade (20121003233231)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (3.0ms)[0m   CREATE TABLE tb_escolaridades(
+ id INTEGER NOT NULL,
+ ds_escolaridade VARCHAR(40) NULL,
+ fg_ativo BOOLEAN NOT NULL,
+ PRIMARY KEY(id)
+ );
+
+ INSERT INTO tb_escolaridades (id, ds_escolaridade, fg_ativo)
+ VALUES
+ (1, 'Sem Escolaridade', true),
+ (2, 'Ensino Fundamental Incompleto', true),
+ (3, 'Ensino Fundamental Completo', true),
+ (4, 'Ensino Médio Incompleto', true),
+ (5, 'Ensino Médio Completo', true),
+ (6, 'Ensino Superior Incompleto', true),
+ (7, 'Ensino Superior Completo', true),
+ (8, 'Especialização', true),
+ (9, 'Mestrado', true),
+ (10, 'Pós-Graduação', true),
+ (11, 'Doutorado', true),
+ (12, 'Pós-Doutorado', true);
+
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20121003233231')[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to CreateTbPaciente (20121003233544)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (6.4ms)[0m   CREATE TABLE tb_pacientes(
+ id SERIAL NOT NULL,
+ endereco_id INTEGER NOT NULL,
+ escolaridade_id INTEGER NOT NULL,
+ nm_paciente VARCHAR(60) NULL,
+ dt_nascimento TIMESTAMP NULL,
+ idade INTEGER NULL,
+ naturalidade VARCHAR(60) NULL,
+ nr_rg VARCHAR(20) NULL,
+ convenio BOOLEAN NULL,
+ ds_convenio VARCHAR(60) NULL,
+ fg_ativo BOOLEAN NOT NULL,
+ PRIMARY KEY(id),
+ CONSTRAINT FK_TB_PACIENTE_1
+ FOREIGN KEY(endereco_id) REFERENCES tb_enderecos(id),
+ CONSTRAINT FK_TB_PACIENTE_2
+ FOREIGN KEY(escolaridade_id) REFERENCES tb_escolaridades(id)
+ );
+
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20121003233544')[0m
+  [1m[35m (0.5ms)[0m  COMMIT
+Migrating to CreateTbQuestoes (20121003234138)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (8.6ms)[0m   CREATE TABLE tb_questoes(
+ avaliacao_id INTEGER NOT NULL,
+ questao_id INTEGER NOT NULL,
+ ds_questao TEXT,
+ fg_ativo BOOLEAN NOT NULL,
+ PRIMARY KEY(questao_id, avaliacao_id),
+ CONSTRAINT FK_TB_QUESTOES
+ FOREIGN KEY(avaliacao_id) REFERENCES tb_avaliacoes(id)
+ );
+
+ INSERT INTO tb_questoes(avaliacao_id, questao_id, ds_questao, fg_ativo)
+ VALUES
+ (1, 1, 'Você faz reposição hormonal?', true),
+ (1, 2, 'Há quanto tempo?', true),
+ (1, 3, 'Você é fumante?', true),
+ (1, 4, 'Qual a sua cor?', true),
+ (1, 5, 'Você já mestruou?', true),
+ (1, 6, 'Com que idade você teve seu primeiro filho?', true),
+ (1, 7, 'Você tem parentes com câncer de ovário?', true),
+ (1, 8, 'Com qual idade ocorreu a sua primeira mentruação?', true),
+ (1, 9, 'Quantas vezes você fez biópsias mamárias?', true),
+ (1, 10, 'Já teve Hiperplásia Atípica?', true),
+ (1, 11, 'Screening Mamográfico?', true),
+ (1, 12, 'CIS em biópsia?', true),
+ (1, 13, 'Qual seu consumo diário de álcool?', true),
+ (1, 14, 'Qual é a sua densidade mamográfica', true),
+ (1, 15, 'Faz uso do Tamoxifeno?', true),
+ (1, 16, 'Faz uso contraceptivo oral?', true),
+ (1, 17, 'Com que idade começou a usar?', true),
+ (1, 18, 'Número de parentes de 1ºGrau com câncer de mama:', true),
+ (1, 19, 'Se tem parentes com cancer de mama, qual era a idade: ', true);
+
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20121003234138')[0m
+  [1m[35m (0.7ms)[0m  COMMIT
+Migrating to CreateTbAlternativas (20121004011017)
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35m (10.1ms)[0m   CREATE TABLE tb_alternativas(
+ alternativa_id INTEGER NOT NULL,
+ avaliacao_id INTEGER NOT NULL,
+ questao_id INTEGER NOT NULL,
+ ds_alternativa TEXT,
+ fg_ativo BOOLEAN NOT NULL,
+ PRIMARY KEY(alternativa_id, questao_id, avaliacao_id),
+ CONSTRAINT FK_TB_ALTERNATIVAS 
+ FOREIGN KEY(questao_id, avaliacao_id) REFERENCES tb_questoes(questao_id, avaliacao_id)
+ );
+
+ INSERT INTO tb_alternativas(avaliacao_id, questao_id, alternativa_id, ds_alternativa, fg_ativo)
+ VALUES
+ (1, 1, 1, 'Sim', true),
+ (1, 1, 2, 'Não', true),
+ (1, 2, 1, 'Menos de 1 ano', true),
+ (1, 2, 2, 'De um a 5 anos', true),
+ (1, 2, 3, 'Mais que 5 anos', true),
+ (1, 3, 1, 'Sim', true),
+ (1, 3, 2, 'Não', true),
+ (1, 4, 1, 'Branca', true),
+ (1, 4, 2, 'Preta', true),
+ (1, 5, 1, 'Sim', true),
+ (1, 5, 2, 'Não', true),
+ (1, 6, 1, 'Ainda não tenho filhos', true),
+ (1, 6, 2, 'Menos que 19 anos', true),
+ (1, 6, 3, 'De 20 a 24 anos', true),
+ (1, 6, 4, 'De 25 a 29 anos', true),
+ (1, 6, 5, 'Mais que 30 anos', true),
+ (1, 7, 1, 'Não', true),
+ (1, 7, 2, 'Um', true),
+ (1, 7, 3, 'Dois ou mais', true),
+ (1, 8, 1, '14 anos ou mais', true),
+ (1, 8, 2, '12 ou 13 anos', true),
+ (1, 8, 3, '11 anos ou menos', true),
+ (1, 9, 1, 'Nunca fiz biópsia', true),
+ (1, 9, 2, 'Uma', true),
+ (1, 9, 3, 'Duas ou mais', true),
+ (1, 10, 1, 'Não aplicado ou desconhecido', true),
+ (1, 10, 2, 'Não', true),
+ (1, 10, 3, 'Sim', true),
+ (1, 11, 1, 'Sim', true),
+ (1, 11, 2, 'Não', true),
+ (1, 12, 1, 'Não aplicada', true),
+ (1, 12, 2, 'Menos de 40 anos', true),
+ (1, 12, 3, 'Entre 40 e 44 anos', true),
+ (1, 12, 4, 'Entre 45 e 49 anos', true),
+ (1, 12, 5, 'Entre 50 e 54 anos', true),
+ (1, 12, 6, 'Mais que 54 anos', true),
+ (1, 13, 1, 'Não especificado', true),
+ (1, 13, 2, 'Nenhum', true),
+ (1, 13, 3, '1.5gm/dia', true),
+ (1, 13, 4, '5gm/dia', true),
+ (1, 13, 5, '15gm/dia', true),
+ (1, 13, 6, '30gm/dia', true),
+ (1, 13, 7, '60gm/dia', true),
+ (1, 13, 8, '60gm/dia ou mais', true),
+ (1, 14, 1, 'Não especificado', true),
+ (1, 14, 2, '0% de tecido adiposo', true),
+ (1, 14, 3, 'Entre 1% e 24%', true),
+ (1, 14, 4, 'Entre 25% e 49%', true),
+ (1, 14, 5, 'Entre 50% e 74%', true),
+ (1, 14, 6, 'Entre 75% e 100%', true),
+ (1, 15, 1, 'Sim', true),
+ (1, 15, 2, 'Não', true),
+ (1, 16, 1, 'Nunca usei', true),
+ (1, 16, 2, 'Parou há 1-4 anos', true),
+ (1, 16, 3, 'Parou há 5-9 anos', true),
+ (1, 16, 4, 'Atualmente em uso', true),
+ (1, 16, 5, 'Parou a há 10-14 anos', true),
+ (1, 16, 6, 'Parou há 15 anos ou mais', true),
+ (1, 17, 1, 'Menos que 20 anos', true),
+ (1, 17, 2, 'Entre 20 e 24 anos', true),
+ (1, 17, 3, 'Entre 25 e 29 anos', true),
+ (1, 17, 4, 'Mais que 29 anos', true),
+ (1, 18, 1, 'Nenhum', true),
+ (1, 18, 2, 'Um', true),
+ (1, 18, 3, 'Dois ou mais', true),
+ (1, 19, 1, 'Nenhum', true),
+ (1, 19, 2, 'Menos que 20 anos', true),
+ (1, 19, 3, 'Entre 20 e 24 anos', true),
+ (1, 19, 4, 'Entre 25 e 29 anos', true),
+ (1, 19, 5, 'Mais que 30 anos', true);
+
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20121004011017')[0m
+  [1m[35m (1.2ms)[0m  COMMIT
+Migrating to CreateTbPacienteReposta (20121004015006)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (5.4ms)[0m   CREATE TABLE tb_pacientes_respostas(
+ paciente_id INTEGER NOT NULL,
+ questao_id INTEGER NOT NULL,
+ avaliacao_id INTEGER NOT NULL,
+ alternativa_id INTEGER NOT NULL,
+ PRIMARY KEY(paciente_id, questao_id, avaliacao_id, alternativa_id),
+ CONSTRAINT FK_TB_PACIENTE_RESPOSTA 
+ FOREIGN KEY(alternativa_id, questao_id, avaliacao_id) REFERENCES tb_alternativas(alternativa_id, questao_id, avaliacao_id),
+ CONSTRAINT FK_TB_PACIENTE_RESPOSTA_1 
+ FOREIGN KEY(paciente_id) REFERENCES tb_pacientes(id) 
+ );
+
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20121004015006')[0m
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35mPK and serial sequence (6.4ms)[0m   SELECT attr.attname, seq.relname
+ FROM pg_class seq,
+ pg_attribute attr,
+ pg_depend dep,
+ pg_namespace name,
+ pg_constraint cons
+ WHERE seq.oid = dep.objid
+ AND seq.relkind = 'S'
+ AND attr.attrelid = dep.refobjid
+ AND attr.attnum = dep.refobjsubid
+ AND attr.attrelid = cons.conrelid
+ AND attr.attnum = cons.conkey[1]
+ AND cons.contype = 'p'
+ AND dep.refobjid = '"tb_alternativas"'::regclass
+
+  [1m[36mPK and custom sequence (21.3ms)[0m  [1m SELECT attr.attname,
+ CASE
+ WHEN split_part(def.adsrc, '''', 2) ~ '.' THEN
+ substr(split_part(def.adsrc, '''', 2),
+ strpos(split_part(def.adsrc, '''', 2), '.')+1)
+ ELSE split_part(def.adsrc, '''', 2)
+ END
+ FROM pg_class t
+ JOIN pg_attribute attr ON (t.oid = attrelid)
+ JOIN pg_attrdef def ON (adrelid = attrelid AND adnum = attnum)
+ JOIN pg_constraint cons ON (conrelid = adrelid AND adnum = conkey[1])
+ WHERE t.oid = '"tb_alternativas"'::regclass
+ AND cons.contype = 'p'
+ AND def.adsrc ~* 'nextval'
+[0m
+  [1m[35m (3.4ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'tb_alternativas'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36mPK and serial sequence (3.4ms)[0m  [1m SELECT attr.attname, seq.relname
+ FROM pg_class seq,
+ pg_attribute attr,
+ pg_depend dep,
+ pg_namespace name,
+ pg_constraint cons
+ WHERE seq.oid = dep.objid
+ AND seq.relkind = 'S'
+ AND attr.attrelid = dep.refobjid
+ AND attr.attnum = dep.refobjsubid
+ AND attr.attrelid = cons.conrelid
+ AND attr.attnum = cons.conkey[1]
+ AND cons.contype = 'p'
+ AND dep.refobjid = '"tb_avaliacoes"'::regclass
+[0m
+  [1m[35mPK and custom sequence (1.7ms)[0m   SELECT attr.attname,
+ CASE
+ WHEN split_part(def.adsrc, '''', 2) ~ '.' THEN
+ substr(split_part(def.adsrc, '''', 2),
+ strpos(split_part(def.adsrc, '''', 2), '.')+1)
+ ELSE split_part(def.adsrc, '''', 2)
+ END
+ FROM pg_class t
+ JOIN pg_attribute attr ON (t.oid = attrelid)
+ JOIN pg_attrdef def ON (adrelid = attrelid AND adnum = attnum)
+ JOIN pg_constraint cons ON (conrelid = adrelid AND adnum = conkey[1])
+ WHERE t.oid = '"tb_avaliacoes"'::regclass
+ AND cons.contype = 'p'
+ AND def.adsrc ~* 'nextval'
+
+  [1m[36m (2.1ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'tb_avaliacoes'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35mColumns for index tb_avaliacoes_descricao_key on tb_avaliacoes (0.6ms)[0m   SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 50068
+ AND a.attnum IN (2)
+
+  [1m[36mPK and serial sequence (3.7ms)[0m  [1m SELECT attr.attname, seq.relname
+ FROM pg_class seq,
+ pg_attribute attr,
+ pg_depend dep,
+ pg_namespace name,
+ pg_constraint cons
+ WHERE seq.oid = dep.objid
+ AND seq.relkind = 'S'
+ AND attr.attrelid = dep.refobjid
+ AND attr.attnum = dep.refobjsubid
+ AND attr.attrelid = cons.conrelid
+ AND attr.attnum = cons.conkey[1]
+ AND cons.contype = 'p'
+ AND dep.refobjid = '"tb_enderecos"'::regclass
+[0m
+  [1m[35m (1.9ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'tb_enderecos'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36mPK and serial sequence (3.4ms)[0m  [1m SELECT attr.attname, seq.relname
+ FROM pg_class seq,
+ pg_attribute attr,
+ pg_depend dep,
+ pg_namespace name,
+ pg_constraint cons
+ WHERE seq.oid = dep.objid
+ AND seq.relkind = 'S'
+ AND attr.attrelid = dep.refobjid
+ AND attr.attnum = dep.refobjsubid
+ AND attr.attrelid = cons.conrelid
+ AND attr.attnum = cons.conkey[1]
+ AND cons.contype = 'p'
+ AND dep.refobjid = '"tb_escolaridades"'::regclass
+[0m
+  [1m[35mPK and custom sequence (2.0ms)[0m   SELECT attr.attname,
+ CASE
+ WHEN split_part(def.adsrc, '''', 2) ~ '.' THEN
+ substr(split_part(def.adsrc, '''', 2),
+ strpos(split_part(def.adsrc, '''', 2), '.')+1)
+ ELSE split_part(def.adsrc, '''', 2)
+ END
+ FROM pg_class t
+ JOIN pg_attribute attr ON (t.oid = attrelid)
+ JOIN pg_attrdef def ON (adrelid = attrelid AND adnum = attnum)
+ JOIN pg_constraint cons ON (conrelid = adrelid AND adnum = conkey[1])
+ WHERE t.oid = '"tb_escolaridades"'::regclass
+ AND cons.contype = 'p'
+ AND def.adsrc ~* 'nextval'
+
+  [1m[36m (1.9ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'tb_escolaridades'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35mPK and serial sequence (3.6ms)[0m   SELECT attr.attname, seq.relname
+ FROM pg_class seq,
+ pg_attribute attr,
+ pg_depend dep,
+ pg_namespace name,
+ pg_constraint cons
+ WHERE seq.oid = dep.objid
+ AND seq.relkind = 'S'
+ AND attr.attrelid = dep.refobjid
+ AND attr.attnum = dep.refobjsubid
+ AND attr.attrelid = cons.conrelid
+ AND attr.attnum = cons.conkey[1]
+ AND cons.contype = 'p'
+ AND dep.refobjid = '"tb_estados"'::regclass
+
+  [1m[36mPK and custom sequence (2.0ms)[0m  [1m SELECT attr.attname,
+ CASE
+ WHEN split_part(def.adsrc, '''', 2) ~ '.' THEN
+ substr(split_part(def.adsrc, '''', 2),
+ strpos(split_part(def.adsrc, '''', 2), '.')+1)
+ ELSE split_part(def.adsrc, '''', 2)
+ END
+ FROM pg_class t
+ JOIN pg_attribute attr ON (t.oid = attrelid)
+ JOIN pg_attrdef def ON (adrelid = attrelid AND adnum = attnum)
+ JOIN pg_constraint cons ON (conrelid = adrelid AND adnum = conkey[1])
+ WHERE t.oid = '"tb_estados"'::regclass
+ AND cons.contype = 'p'
+ AND def.adsrc ~* 'nextval'
+[0m
+  [1m[35m (1.6ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'tb_estados'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36mPK and serial sequence (3.7ms)[0m  [1m SELECT attr.attname, seq.relname
+ FROM pg_class seq,
+ pg_attribute attr,
+ pg_depend dep,
+ pg_namespace name,
+ pg_constraint cons
+ WHERE seq.oid = dep.objid
+ AND seq.relkind = 'S'
+ AND attr.attrelid = dep.refobjid
+ AND attr.attnum = dep.refobjsubid
+ AND attr.attrelid = cons.conrelid
+ AND attr.attnum = cons.conkey[1]
+ AND cons.contype = 'p'
+ AND dep.refobjid = '"tb_pacientes"'::regclass
+[0m
+  [1m[35m (1.5ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'tb_pacientes'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36mPK and serial sequence (3.4ms)[0m  [1m SELECT attr.attname, seq.relname
+ FROM pg_class seq,
+ pg_attribute attr,
+ pg_depend dep,
+ pg_namespace name,
+ pg_constraint cons
+ WHERE seq.oid = dep.objid
+ AND seq.relkind = 'S'
+ AND attr.attrelid = dep.refobjid
+ AND attr.attnum = dep.refobjsubid
+ AND attr.attrelid = cons.conrelid
+ AND attr.attnum = cons.conkey[1]
+ AND cons.contype = 'p'
+ AND dep.refobjid = '"tb_pacientes_respostas"'::regclass
+[0m
+  [1m[35mPK and custom sequence (2.2ms)[0m   SELECT attr.attname,
+ CASE
+ WHEN split_part(def.adsrc, '''', 2) ~ '.' THEN
+ substr(split_part(def.adsrc, '''', 2),
+ strpos(split_part(def.adsrc, '''', 2), '.')+1)
+ ELSE split_part(def.adsrc, '''', 2)
+ END
+ FROM pg_class t
+ JOIN pg_attribute attr ON (t.oid = attrelid)
+ JOIN pg_attrdef def ON (adrelid = attrelid AND adnum = attnum)
+ JOIN pg_constraint cons ON (conrelid = adrelid AND adnum = conkey[1])
+ WHERE t.oid = '"tb_pacientes_respostas"'::regclass
+ AND cons.contype = 'p'
+ AND def.adsrc ~* 'nextval'
+
+  [1m[36m (2.0ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'tb_pacientes_respostas'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35mPK and serial sequence (3.4ms)[0m   SELECT attr.attname, seq.relname
+ FROM pg_class seq,
+ pg_attribute attr,
+ pg_depend dep,
+ pg_namespace name,
+ pg_constraint cons
+ WHERE seq.oid = dep.objid
+ AND seq.relkind = 'S'
+ AND attr.attrelid = dep.refobjid
+ AND attr.attnum = dep.refobjsubid
+ AND attr.attrelid = cons.conrelid
+ AND attr.attnum = cons.conkey[1]
+ AND cons.contype = 'p'
+ AND dep.refobjid = '"tb_questoes"'::regclass
+
+  [1m[36mPK and custom sequence (2.0ms)[0m  [1m SELECT attr.attname,
+ CASE
+ WHEN split_part(def.adsrc, '''', 2) ~ '.' THEN
+ substr(split_part(def.adsrc, '''', 2),
+ strpos(split_part(def.adsrc, '''', 2), '.')+1)
+ ELSE split_part(def.adsrc, '''', 2)
+ END
+ FROM pg_class t
+ JOIN pg_attribute attr ON (t.oid = attrelid)
+ JOIN pg_attrdef def ON (adrelid = attrelid AND adnum = attnum)
+ JOIN pg_constraint cons ON (conrelid = adrelid AND adnum = conkey[1])
+ WHERE t.oid = '"tb_questoes"'::regclass
+ AND cons.contype = 'p'
+ AND def.adsrc ~* 'nextval'
+[0m
+  [1m[35m (1.6ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'tb_questoes'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+
+
+Started GET "/" for 127.0.0.1 at 2013-04-17 20:16:33 -0300
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (2.3ms)
+Compiled jquery.js  (2ms)  (pid 10545)
+Compiled jquery_ujs.js  (0ms)  (pid 10545)
+Compiled application.js  (63ms)  (pid 10545)
+Completed 200 OK in 198ms (Views: 197.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-04-17 20:16:34 -0300
+Served asset /application.css - 304 Not Modified (13ms)
+
+
+Started GET "/assets/alternativas.css?body=1" for 127.0.0.1 at 2013-04-17 20:16:34 -0300
+Served asset /alternativas.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/avaliacaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:16:34 -0300
+Served asset /avaliacaos.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/avaliacoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:16:34 -0300
+Served asset /avaliacoes.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/enderecos.css?body=1" for 127.0.0.1 at 2013-04-17 20:16:34 -0300
+Served asset /enderecos.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/escolaridades.css?body=1" for 127.0.0.1 at 2013-04-17 20:16:34 -0300
+Served asset /escolaridades.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/estados.css?body=1" for 127.0.0.1 at 2013-04-17 20:16:34 -0300
+Served asset /estados.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/home.css?body=1" for 127.0.0.1 at 2013-04-17 20:16:34 -0300
+Served asset /home.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/paciente_resposta.css?body=1" for 127.0.0.1 at 2013-04-17 20:16:34 -0300
+Served asset /paciente_resposta.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/pacientes.css?body=1" for 127.0.0.1 at 2013-04-17 20:16:34 -0300
+Served asset /pacientes.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/pacientes_respostas.css?body=1" for 127.0.0.1 at 2013-04-17 20:16:34 -0300
+Served asset /pacientes_respostas.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/questaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:16:34 -0300
+Served asset /questaos.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/questoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:16:34 -0300
+Served asset /questoes.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2013-04-17 20:16:34 -0300
+Served asset /scaffolds.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-04-17 20:16:34 -0300
+Served asset /jquery.js - 200 OK (1ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-04-17 20:16:34 -0300
+Served asset /jquery_ujs.js - 200 OK (1ms)
+
+
+Started GET "/assets/alternativas.js?body=1" for 127.0.0.1 at 2013-04-17 20:16:34 -0300
+Served asset /alternativas.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/avaliacaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:16:34 -0300
+Served asset /avaliacaos.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/avaliacoes.js?body=1" for 127.0.0.1 at 2013-04-17 20:16:34 -0300
+Served asset /avaliacoes.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2013-04-17 20:16:34 -0300
+Served asset /home.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/enderecos.js?body=1" for 127.0.0.1 at 2013-04-17 20:16:34 -0300
+Served asset /enderecos.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/escolaridades.js?body=1" for 127.0.0.1 at 2013-04-17 20:16:34 -0300
+Served asset /escolaridades.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/estados.js?body=1" for 127.0.0.1 at 2013-04-17 20:16:34 -0300
+Served asset /estados.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/pacientes.js?body=1" for 127.0.0.1 at 2013-04-17 20:16:34 -0300
+Served asset /pacientes.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/paciente_resposta.js?body=1" for 127.0.0.1 at 2013-04-17 20:16:34 -0300
+Served asset /paciente_resposta.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/pacientes_respostas.js?body=1" for 127.0.0.1 at 2013-04-17 20:16:34 -0300
+Served asset /pacientes_respostas.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/questaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:16:34 -0300
+Served asset /questaos.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/questo%CC%83es.js?body=1" for 127.0.0.1 at 2013-04-17 20:16:34 -0300
+Served asset /questo%CC%83es.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-04-17 20:16:34 -0300
+Served asset /application.js - 304 Not Modified (18ms)
+
+
+Started GET "/pacientes/new" for 127.0.0.1 at 2013-04-17 20:16:36 -0300
+DEPRECATION WARNING: Calling set_table_name is deprecated. Please use `self.table_name = 'the_name'` instead. (called from <class:Paciente> at /Users/direx/Development/projects/self/code/gail/app/models/paciente.rb:20)
+Processing by PacientesController#new as HTML
+DEPRECATION WARNING: Calling set_table_name is deprecated. Please use `self.table_name = 'the_name'` instead. (called from <class:Escolaridade> at /Users/direx/Development/projects/self/code/gail/app/models/escolaridade.rb:12)
+  [1m[36mEscolaridade Load (0.6ms)[0m  [1mSELECT "tb_escolaridades".* FROM "tb_escolaridades" [0m
+  Rendered pacientes/_form.html.erb (9.0ms)
+  Rendered pacientes/new.html.erb within layouts/application (12.6ms)
+Completed 200 OK in 85ms (Views: 48.2ms | ActiveRecord: 16.2ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-04-17 20:16:36 -0300
+Served asset /application.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/alternativas.css?body=1" for 127.0.0.1 at 2013-04-17 20:16:36 -0300
+Served asset /alternativas.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:16:36 -0300
+Served asset /avaliacaos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:16:36 -0300
+Served asset /avaliacoes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/enderecos.css?body=1" for 127.0.0.1 at 2013-04-17 20:16:36 -0300
+Served asset /enderecos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/escolaridades.css?body=1" for 127.0.0.1 at 2013-04-17 20:16:36 -0300
+Served asset /escolaridades.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/estados.css?body=1" for 127.0.0.1 at 2013-04-17 20:16:36 -0300
+Served asset /estados.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.css?body=1" for 127.0.0.1 at 2013-04-17 20:16:36 -0300
+Served asset /home.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/paciente_resposta.css?body=1" for 127.0.0.1 at 2013-04-17 20:16:36 -0300
+Served asset /paciente_resposta.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes.css?body=1" for 127.0.0.1 at 2013-04-17 20:16:36 -0300
+Served asset /pacientes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes_respostas.css?body=1" for 127.0.0.1 at 2013-04-17 20:16:36 -0300
+Served asset /pacientes_respostas.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:16:36 -0300
+Served asset /questaos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:16:36 -0300
+Served asset /questoes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2013-04-17 20:16:36 -0300
+Served asset /scaffolds.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/alternativas.js?body=1" for 127.0.0.1 at 2013-04-17 20:16:36 -0300
+Served asset /alternativas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:16:36 -0300
+Served asset /avaliacaos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacoes.js?body=1" for 127.0.0.1 at 2013-04-17 20:16:36 -0300
+Served asset /avaliacoes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/enderecos.js?body=1" for 127.0.0.1 at 2013-04-17 20:16:36 -0300
+Served asset /enderecos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/escolaridades.js?body=1" for 127.0.0.1 at 2013-04-17 20:16:36 -0300
+Served asset /escolaridades.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/estados.js?body=1" for 127.0.0.1 at 2013-04-17 20:16:36 -0300
+Served asset /estados.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2013-04-17 20:16:36 -0300
+Served asset /home.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/paciente_resposta.js?body=1" for 127.0.0.1 at 2013-04-17 20:16:36 -0300
+Served asset /paciente_resposta.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes.js?body=1" for 127.0.0.1 at 2013-04-17 20:16:36 -0300
+Served asset /pacientes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes_respostas.js?body=1" for 127.0.0.1 at 2013-04-17 20:16:36 -0300
+Served asset /pacientes_respostas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:16:36 -0300
+Served asset /questaos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questo%CC%83es.js?body=1" for 127.0.0.1 at 2013-04-17 20:16:36 -0300
+Served asset /questo%CC%83es.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-04-17 20:16:36 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started POST "/pacientes" for 127.0.0.1 at 2013-04-17 20:16:39 -0300
+Processing by PacientesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"IOSjJ/zguF+me8zqavptjwC1WHHXIu8rAb2xF5QJ2lE=", "paciente"=>{"nm_paciente"=>"", "idade"=>"", "dt_nascimento(3i)"=>"17", "dt_nascimento(2i)"=>"4", "dt_nascimento(1i)"=>"1940", "naturalidade"=>"", "nr_rg"=>"", "convenio"=>"1", "ds_convenio"=>"", "escolaridade_id"=>"1", "fg_ativo"=>"1"}, "commit"=>"Avançar"}
+  Rendered pacientes/_form.html.erb (34.0ms)
+  Rendered pacientes/new.html.erb within layouts/application (34.6ms)
+Completed 500 Internal Server Error in 89ms
+
+ActionView::Template::Error (undefined method `map' for nil:NilClass):
+    38: 
+    39:   <p>  
+    40:      <%= form.label :escolaridade_id, "Escolaridade" %> </br>
+    41:      <%= form.collection_select(:escolaridade_id, @escolaridades, :id, :ds_escolaridade) %>   
+    42:   </p>
+    43:   
+    44:   <%= form.hidden_field :fg_ativo, :value => 1 %>
+  app/views/pacientes/_form.html.erb:41:in `block in _app_views_pacientes__form_html_erb__352909095285345851_70184105848680'
+  app/views/pacientes/_form.html.erb:1:in `_app_views_pacientes__form_html_erb__352909095285345851_70184105848680'
+  app/views/pacientes/new.html.erb:3:in `_app_views_pacientes_new_html_erb___4263765004490091798_70184105780460'
+  app/controllers/pacientes_controller.rb:58:in `block (2 levels) in create'
+  app/controllers/pacientes_controller.rb:49:in `create'
+
+
+  Rendered /Users/direx/.rvm/gems/ruby-1.9.3-p125@global/gems/actionpack-3.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.erb (3.6ms)
+  Rendered /Users/direx/.rvm/gems/ruby-1.9.3-p125@global/gems/actionpack-3.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.1ms)
+  Rendered /Users/direx/.rvm/gems/ruby-1.9.3-p125@global/gems/actionpack-3.2.6/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (11.3ms)
+
+
+Started POST "/pacientes" for 127.0.0.1 at 2013-04-17 20:17:14 -0300
+Processing by PacientesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"IOSjJ/zguF+me8zqavptjwC1WHHXIu8rAb2xF5QJ2lE=", "paciente"=>{"nm_paciente"=>"diogo", "idade"=>"24", "dt_nascimento(3i)"=>"17", "dt_nascimento(2i)"=>"4", "dt_nascimento(1i)"=>"1940", "naturalidade"=>"sao paulo", "nr_rg"=>"445481535", "convenio"=>"1", "ds_convenio"=>"unimed", "escolaridade_id"=>"10", "fg_ativo"=>"1"}, "commit"=>"Avançar"}
+Redirected to http://localhost:3000/enderecos/new
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/enderecos/new" for 127.0.0.1 at 2013-04-17 20:17:14 -0300
+DEPRECATION WARNING: Calling set_table_name is deprecated. Please use `self.table_name = 'the_name'` instead. (called from <class:Endereco> at /Users/direx/Development/projects/self/code/gail/app/models/endereco.rb:18)
+Processing by EnderecosController#new as HTML
+DEPRECATION WARNING: Calling set_table_name is deprecated. Please use `self.table_name = 'the_name'` instead. (called from <class:Estado> at /Users/direx/Development/projects/self/code/gail/app/models/estado.rb:13)
+  [1m[35mEstado Load (0.6ms)[0m  SELECT "tb_estados".* FROM "tb_estados" 
+  Rendered enderecos/_form.html.erb (33.8ms)
+  Rendered enderecos/new.html.erb within layouts/application (54.4ms)
+Completed 200 OK in 143ms (Views: 89.2ms | ActiveRecord: 8.1ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-04-17 20:17:15 -0300
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/alternativas.css?body=1" for 127.0.0.1 at 2013-04-17 20:17:15 -0300
+Served asset /alternativas.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:17:15 -0300
+Served asset /avaliacaos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:17:15 -0300
+Served asset /avaliacoes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/enderecos.css?body=1" for 127.0.0.1 at 2013-04-17 20:17:15 -0300
+Served asset /enderecos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/escolaridades.css?body=1" for 127.0.0.1 at 2013-04-17 20:17:15 -0300
+Served asset /escolaridades.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/estados.css?body=1" for 127.0.0.1 at 2013-04-17 20:17:15 -0300
+Served asset /estados.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.css?body=1" for 127.0.0.1 at 2013-04-17 20:17:15 -0300
+Served asset /home.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/paciente_resposta.css?body=1" for 127.0.0.1 at 2013-04-17 20:17:15 -0300
+Served asset /paciente_resposta.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes.css?body=1" for 127.0.0.1 at 2013-04-17 20:17:15 -0300
+Served asset /pacientes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes_respostas.css?body=1" for 127.0.0.1 at 2013-04-17 20:17:15 -0300
+Served asset /pacientes_respostas.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:17:15 -0300
+Served asset /questaos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:17:15 -0300
+Served asset /questoes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2013-04-17 20:17:15 -0300
+Served asset /scaffolds.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-04-17 20:17:15 -0300
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-04-17 20:17:15 -0300
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/alternativas.js?body=1" for 127.0.0.1 at 2013-04-17 20:17:15 -0300
+Served asset /alternativas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:17:15 -0300
+Served asset /avaliacaos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacoes.js?body=1" for 127.0.0.1 at 2013-04-17 20:17:15 -0300
+Served asset /avaliacoes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/enderecos.js?body=1" for 127.0.0.1 at 2013-04-17 20:17:15 -0300
+Served asset /enderecos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/escolaridades.js?body=1" for 127.0.0.1 at 2013-04-17 20:17:15 -0300
+Served asset /escolaridades.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/estados.js?body=1" for 127.0.0.1 at 2013-04-17 20:17:15 -0300
+Served asset /estados.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2013-04-17 20:17:15 -0300
+Served asset /home.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/paciente_resposta.js?body=1" for 127.0.0.1 at 2013-04-17 20:17:15 -0300
+Served asset /paciente_resposta.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes.js?body=1" for 127.0.0.1 at 2013-04-17 20:17:15 -0300
+Served asset /pacientes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes_respostas.js?body=1" for 127.0.0.1 at 2013-04-17 20:17:15 -0300
+Served asset /pacientes_respostas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:17:15 -0300
+Served asset /questaos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questo%CC%83es.js?body=1" for 127.0.0.1 at 2013-04-17 20:17:15 -0300
+Served asset /questo%CC%83es.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-04-17 20:17:15 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started POST "/enderecos" for 127.0.0.1 at 2013-04-17 20:18:08 -0300
+Processing by EnderecosController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"IOSjJ/zguF+me8zqavptjwC1WHHXIu8rAb2xF5QJ2lE=", "endereco"=>{"rua"=>"13720000", "nr"=>"817", "bairro"=>"santo antonio", "complemento"=>"casa", "estado_id"=>"25", "cidade"=>"sao jose do rio pardo", "fg_ativo"=>"1"}, "commit"=>"Avançar"}
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (28.7ms)[0m  INSERT INTO "tb_enderecos" ("bairro", "cep", "cidade", "complemento", "estado_id", "fg_ativo", "nr", "rua") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["bairro", "santo antonio"], ["cep", nil], ["cidade", "sao jose do rio pardo"], ["complemento", "casa"], ["estado_id", 25], ["fg_ativo", true], ["nr", "817"], ["rua", "13720000"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (2.0ms)[0m  [1mINSERT INTO "tb_pacientes" ("convenio", "ds_convenio", "dt_nascimento", "endereco_id", "escolaridade_id", "fg_ativo", "idade", "naturalidade", "nm_paciente", "nr_rg") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"[0m  [["convenio", true], ["ds_convenio", "unimed"], ["dt_nascimento", Qua, 17 Abr 1940 00:00:00 UTC +00:00], ["endereco_id", 1], ["escolaridade_id", 10], ["fg_ativo", true], ["idade", 24], ["naturalidade", "sao paulo"], ["nm_paciente", "diogo"], ["nr_rg", "445481535"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+Redirected to http://localhost:3000/questoes/1,1
+Completed 302 Found in 38ms (ActiveRecord: 32.3ms)
+
+
+Started GET "/questoes/1,1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+DEPRECATION WARNING: Calling set_table_name is deprecated. Please use `self.table_name = 'the_name'` instead. (called from <class:Questao> at /Users/direx/Development/projects/self/code/gail/app/models/questao.rb:3)
+DEPRECATION WARNING: Calling set_primary_keys is deprecated. Please use `self.primary_keys = keys` instead. (called from <class:Questao> at /Users/direx/Development/projects/self/code/gail/app/models/questao.rb:4)
+Processing by QuestoesController#show as HTML
+  Parameters: {"id"=>"1,1"}
+  [1m[36mQuestao Load (0.6ms)[0m  [1mSELECT "tb_questoes".* FROM "tb_questoes" WHERE "tb_questoes"."questao_id" = 1 AND "tb_questoes"."avaliacao_id" = 1[0m
+DEPRECATION WARNING: Calling set_table_name is deprecated. Please use `self.table_name = 'the_name'` instead. (called from <class:PacienteResposta> at /Users/direx/Development/projects/self/code/gail/app/models/paciente_resposta.rb:2)
+DEPRECATION WARNING: Calling set_primary_keys is deprecated. Please use `self.primary_keys = keys` instead. (called from <class:PacienteResposta> at /Users/direx/Development/projects/self/code/gail/app/models/paciente_resposta.rb:3)
+DEPRECATION WARNING: Calling set_table_name is deprecated. Please use `self.table_name = 'the_name'` instead. (called from <class:Alternativa> at /Users/direx/Development/projects/self/code/gail/app/models/alternativa.rb:3)
+DEPRECATION WARNING: Calling set_primary_keys is deprecated. Please use `self.primary_keys = keys` instead. (called from <class:Alternativa> at /Users/direx/Development/projects/self/code/gail/app/models/alternativa.rb:4)
+  [1m[35mAlternativa Load (0.9ms)[0m  SELECT "tb_alternativas".* FROM "tb_alternativas" WHERE "tb_alternativas"."questao_id" = 1 AND (fg_ativo = true)
+  Rendered pacientes_respostas/_form.html.erb (86.0ms)
+  Rendered questoes/show.html.erb within layouts/application (104.2ms)
+Completed 200 OK in 183ms (Views: 146.2ms | ActiveRecord: 6.2ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/alternativas.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+Served asset /alternativas.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+Served asset /avaliacaos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+Served asset /avaliacoes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/enderecos.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+Served asset /enderecos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/escolaridades.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+Served asset /escolaridades.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/estados.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+Served asset /estados.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+Served asset /home.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/paciente_resposta.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+Served asset /paciente_resposta.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+Served asset /pacientes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes_respostas.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+Served asset /pacientes_respostas.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+Served asset /questaos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+Served asset /questoes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+Served asset /scaffolds.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/alternativas.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+Served asset /alternativas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+Served asset /avaliacaos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacoes.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+Served asset /avaliacoes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/enderecos.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+Served asset /enderecos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/escolaridades.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+Served asset /escolaridades.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/estados.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+Served asset /estados.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+Served asset /home.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/paciente_resposta.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+Served asset /paciente_resposta.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+Served asset /pacientes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes_respostas.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+Served asset /pacientes_respostas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+Served asset /questaos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questo%CC%83es.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+Served asset /questo%CC%83es.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:09 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started POST "/pacientes_respostas" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Processing by PacientesRespostasController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"IOSjJ/zguF+me8zqavptjwC1WHHXIu8rAb2xF5QJ2lE=", "paciente_resposta"=>{"alternativa_id"=>"2", "paciente_id"=>"1", "questao_id"=>"1", "avaliacao_id"=>"1"}, "commit"=>"Avançar"}
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.8ms)[0m  INSERT INTO "tb_pacientes_respostas" ("alternativa_id", "avaliacao_id", "paciente_id", "questao_id") VALUES ($1, $2, $3, $4) RETURNING "paciente_id","questao_id","avaliacao_id"  [["alternativa_id", 2], ["avaliacao_id", 1], ["paciente_id", 1], ["questao_id", 1]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mQuestao Load (0.4ms)[0m  SELECT "tb_questoes".* FROM "tb_questoes" WHERE "tb_questoes"."questao_id" = 1 AND "tb_questoes"."avaliacao_id" = 1
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  COMMIT
+  [1m[36mQuestao Load (0.6ms)[0m  [1mSELECT "tb_questoes".* FROM "tb_questoes" WHERE (avaliacao_id = 1 AND questao_id > 1) LIMIT 1[0m
+Redirected to http://localhost:3000/questoes/2,1
+Completed 302 Found in 11ms (ActiveRecord: 4.1ms)
+
+
+Started GET "/questoes/2,1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Processing by QuestoesController#show as HTML
+  Parameters: {"id"=>"2,1"}
+  [1m[35mQuestao Load (0.5ms)[0m  SELECT "tb_questoes".* FROM "tb_questoes" WHERE "tb_questoes"."questao_id" = 2 AND "tb_questoes"."avaliacao_id" = 1
+  [1m[36mAlternativa Load (0.6ms)[0m  [1mSELECT "tb_alternativas".* FROM "tb_alternativas" WHERE "tb_alternativas"."questao_id" = 2 AND (fg_ativo = true)[0m
+  Rendered pacientes_respostas/_form.html.erb (3.2ms)
+  Rendered questoes/show.html.erb within layouts/application (4.3ms)
+Completed 200 OK in 44ms (Views: 41.5ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/alternativas.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Served asset /alternativas.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Served asset /avaliacaos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Served asset /avaliacoes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/enderecos.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Served asset /enderecos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/escolaridades.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Served asset /escolaridades.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/estados.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Served asset /estados.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Served asset /home.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/paciente_resposta.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Served asset /paciente_resposta.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Served asset /pacientes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes_respostas.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Served asset /pacientes_respostas.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Served asset /questaos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Served asset /questoes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Served asset /scaffolds.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/alternativas.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Served asset /alternativas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Served asset /avaliacaos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacoes.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Served asset /avaliacoes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/enderecos.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Served asset /enderecos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/escolaridades.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Served asset /escolaridades.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/estados.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Served asset /estados.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Served asset /home.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/paciente_resposta.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Served asset /paciente_resposta.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Served asset /pacientes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes_respostas.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Served asset /pacientes_respostas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Served asset /questaos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questo%CC%83es.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Served asset /questo%CC%83es.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:15 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started POST "/pacientes_respostas" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Processing by PacientesRespostasController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"IOSjJ/zguF+me8zqavptjwC1WHHXIu8rAb2xF5QJ2lE=", "paciente_resposta"=>{"alternativa_id"=>"2", "paciente_id"=>"1", "questao_id"=>"2", "avaliacao_id"=>"1"}, "commit"=>"Avançar"}
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "tb_pacientes_respostas" ("alternativa_id", "avaliacao_id", "paciente_id", "questao_id") VALUES ($1, $2, $3, $4) RETURNING "paciente_id","questao_id","avaliacao_id"[0m  [["alternativa_id", 2], ["avaliacao_id", 1], ["paciente_id", 1], ["questao_id", 2]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36mQuestao Load (0.5ms)[0m  [1mSELECT "tb_questoes".* FROM "tb_questoes" WHERE "tb_questoes"."questao_id" = 2 AND "tb_questoes"."avaliacao_id" = 1[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35mQuestao Load (0.5ms)[0m  SELECT "tb_questoes".* FROM "tb_questoes" WHERE (avaliacao_id = 1 AND questao_id > 2) LIMIT 1
+Redirected to http://localhost:3000/questoes/3,1
+Completed 302 Found in 7ms (ActiveRecord: 2.5ms)
+
+
+Started GET "/questoes/3,1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Processing by QuestoesController#show as HTML
+  Parameters: {"id"=>"3,1"}
+  [1m[36mQuestao Load (0.6ms)[0m  [1mSELECT "tb_questoes".* FROM "tb_questoes" WHERE "tb_questoes"."questao_id" = 3 AND "tb_questoes"."avaliacao_id" = 1[0m
+  [1m[35mAlternativa Load (0.6ms)[0m  SELECT "tb_alternativas".* FROM "tb_alternativas" WHERE "tb_alternativas"."questao_id" = 3 AND (fg_ativo = true)
+  Rendered pacientes_respostas/_form.html.erb (3.1ms)
+  Rendered questoes/show.html.erb within layouts/application (4.1ms)
+Completed 200 OK in 44ms (Views: 41.6ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/alternativas.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Served asset /alternativas.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Served asset /avaliacaos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Served asset /avaliacoes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/enderecos.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Served asset /enderecos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/escolaridades.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Served asset /escolaridades.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/estados.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Served asset /estados.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Served asset /home.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/paciente_resposta.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Served asset /paciente_resposta.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Served asset /pacientes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes_respostas.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Served asset /pacientes_respostas.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Served asset /questaos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Served asset /questoes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Served asset /scaffolds.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/alternativas.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Served asset /alternativas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Served asset /avaliacaos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacoes.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Served asset /avaliacoes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/enderecos.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Served asset /enderecos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/escolaridades.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Served asset /escolaridades.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/estados.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Served asset /estados.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Served asset /home.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/paciente_resposta.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Served asset /paciente_resposta.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Served asset /pacientes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes_respostas.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Served asset /pacientes_respostas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Served asset /questaos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questo%CC%83es.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Served asset /questo%CC%83es.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:22 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started POST "/pacientes_respostas" for 127.0.0.1 at 2013-04-17 20:18:25 -0300
+Processing by PacientesRespostasController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"IOSjJ/zguF+me8zqavptjwC1WHHXIu8rAb2xF5QJ2lE=", "paciente_resposta"=>{"alternativa_id"=>"2", "paciente_id"=>"1", "questao_id"=>"3", "avaliacao_id"=>"1"}, "commit"=>"Avançar"}
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "tb_pacientes_respostas" ("alternativa_id", "avaliacao_id", "paciente_id", "questao_id") VALUES ($1, $2, $3, $4) RETURNING "paciente_id","questao_id","avaliacao_id"  [["alternativa_id", 2], ["avaliacao_id", 1], ["paciente_id", 1], ["questao_id", 3]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mQuestao Load (0.4ms)[0m  SELECT "tb_questoes".* FROM "tb_questoes" WHERE "tb_questoes"."questao_id" = 3 AND "tb_questoes"."avaliacao_id" = 1
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  COMMIT
+  [1m[36mQuestao Load (0.4ms)[0m  [1mSELECT "tb_questoes".* FROM "tb_questoes" WHERE (avaliacao_id = 1 AND questao_id > 3) LIMIT 1[0m
+Redirected to http://localhost:3000/questoes/4,1
+Completed 302 Found in 7ms (ActiveRecord: 2.1ms)
+
+
+Started GET "/questoes/4,1" for 127.0.0.1 at 2013-04-17 20:18:25 -0300
+Processing by QuestoesController#show as HTML
+  Parameters: {"id"=>"4,1"}
+  [1m[35mQuestao Load (0.5ms)[0m  SELECT "tb_questoes".* FROM "tb_questoes" WHERE "tb_questoes"."questao_id" = 4 AND "tb_questoes"."avaliacao_id" = 1
+  [1m[36mAlternativa Load (0.5ms)[0m  [1mSELECT "tb_alternativas".* FROM "tb_alternativas" WHERE "tb_alternativas"."questao_id" = 4 AND (fg_ativo = true)[0m
+  Rendered pacientes_respostas/_form.html.erb (3.1ms)
+  Rendered questoes/show.html.erb within layouts/application (4.1ms)
+Completed 200 OK in 18ms (Views: 15.9ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:26 -0300
+Served asset /application.css - 304 Not Modified (26ms)
+
+
+Started GET "/assets/alternativas.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:26 -0300
+Served asset /alternativas.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:26 -0300
+Served asset /avaliacaos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:26 -0300
+Served asset /avaliacoes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/enderecos.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:26 -0300
+Served asset /enderecos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/escolaridades.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:26 -0300
+Served asset /escolaridades.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/estados.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:26 -0300
+Served asset /estados.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:26 -0300
+Served asset /home.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/paciente_resposta.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:26 -0300
+Served asset /paciente_resposta.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:26 -0300
+Served asset /pacientes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes_respostas.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:26 -0300
+Served asset /pacientes_respostas.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:26 -0300
+Served asset /questaos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:26 -0300
+Served asset /questoes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2013-04-17 20:18:26 -0300
+Served asset /scaffolds.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:26 -0300
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:26 -0300
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/alternativas.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:26 -0300
+Served asset /alternativas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:26 -0300
+Served asset /avaliacaos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacoes.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:26 -0300
+Served asset /avaliacoes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/enderecos.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:26 -0300
+Served asset /enderecos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/escolaridades.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:26 -0300
+Served asset /escolaridades.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/estados.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:26 -0300
+Served asset /estados.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:26 -0300
+Served asset /home.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/paciente_resposta.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:26 -0300
+Served asset /paciente_resposta.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:26 -0300
+Served asset /pacientes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes_respostas.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:26 -0300
+Served asset /pacientes_respostas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:26 -0300
+Served asset /questaos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questo%CC%83es.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:26 -0300
+Served asset /questo%CC%83es.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-04-17 20:18:26 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/questoes/4,1" for 127.0.0.1 at 2013-04-17 20:19:47 -0300
+Processing by QuestoesController#show as HTML
+  Parameters: {"id"=>"4,1"}
+  [1m[35mQuestao Load (0.6ms)[0m  SELECT "tb_questoes".* FROM "tb_questoes" WHERE "tb_questoes"."questao_id" = 4 AND "tb_questoes"."avaliacao_id" = 1
+  [1m[36mAlternativa Load (0.6ms)[0m  [1mSELECT "tb_alternativas".* FROM "tb_alternativas" WHERE "tb_alternativas"."questao_id" = 4 AND (fg_ativo = true)[0m
+  Rendered pacientes_respostas/_form.html.erb (3.2ms)
+  Rendered questoes/show.html.erb within layouts/application (4.4ms)
+Compiled application.css  (3ms)  (pid 10545)
+Completed 200 OK in 38ms (Views: 34.7ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:47 -0300
+Served asset /application.css - 200 OK (41ms)
+
+
+Started GET "/assets/alternativas.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:47 -0300
+Served asset /alternativas.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:47 -0300
+Served asset /avaliacaos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:47 -0300
+Served asset /avaliacoes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/enderecos.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:47 -0300
+Served asset /enderecos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/escolaridades.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:47 -0300
+Served asset /escolaridades.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/estados.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:47 -0300
+Served asset /estados.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:47 -0300
+Served asset /home.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/paciente_resposta.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:47 -0300
+Served asset /paciente_resposta.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:47 -0300
+Served asset /pacientes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes_respostas.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:47 -0300
+Served asset /pacientes_respostas.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:47 -0300
+Served asset /questaos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:47 -0300
+Served asset /questoes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:47 -0300
+Served asset /scaffolds.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:47 -0300
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:47 -0300
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/alternativas.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:47 -0300
+Served asset /alternativas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:47 -0300
+Served asset /avaliacaos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacoes.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:47 -0300
+Served asset /avaliacoes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/enderecos.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:47 -0300
+Served asset /enderecos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/escolaridades.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:47 -0300
+Served asset /escolaridades.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/estados.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:48 -0300
+Served asset /estados.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:48 -0300
+Served asset /home.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/paciente_resposta.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:48 -0300
+Served asset /paciente_resposta.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:48 -0300
+Served asset /pacientes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes_respostas.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:48 -0300
+Served asset /pacientes_respostas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:48 -0300
+Served asset /questaos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questo%CC%83es.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:48 -0300
+Served asset /questo%CC%83es.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:48 -0300
+Served asset /application.js - 304 Not Modified (1ms)
+
+
+Started GET "/questoes" for 127.0.0.1 at 2013-04-17 20:19:50 -0300
+Processing by QuestoesController#index as HTML
+  [1m[35mQuestao Load (0.6ms)[0m  SELECT "tb_questoes".* FROM "tb_questoes" 
+  Rendered questoes/index.html.erb within layouts/application (1.1ms)
+Completed 500 Internal Server Error in 25ms
+
+ActionView::Template::Error (undefined method `each' for nil:NilClass):
+    7:     <th></th>
+    8:   </tr>
+    9: 
+    10: <% @questaos.each do |questao| %>
+    11:   <tr>
+    12:     <td><%= link_to 'Show', questao %></td>
+    13:     <td><%= link_to 'Edit', edit_questao_path(questao) %></td>
+  app/views/questoes/index.html.erb:10:in `_app_views_questoes_index_html_erb__3452326389093563132_70184134302580'
+  app/controllers/questoes_controller.rb:7:in `index'
+
+
+  Rendered /Users/direx/.rvm/gems/ruby-1.9.3-p125@global/gems/actionpack-3.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.erb (3.2ms)
+  Rendered /Users/direx/.rvm/gems/ruby-1.9.3-p125@global/gems/actionpack-3.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.0ms)
+  Rendered /Users/direx/.rvm/gems/ruby-1.9.3-p125@global/gems/actionpack-3.2.6/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (9.7ms)
+
+
+Started GET "/" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 14ms (Views: 14.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/alternativas.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /alternativas.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /avaliacaos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /avaliacoes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/enderecos.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /enderecos.css - 304 Not Modified (25ms)
+
+
+Started GET "/assets/escolaridades.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /escolaridades.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/estados.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /estados.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /home.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/paciente_resposta.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /paciente_resposta.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /pacientes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes_respostas.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /pacientes_respostas.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /questaos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /questoes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /scaffolds.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/alternativas.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /alternativas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /avaliacaos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacoes.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /avaliacoes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/enderecos.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /enderecos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/escolaridades.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /escolaridades.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/estados.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /estados.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /home.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/paciente_resposta.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /paciente_resposta.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /pacientes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes_respostas.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /pacientes_respostas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /questaos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questo%CC%83es.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /questo%CC%83es.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 21ms (Views: 20.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /application.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/alternativas.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /alternativas.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /avaliacaos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /avaliacoes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/enderecos.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /enderecos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/escolaridades.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /escolaridades.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/estados.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /estados.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /home.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/paciente_resposta.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /paciente_resposta.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /pacientes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes_respostas.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /pacientes_respostas.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /questaos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /questoes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /scaffolds.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/alternativas.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /alternativas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /avaliacaos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacoes.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /avaliacoes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/enderecos.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /enderecos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/escolaridades.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /escolaridades.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/estados.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /estados.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /home.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/paciente_resposta.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /paciente_resposta.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /pacientes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes_respostas.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /pacientes_respostas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /questaos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questo%CC%83es.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /questo%CC%83es.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-04-17 20:19:55 -0300
+Served asset /application.js - 304 Not Modified (32ms)
+
+
+Started GET "/" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.4ms)
+Compiled application.css  (3ms)  (pid 10545)
+Completed 200 OK in 33ms (Views: 32.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Served asset /application.css - 200 OK (16ms)
+
+
+Started GET "/assets/alternativas.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Served asset /alternativas.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Served asset /avaliacaos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Served asset /avaliacoes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/enderecos.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Served asset /enderecos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/escolaridades.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Served asset /escolaridades.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/estados.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Served asset /estados.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Served asset /home.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/paciente_resposta.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Served asset /paciente_resposta.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Served asset /pacientes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes_respostas.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Served asset /pacientes_respostas.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Served asset /questaos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Served asset /questoes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Served asset /scaffolds.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/alternativas.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Served asset /alternativas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Served asset /avaliacaos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacoes.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Served asset /avaliacoes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/enderecos.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Served asset /enderecos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/escolaridades.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Served asset /escolaridades.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/estados.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Served asset /estados.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Served asset /home.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/paciente_resposta.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Served asset /paciente_resposta.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Served asset /pacientes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes_respostas.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Served asset /pacientes_respostas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Served asset /questaos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questo%CC%83es.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Served asset /questo%CC%83es.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:35 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 39ms (Views: 39.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /application.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/alternativas.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /alternativas.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /avaliacaos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /avaliacoes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/enderecos.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /enderecos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/escolaridades.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /escolaridades.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/estados.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /estados.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /home.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/paciente_resposta.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /paciente_resposta.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /pacientes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes_respostas.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /pacientes_respostas.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /questaos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /questoes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /scaffolds.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/alternativas.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /alternativas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /avaliacaos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacoes.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /avaliacoes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/enderecos.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /enderecos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/escolaridades.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /escolaridades.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/estados.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /estados.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /home.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/paciente_resposta.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /paciente_resposta.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /pacientes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes_respostas.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /pacientes_respostas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /questaos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questo%CC%83es.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /questo%CC%83es.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 38ms (Views: 37.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /application.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/alternativas.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /alternativas.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /avaliacaos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /avaliacoes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/enderecos.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /enderecos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/escolaridades.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /escolaridades.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/estados.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /estados.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /home.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/paciente_resposta.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /paciente_resposta.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /pacientes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes_respostas.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /pacientes_respostas.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /questaos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /questoes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /scaffolds.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/alternativas.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /alternativas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /avaliacaos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacoes.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /avaliacoes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/enderecos.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /enderecos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/escolaridades.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /escolaridades.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/estados.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /estados.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /home.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/paciente_resposta.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /paciente_resposta.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /pacientes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes_respostas.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /pacientes_respostas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /questaos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questo%CC%83es.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /questo%CC%83es.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:38 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/pacientes/new" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Processing by PacientesController#new as HTML
+  [1m[36mEscolaridade Load (0.4ms)[0m  [1mSELECT "tb_escolaridades".* FROM "tb_escolaridades" [0m
+  Rendered pacientes/_form.html.erb (7.5ms)
+  Rendered pacientes/new.html.erb within layouts/application (8.3ms)
+Completed 200 OK in 45ms (Views: 43.4ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/alternativas.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Served asset /alternativas.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Served asset /avaliacaos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Served asset /avaliacoes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/enderecos.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Served asset /enderecos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/escolaridades.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Served asset /escolaridades.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/estados.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Served asset /estados.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Served asset /home.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/paciente_resposta.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Served asset /paciente_resposta.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Served asset /pacientes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes_respostas.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Served asset /pacientes_respostas.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Served asset /questaos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Served asset /questoes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Served asset /scaffolds.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/alternativas.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Served asset /alternativas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Served asset /avaliacaos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacoes.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Served asset /avaliacoes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/enderecos.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Served asset /enderecos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/escolaridades.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Served asset /escolaridades.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/estados.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Served asset /estados.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Served asset /home.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/paciente_resposta.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Served asset /paciente_resposta.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Served asset /pacientes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes_respostas.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Served asset /pacientes_respostas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Served asset /questaos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questo%CC%83es.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Served asset /questo%CC%83es.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:40 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started POST "/pacientes" for 127.0.0.1 at 2013-04-17 20:21:43 -0300
+Processing by PacientesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"IOSjJ/zguF+me8zqavptjwC1WHHXIu8rAb2xF5QJ2lE=", "paciente"=>{"nm_paciente"=>"", "idade"=>"", "dt_nascimento(3i)"=>"17", "dt_nascimento(2i)"=>"4", "dt_nascimento(1i)"=>"1940", "naturalidade"=>"", "nr_rg"=>"", "convenio"=>"1", "ds_convenio"=>"", "escolaridade_id"=>"1", "fg_ativo"=>"1"}, "commit"=>"Avançar"}
+  Rendered pacientes/_form.html.erb (31.9ms)
+  Rendered pacientes/new.html.erb within layouts/application (32.7ms)
+Completed 500 Internal Server Error in 36ms
+
+ActionView::Template::Error (undefined method `map' for nil:NilClass):
+    38: 
+    39:   <p>  
+    40:      <%= form.label :escolaridade_id, "Escolaridade" %> </br>
+    41:      <%= form.collection_select(:escolaridade_id, @escolaridades, :id, :ds_escolaridade) %>   
+    42:   </p>
+    43:   
+    44:   <%= form.hidden_field :fg_ativo, :value => 1 %>
+  app/views/pacientes/_form.html.erb:41:in `block in _app_views_pacientes__form_html_erb__352909095285345851_70184105848680'
+  app/views/pacientes/_form.html.erb:1:in `_app_views_pacientes__form_html_erb__352909095285345851_70184105848680'
+  app/views/pacientes/new.html.erb:3:in `_app_views_pacientes_new_html_erb___4263765004490091798_70184105780460'
+  app/controllers/pacientes_controller.rb:58:in `block (2 levels) in create'
+  app/controllers/pacientes_controller.rb:49:in `create'
+
+
+  Rendered /Users/direx/.rvm/gems/ruby-1.9.3-p125@global/gems/actionpack-3.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.erb (3.6ms)
+  Rendered /Users/direx/.rvm/gems/ruby-1.9.3-p125@global/gems/actionpack-3.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.3ms)
+  Rendered /Users/direx/.rvm/gems/ruby-1.9.3-p125@global/gems/actionpack-3.2.6/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (10.4ms)
+
+
+Started POST "/pacientes" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Processing by PacientesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"IOSjJ/zguF+me8zqavptjwC1WHHXIu8rAb2xF5QJ2lE=", "paciente"=>{"nm_paciente"=>"fdsa", "idade"=>"32", "dt_nascimento(3i)"=>"17", "dt_nascimento(2i)"=>"4", "dt_nascimento(1i)"=>"1940", "naturalidade"=>"fdsa", "nr_rg"=>"43214312", "convenio"=>"1", "ds_convenio"=>"fdsaasfd", "escolaridade_id"=>"1", "fg_ativo"=>"1"}, "commit"=>"Avançar"}
+Redirected to http://localhost:3000/enderecos/new
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/enderecos/new" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Processing by EnderecosController#new as HTML
+  [1m[35mEstado Load (0.6ms)[0m  SELECT "tb_estados".* FROM "tb_estados" 
+  Rendered enderecos/_form.html.erb (3.1ms)
+  Rendered enderecos/new.html.erb within layouts/application (3.7ms)
+Completed 200 OK in 19ms (Views: 16.1ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/alternativas.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Served asset /alternativas.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Served asset /avaliacaos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Served asset /avaliacoes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/enderecos.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Served asset /enderecos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/escolaridades.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Served asset /escolaridades.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/estados.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Served asset /estados.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Served asset /home.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/paciente_resposta.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Served asset /paciente_resposta.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Served asset /pacientes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes_respostas.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Served asset /pacientes_respostas.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questaos.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Served asset /questaos.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questoes.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Served asset /questoes.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/scaffolds.css?body=1" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Served asset /scaffolds.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/alternativas.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Served asset /alternativas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Served asset /avaliacaos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/avaliacoes.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Served asset /avaliacoes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/enderecos.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Served asset /enderecos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/escolaridades.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Served asset /escolaridades.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/estados.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Served asset /estados.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Served asset /home.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/paciente_resposta.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Served asset /paciente_resposta.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Served asset /pacientes.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/pacientes_respostas.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Served asset /pacientes_respostas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questaos.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Served asset /questaos.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/questo%CC%83es.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Served asset /questo%CC%83es.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-04-17 20:21:54 -0300
+Served asset /application.js - 304 Not Modified (0ms)
