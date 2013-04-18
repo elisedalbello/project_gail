@@ -61,7 +61,7 @@ class EnderecosController < ApplicationController
           
           session[:paciente] = @paciente
           
-          format.html { redirect_to "/questoes/1,1", :notice => 'Paciente was successfully created.' }
+          format.html { redirect_to "/questoes/1,1", :notice => 'Cadastro efetuado com sucesso.' }
           format.json { render :json => @paciente, :status => :created, location: @paciente }
         end  
 

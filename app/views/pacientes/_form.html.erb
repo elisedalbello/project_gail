@@ -43,6 +43,6 @@
   
   <%= form.hidden_field :fg_ativo, :value => 1 %>
  
-<p> <%= form.submit "Avançar" %> </p>
+<p> <%= link_to 'Voltar', root_path %><%= form.submit "Avançar" %> </p>
 
 <% end %>

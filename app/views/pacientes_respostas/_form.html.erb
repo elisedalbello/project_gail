@@ -20,6 +20,6 @@
    <%= f.hidden_field :questao_id, :value => @questao.questao_id %>
    <%= f.hidden_field :avaliacao_id, :value => @questao.avaliacao_id %>
 
- <%= f.submit "Avançar" %> 
+ <%= link_to 'Voltar', :back %><%= f.submit "Avançar" %> 
 
 <% end %>

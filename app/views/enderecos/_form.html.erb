@@ -40,5 +40,5 @@
     <%= form.text_field :rua, :size => 60 %> </p>
     
    <%= form.hidden_field :fg_ativo, :value => 1 %>
-   <%= form.submit "Avançar" %>   
+   <%= link_to 'Voltar', new_paciente_path %><%= form.submit "Avançar" %>   
 <% end %>
