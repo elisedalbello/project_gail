@@ -25,7 +25,6 @@ class PacientesController < ApplicationController
   # GET /pacientes/new.json
   def new
     @paciente = Paciente.new
-    @escolaridades = Escolaridade.all
     
     respond_to do |format|
       format.html # new.html.erb
@@ -54,8 +53,7 @@ class PacientesController < ApplicationController
       format.json{render :json =>  @paciente, :status => :created, :location => @paciente}
 
      else
-       
-       format.html{render :action => "new"}
+	   format.html{render :action => "new"}
        format.json{render :json =>  @paciente.errors, :status => :unprocessable_entity}
      end
     end

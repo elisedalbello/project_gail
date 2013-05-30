@@ -38,7 +38,7 @@
 
   <p>  
      <%= form.label :escolaridade_id, "Escolaridade" %> </br>
-     <%= form.collection_select(:escolaridade_id, @escolaridades, :id, :ds_escolaridade) %>   
+     <%= form.collection_select(:escolaridade_id, Escolaridade.all, :id, :ds_escolaridade) %>   
   </p>
   
   <%= form.hidden_field :fg_ativo, :value => 1 %>
