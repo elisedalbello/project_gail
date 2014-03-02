@@ -11,14 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121004015006) do
+ActiveRecord::Schema.define(:version => 20140302175231) do
 
   create_table "tb_alternativas", :id => false, :force => true do |t|
-    t.integer "alternativa_id", :null => false
-    t.integer "avaliacao_id",   :null => false
-    t.integer "questao_id",     :null => false
+    t.integer "alternativa_id",     :null => false
+    t.integer "avaliacao_id",       :null => false
+    t.integer "questao_id",         :null => false
     t.text    "ds_alternativa"
-    t.boolean "fg_ativo",       :null => false
+    t.integer "proxima_questao_id"
+    t.boolean "fg_ativo",           :null => false
   end
 
   create_table "tb_avaliacoes", :id => false, :force => true do |t|
@@ -71,6 +72,13 @@ ActiveRecord::Schema.define(:version => 20121004015006) do
     t.integer "questao_id",     :null => false
     t.integer "avaliacao_id",   :null => false
     t.integer "alternativa_id", :null => false
+  end
+
+  create_table "tb_proximas_questoes", :id => false, :force => true do |t|
+    t.integer "avaliacao_id",    :null => false
+    t.integer "questao_id",      :null => false
+    t.integer "alternativa_id",  :null => false
+    t.integer "proxima_questao", :null => false
   end
 
   create_table "tb_questoes", :id => false, :force => true do |t|

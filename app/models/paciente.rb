@@ -26,7 +26,7 @@ class Paciente < ActiveRecord::Base
 
   attr_accessible :nm_paciente, :idade, :dt_nascimento, :naturalidade, :nr_rg, :convenio, :ds_convenio, :fg_ativo, :escolaridade_id
   validates :ds_convenio, :presence => true, :if => :has_convenio?
-  validates :idade, :presence => true, message: => "Preencha a idade"
+  validates :idade, :presence => true
 
   def has_convenio?
       self.convenio
