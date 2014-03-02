@@ -15,13 +15,15 @@ gem 'thin', '1.4.1'
 
 gem "execjs", "1.4.0"
 
-gem "therubyracer", "0.10.1"  
+gem "therubyracer", "0.12.1"
 
 gem "composite_primary_keys", "5.0.8"
 
 gem "annotate", "2.5.0"
 
 gem "brazilian-rails", "3.1.0"
+
+gem 'iconv', '~> 1.0.3'
 
 # Gems used only for assets and not required
 # in production environments by default.

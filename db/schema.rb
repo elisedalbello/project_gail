@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(:version => 20121004015006) do
     t.integer  "escolaridade_id",               :null => false
     t.string   "nm_paciente",     :limit => 60
     t.datetime "dt_nascimento"
-    t.integer  "idade"
+    t.integer  "idade",                         :null => false
     t.string   "naturalidade",    :limit => 60
     t.string   "nr_rg",           :limit => 20
     t.boolean  "convenio"

@@ -18,8 +18,8 @@ development:
   encoding: UTF-8
   database: gail_dev
   pool: 5
-  username: postgres
-  password: 123456
+  username: gail
+  password: gail123
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -45,8 +45,8 @@ test:
   encoding: UTF-8
   database: gail_test
   pool: 5
-  username: postgres
-  password: 123456
+  username: gail
+  password: gail123
 
 production:
   host: localhost
@@ -54,5 +54,5 @@ production:
   encoding: UTF-8
   database: gail_production
   pool: 5
-  username: postgres
-  password: 123456
+  username: gail
+  password: gail123

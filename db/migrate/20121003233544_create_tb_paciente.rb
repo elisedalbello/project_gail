@@ -10,7 +10,7 @@ class CreateTbPaciente < ActiveRecord::Migration
         escolaridade_id INTEGER NOT NULL,
         nm_paciente     VARCHAR(60) NULL,
         dt_nascimento   TIMESTAMP NULL,
-        idade           INTEGER NULL,
+        idade           INTEGER NOT NULL,
         naturalidade    VARCHAR(60) NULL,
         nr_rg           VARCHAR(20) NULL,
         convenio        BOOLEAN NULL,

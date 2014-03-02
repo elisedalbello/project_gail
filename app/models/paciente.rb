@@ -16,17 +16,17 @@
 #
 
 class Paciente < ActiveRecord::Base
-  
+
   set_table_name "tb_pacientes"
-  
+
   #Relacionamentos
   has_one :escolaridade
   has_one :endereco
   has_one :paciente_resposta
-  
+
   attr_accessible :nm_paciente, :idade, :dt_nascimento, :naturalidade, :nr_rg, :convenio, :ds_convenio, :fg_ativo, :escolaridade_id
   validates :ds_convenio, :presence => true, :if => :has_convenio?
-  validates :idade,  :presence => true
+  validates :idade, :presence => true, message: => "Preencha a idade"
 
   def has_convenio?
       self.convenio
