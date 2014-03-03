@@ -9,7 +9,9 @@ class Alternativa < ActiveRecord::Base
 
   def proxima_questao
     puts "________ find proxima_questao"
-    until (proxima_questao_id) return nil
+    if (!proxima_questao_id)
+        return nil
+    end
 
     Questao.find(proxima_questao_id, avaliacao_id)
   end
