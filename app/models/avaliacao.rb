@@ -8,11 +8,11 @@
 #
 
 class Avaliacao < ActiveRecord::Base
-  
-  set_table_name "tb_avaliacoes"
-  
+
+  self.table_name = "tb_avaliacoes"
+
   has_many :questoes, :conditions => "fg_ativo = true"
-  
+
   attr_accessible :descricao, :fg_ativo
-    
+
 end

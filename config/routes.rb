@@ -3,9 +3,9 @@ Gail::Application.routes.draw do
   root :to => 'home#index'
   get "home/index"
 
-  resources :pacientes_respostas
+  post "pacientes_respostas/responder"
 
-  resources :pacientes 
+  resources :pacientes
 
   resources :enderecos
 

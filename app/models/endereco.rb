@@ -14,12 +14,12 @@
 #
 
 class Endereco < ActiveRecord::Base
-  
-  set_table_name "tb_enderecos"
-  
+
+  self.table_name = "tb_enderecos"
+
   belongs_to :paciente
   belongs_to :estado
-  
+
   attr_accessible :rua, :nr, :bairro, :complemento, :cidade,  :estado_id, :fg_ativo
 
 end

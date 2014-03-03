@@ -8,9 +8,9 @@
 #
 
 class Escolaridade < ActiveRecord::Base
-  
-  set_table_name "tb_escolaridades"
-  
+
+  self.table_name = "tb_escolaridades"
+
   has_many :pacientes, :conditions => "fg_ativo = true"
-  
+
 end

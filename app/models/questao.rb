@@ -1,7 +1,7 @@
 class Questao < ActiveRecord::Base
 
-  set_table_name "tb_questoes"
-  set_primary_keys :questao_id, :avaliacao_id
+  self.table_name = "tb_questoes"
+  self.primary_keys  = [:questao_id, :avaliacao_id ]
 
   belongs_to :avaliacao
 

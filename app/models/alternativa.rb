@@ -1,13 +1,16 @@
 class Alternativa < ActiveRecord::Base
 
-  set_table_name "tb_alternativas"
-  set_primary_keys :alternativa_id, :questao_id, :avaliacao_id
+  self.table_name = "tb_alternativas"
+  self.primary_keys = [:alternativa_id, :questao_id, :avaliacao_id]
 
   belongs_to :questao
 
   has_and_belongs_to_many :paciente_resposta
 
   def proxima_questao
+    puts "________ find proxima_questao"
+    until (proxima_questao_id) return nil
+
     Questao.find(proxima_questao_id, avaliacao_id)
   end
 

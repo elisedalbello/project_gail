@@ -1,25 +1,25 @@
-<%= form_for(PacienteResposta.new, :url => pacientes_respostas_path, :method => "post") do |f| %>
+<%= form_for(@paciente_resposta, :url => pacientes_respostas_responder_path, :method => "post") do |f| %>
 
   <p>
     <%= @questao.questao_id %> - <%= @questao.ds_questao %>
   <p>
 
     <% @questao.alternativas.each do |alternativa|  %>
-            
-      <%= radio_button :paciente_resposta, :alternativa_id, alternativa.alternativa_id, 
+
+      <%= radio_button :paciente_resposta, :alternativa_id, alternativa.alternativa_id,
                                            :name => "paciente_resposta[alternativa_id]"  %>
-        <label> 
-          <%= alternativa.ds_alternativa %> 
+        <label>
+          <%= alternativa.ds_alternativa %>
         </label>
         <br />
     <% end %>
     </p>
- 
+
   </p>
    <%= f.hidden_field :paciente_id, :value => @paciente.id %>
    <%= f.hidden_field :questao_id, :value => @questao.questao_id %>
    <%= f.hidden_field :avaliacao_id, :value => @questao.avaliacao_id %>
 
- <%= link_to 'Voltar', :back %><%= f.submit "Avançar" %> 
+ <%= link_to 'Voltar', :back %><%= f.submit "Avançar" %>
 
 <% end %>

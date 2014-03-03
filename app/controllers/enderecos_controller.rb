@@ -26,10 +26,10 @@ class EnderecosController < ApplicationController
   def new
     @endereco = Endereco.new
     @estados = Estado.all
-    
+
     @paciente = session[:paciente]
 
-    if @paciente.nil? 
+    if @paciente.nil?
       redirect_to new_paciente_path
       return
     end
@@ -49,21 +49,23 @@ class EnderecosController < ApplicationController
   # POST /enderecos.json
   def create
     @endereco = Endereco.new(params[:endereco])
-    
+
     @paciente = session[:paciente]
-  
+
     respond_to do |format|
       if @endereco.save
 
         @paciente.endereco_id = @endereco.id
-        
+
         if @paciente.save
-          
+
           session[:paciente] = @paciente
-          
+
+          session.delete(:respostas)
+
           format.html { redirect_to "/questoes/1,1", :notice => 'Cadastro efetuado com sucesso.' }
           format.json { render :json => @paciente, :status => :created, location: @paciente }
-        end  
+        end
 
       else
         format.html { render :action => "new" }

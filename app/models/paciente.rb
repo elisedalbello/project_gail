@@ -17,7 +17,7 @@
 
 class Paciente < ActiveRecord::Base
 
-  set_table_name "tb_pacientes"
+  self.table_name = "tb_pacientes"
 
   #Relacionamentos
   has_one :escolaridade
