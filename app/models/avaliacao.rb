@@ -15,4 +15,11 @@ class Avaliacao < ActiveRecord::Base
 
   attr_accessible :descricao, :fg_ativo
 
+  def self.calcula_indice_gail(paciente_id)
+    sql = "SELECT * FROM indice_gail(%d) as indice_gail" % paciente_id
+    connection = ActiveRecord::Base.connection
+    result = connection.select_one(sql)
+    result["indice_gail"]
+  end
+
 end

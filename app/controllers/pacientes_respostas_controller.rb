@@ -18,17 +18,12 @@ class PacientesRespostasController < ApplicationController
 
       @proxima_questao = @alternativa_selecionada.proxima_questao
 
-      puts "----------------------------------------------------------"
-      puts @proxima_questao
-
       if (!@proxima_questao)
-        puts "------ SALVANDO ......."
-        PacienteResposta.salva_resposta(session[:respostas])
+
+          format.html { redirect_to resultado_path(@paciente_resposta.paciente_id) }
       else
-        puts "---------REDIRECTING.........."
        format.html { redirect_to  @proxima_questao}
      end
-     puts "### END # ------------------"
     end
 
 

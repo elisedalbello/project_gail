@@ -1,7 +1,10 @@
 Gail::Application.routes.draw do
 
   root :to => 'home#index'
+
   get "home/index"
+
+  get "resultado/show/:id" => "resultado#show", :as => :resultado
 
   post "pacientes_respostas/responder"
 
