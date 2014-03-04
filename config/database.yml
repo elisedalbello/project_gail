@@ -49,10 +49,10 @@ test:
   password: gail123
 
 production:
-  host: localhost
+  host: ec2-54-204-21-178.compute-1.amazonaws.com
   adapter: postgresql
   encoding: UTF-8
-  database: gail_production
+  database: dd9tvbtjgr7ood
   pool: 5
-  username:
-  password:
+  username: ypjneigbncnomu
+  password: TNUPxSK6nlAbSzhczWbkSq8rBF

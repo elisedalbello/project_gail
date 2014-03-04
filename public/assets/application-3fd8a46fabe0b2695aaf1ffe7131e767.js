@@ -1,0 +1,1 @@
+$(document).ready(function(){$("#paciente_idade").mask("999"),$("#endereco_cep").mask("99.999-999")});
