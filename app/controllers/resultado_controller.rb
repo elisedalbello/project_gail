@@ -15,7 +15,7 @@ class ResultadoController < ApplicationController
                 @respostas = session[:respostas]
                 
                 if(!@respostas.nil? and PacienteResposta.salva_resposta(@respostas))
-                    session.delete(:respostas)
+                    session.clear()
                 end
                 
                 @resultado = Avaliacao.calcula_indice_gail(@paciente.id)
