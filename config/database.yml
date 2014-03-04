@@ -54,5 +54,5 @@ production:
   encoding: UTF-8
   database: gail_production
   pool: 5
-  username: gail
-  password: gail123
+  username:
+  password:
