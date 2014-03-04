@@ -7,7 +7,6 @@ class PacienteResposta < ActiveRecord::Base
 
   attr_accessible :alternativa_id, :paciente_id, :avaliacao_id, :questao_id
 
-
   def self.salva_resposta(paciente_respostas)
     paciente_respostas.each do |pr|
         raise ActiveRecord::Rollback unless pr.save

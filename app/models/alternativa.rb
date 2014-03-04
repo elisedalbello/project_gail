@@ -8,12 +8,10 @@ class Alternativa < ActiveRecord::Base
   has_and_belongs_to_many :paciente_resposta
 
   def proxima_questao
-    puts "________ find proxima_questao"
     if (!proxima_questao_id)
         return nil
     end
-
-    Questao.find(proxima_questao_id, avaliacao_id)
+    Questao.find(proxima_questao_id, avaliacao_id) 
   end
 
 
