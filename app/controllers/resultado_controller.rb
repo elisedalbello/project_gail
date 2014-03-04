@@ -13,6 +13,7 @@ class ResultadoController < ApplicationController
             else
 
                 @respostas = session[:respostas]
+                
                 if(!@respostas.nil? and PacienteResposta.salva_resposta(@respostas))
                     session.delete(:respostas)
                 end
