@@ -84,7 +84,7 @@ form {
 	padding:30px;
 	border-radius:10px;
 	box-shadow: 0px 1px 10px #A86588;
-	
+
 }
 
 #header-img {
@@ -93,4 +93,29 @@ form {
 	display: block;
 	height: 250px;
 	margin-bottom: 30px;
+}
+
+.field_with_errors input {
+  border: 2px solid red !important;
+}
+
+#error_explanation > ul {
+list-style-type: circle;
+padding-left: 20px;
+}
+#error_explanation {
+  width: 450px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;}
+
+#error_explanation h2 {
+  text-align: left;
+  font-weight: bold;
+  font-size: 20px;
+  background-color: #c00;
+  color: #fff; }
+
+#error_explanation ul li {
+  font-size: 16px;
+  list-style: square; }
 }
