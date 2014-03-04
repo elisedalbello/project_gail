@@ -28061,3 +28061,1089 @@ Served asset /application.css - 304 Not Modified (0ms)
 
 Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-03 15:11:57 -0300
 Served asset /application.js - 304 Not Modified (0ms)
+Connecting to database specified by database.yml
+  [1m[36m (28.1ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (6.4ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'schema_migrations'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36m (75.0ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.9ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to CreateTbAvaliacao (20121003173810)
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35m (90.7ms)[0m   CREATE TABLE tb_avaliacoes(
+ id INTEGER NOT NULL,
+ descricao VARCHAR(60) UNIQUE NOT NULL,
+ fg_ativo BOOLEAN NOT NULL,
+ PRIMARY KEY (id)
+ );
+
+ INSERT INTO tb_avaliacoes(id, descricao, fg_ativo)
+ VALUES(1, 'Índice de Gail', true);
+
+  [1m[36m (0.9ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20121003173810')[0m
+  [1m[35m (16.5ms)[0m  COMMIT
+Migrating to CreateTbEstado (20121003174329)
+  [1m[36m (0.5ms)[0m  [1mBEGIN[0m
+  [1m[35m (58.3ms)[0m   CREATE TABLE tb_estados(
+ id INTEGER NOT NULL,
+ ds_estado VARCHAR(60) NULL,
+ sigla CHAR(2) NULL,
+ fg_ativo BOOLEAN NOT NULL,
+ PRIMARY KEY(id)
+ );
+
+ INSERT INTO tb_estados (id, ds_estado, sigla, fg_ativo)
+ VALUES
+ (1, 'Acre', 'AC', true),
+ (2, 'Alagoas', 'AL', true),
+ (3, 'Amapá', 'AP', true),
+ (4, 'Amazonas', 'AM', true),
+ (5, 'Bahia', 'BA', true),
+ (6, 'Ceará', 'CE', true),
+ (7, 'Distrito Federal', 'DF', true),
+ (8, 'Espírito Santo', 'ES', true),
+ (9, 'Goiás', 'GO', true),
+ (10, 'Maranhão', 'MA', true),
+ (11, 'Mato Grosso', 'MT', true),
+ (12, 'Mato Grosso do Sul', 'MS', true),
+ (13, 'Minas Gerais', 'MG', true),
+ (14, 'Pará', 'PA', true),
+ (15, 'Paraíba', 'PB', true),
+ (16, 'Paraná', 'PR', true),
+ (17, 'Pernambuco', 'PE', true),
+ (18, 'Piauí', 'PI', true),
+ (19, 'Rio de Janeiro', 'RJ', true),
+ (20, 'Rio Grande do Norte', 'RN', true),
+ (21, 'Rio Grande do Sul', 'RS', true),
+ (22, 'Rondônia', 'RO', true),
+ (23, 'Roraima', 'RR', true),
+ (24, 'Santa Catarina', 'SC', true),
+ (25, 'São Paulo', 'SP', true),
+ (26, 'Sergipe', 'SE', true),
+ (27, 'Tocantins', 'TO', true);
+
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20121003174329')[0m
+  [1m[35m (18.6ms)[0m  COMMIT
+Migrating to CreateTbEndereco (20121003230050)
+  [1m[36m (0.5ms)[0m  [1mBEGIN[0m
+  [1m[35m (60.5ms)[0m   CREATE TABLE tb_enderecos(
+ id SERIAL NOT NULL,
+ estado_id INTEGER NOT NULL,
+ rua VARCHAR(60) NULL,
+ nr VARCHAR(10) NULL,
+ complemento VARCHAR(60) NULL,
+ bairro VARCHAR(60) NULL,
+ cep VARCHAR(10) NULL,
+ cidade VARCHAR(60) NULL,
+ fg_ativo 	BOOLEAN NOT NULL,
+ PRIMARY KEY(id),
+ CONSTRAINT FK_ENDERECO
+ FOREIGN KEY(estado_id) REFERENCES tb_estados(id)
+ );
+
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20121003230050')[0m
+  [1m[35m (17.0ms)[0m  COMMIT
+Migrating to CreateTbEscolaridade (20121003233231)
+  [1m[36m (0.6ms)[0m  [1mBEGIN[0m
+  [1m[35m (50.8ms)[0m   CREATE TABLE tb_escolaridades(
+ id INTEGER NOT NULL,
+ ds_escolaridade VARCHAR(40) NULL,
+ fg_ativo BOOLEAN NOT NULL,
+ PRIMARY KEY(id)
+ );
+
+ INSERT INTO tb_escolaridades (id, ds_escolaridade, fg_ativo)
+ VALUES
+ (1, 'Sem Escolaridade', true),
+ (2, 'Ensino Fundamental Incompleto', true),
+ (3, 'Ensino Fundamental Completo', true),
+ (4, 'Ensino Médio Incompleto', true),
+ (5, 'Ensino Médio Completo', true),
+ (6, 'Ensino Superior Incompleto', true),
+ (7, 'Ensino Superior Completo', true),
+ (8, 'Especialização', true),
+ (9, 'Mestrado', true),
+ (10, 'Pós-Graduação', true),
+ (11, 'Doutorado', true),
+ (12, 'Pós-Doutorado', true);
+
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20121003233231')[0m
+  [1m[35m (17.2ms)[0m  COMMIT
+Migrating to CreateTbPaciente (20121003233544)
+  [1m[36m (0.5ms)[0m  [1mBEGIN[0m
+  [1m[35m (58.5ms)[0m   CREATE TABLE tb_pacientes(
+ id SERIAL NOT NULL,
+ endereco_id INTEGER NOT NULL,
+ escolaridade_id INTEGER NOT NULL,
+ nm_paciente VARCHAR(60) NULL,
+ dt_nascimento TIMESTAMP NULL,
+ idade INTEGER NOT NULL,
+ naturalidade VARCHAR(60) NULL,
+ nr_rg VARCHAR(20) NULL,
+ convenio BOOLEAN NULL,
+ ds_convenio VARCHAR(60) NULL,
+ fg_ativo BOOLEAN NOT NULL,
+ PRIMARY KEY(id),
+ CONSTRAINT FK_TB_PACIENTE_1
+ FOREIGN KEY(endereco_id) REFERENCES tb_enderecos(id),
+ CONSTRAINT FK_TB_PACIENTE_2
+ FOREIGN KEY(escolaridade_id) REFERENCES tb_escolaridades(id)
+ );
+
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20121003233544')[0m
+  [1m[35m (3.6ms)[0m  COMMIT
+Migrating to CreateTbQuestoes (20121003234138)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (99.1ms)[0m   CREATE TABLE tb_questoes(
+ avaliacao_id INTEGER NOT NULL,
+ questao_id INTEGER NOT NULL,
+ ds_questao TEXT,
+ fg_ativo BOOLEAN NOT NULL,
+ PRIMARY KEY(questao_id, avaliacao_id),
+ CONSTRAINT FK_TB_QUESTOES
+ FOREIGN KEY(avaliacao_id) REFERENCES tb_avaliacoes(id)
+ );
+
+ INSERT INTO tb_questoes(avaliacao_id, questao_id, ds_questao, fg_ativo)
+ VALUES
+ (1, 1, 'Você faz reposição hormonal?', true),
+ (1, 2, 'Há quanto tempo?', true),
+ (1, 3, 'Você é fumante?', true),
+ (1, 4, 'Qual a sua cor?', true),
+ (1, 5, 'Você já mestruou?', true),
+ (1, 6, 'Com qual idade ocorreu a sua primeira mentruação?', true),
+ (1, 7, 'Com que idade você teve seu primeiro filho?', true),
+ (1, 8, 'Você tem parentes com câncer de ovário?', true),
+ (1, 9, 'Quantas vezes você fez biópsias mamárias?', true),
+ (1, 10, 'Já teve Hiperplásia Atípica?', true),
+ (1, 11, 'Screening Mamográfico?', true),
+ (1, 12, 'CIS em biópsia?', true),
+ (1, 13, 'Qual seu consumo diário de álcool?', true),
+ (1, 14, 'Qual é a sua densidade mamográfica', true),
+ (1, 15, 'Faz uso do Tamoxifeno?', true),
+ (1, 16, 'Faz uso contraceptivo oral?', true),
+ (1, 17, 'Com que idade começou a usar?', true),
+ (1, 18, 'Número de parentes de 1ºGrau com câncer de mama:', true),
+ (1, 19, 'Se tem parentes com cancer de mama, qual era a idade: ', true);
+
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20121003234138')[0m
+  [1m[35m (12.8ms)[0m  COMMIT
+Migrating to CreateTbAlternativas (20121004011017)
+  [1m[36m (0.5ms)[0m  [1mBEGIN[0m
+  [1m[35m (124.0ms)[0m   CREATE TABLE tb_alternativas(
+ alternativa_id INTEGER NOT NULL,
+ avaliacao_id INTEGER NOT NULL,
+ questao_id INTEGER NOT NULL,
+ ds_alternativa TEXT,
+ proxima_questao_id INTEGER,
+ fg_ativo BOOLEAN NOT NULL,
+ PRIMARY KEY(alternativa_id, questao_id, avaliacao_id),
+ CONSTRAINT FK_TB_ALTERNATIVAS
+ FOREIGN KEY(questao_id, avaliacao_id) REFERENCES tb_questoes(questao_id, avaliacao_id),
+ FOREIGN KEY(proxima_questao_id, avaliacao_id) REFERENCES tb_questoes(questao_id, avaliacao_id)
+ );
+
+ INSERT INTO tb_alternativas(avaliacao_id, questao_id, alternativa_id, ds_alternativa, fg_ativo, proxima_questao_id)
+ VALUES
+ (1, 1, 1, 'Sim', true, 2),
+ (1, 1, 2, 'Não', true, 3),
+ (1, 2, 1, 'Menos de 1 ano', true, 3),
+ (1, 2, 2, 'De um a 5 anos', true, 3),
+ (1, 2, 3, 'Mais que 5 anos', true, 3),
+ (1, 3, 1, 'Sim', true, 4),
+ (1, 3, 2, 'Não', true, 4),
+ (1, 4, 1, 'Branca', true, 5),
+ (1, 4, 2, 'Preta', true, 5),
+ (1, 5, 1, 'Sim', true, 6),
+ (1, 5, 2, 'Não', true, 7),
+ (1, 6, 1, '14 anos ou mais', true, 7),
+ (1, 6, 2, '12 ou 13 anos', true, 7),
+ (1, 6, 3, '11 anos ou menos', true, 7),
+ (1, 7, 1, 'Ainda não tenho filhos', true, 8),
+ (1, 7, 2, 'Menos que 19 anos', true, 8),
+ (1, 7, 3, 'De 20 a 24 anos', true, 8),
+ (1, 7, 4, 'De 25 a 29 anos', true, 8),
+ (1, 7, 5, 'Mais que 30 anos', true, 8),
+ (1, 8, 1, 'Não', true, 9),
+ (1, 8, 2, 'Um', true, 9),
+ (1, 8, 3, 'Dois ou mais', true, 9),
+ (1, 9, 1, 'Nunca fiz biópsia', true, 10),
+ (1, 9, 2, 'Uma', true, 10),
+ (1, 9, 3, 'Duas ou mais', true, 10),
+ (1, 10, 1, 'Não aplicado ou desconhecido', true, 11),
+ (1, 10, 2, 'Não', true, 11),
+ (1, 10, 3, 'Sim', true, 11),
+ (1, 11, 1, 'Sim', true, 12),
+ (1, 11, 2, 'Não', true, 12),
+ (1, 12, 1, 'Não aplicada', true, 13),
+ (1, 12, 2, 'Menos de 40 anos', true, 13),
+ (1, 12, 3, 'Entre 40 e 44 anos', true, 13),
+ (1, 12, 4, 'Entre 45 e 49 anos', true, 13),
+ (1, 12, 5, 'Entre 50 e 54 anos', true, 13),
+ (1, 12, 6, 'Mais que 54 anos', true, 13),
+ (1, 13, 1, 'Não especificado', true, 14),
+ (1, 13, 2, 'Nenhum', true, 14),
+ (1, 13, 3, '1.5gm/dia', true, 14),
+ (1, 13, 4, '5gm/dia', true, 14),
+ (1, 13, 5, '15gm/dia', true, 14),
+ (1, 13, 6, '30gm/dia', true, 14),
+ (1, 13, 7, '60gm/dia', true, 14),
+ (1, 13, 8, '60gm/dia ou mais', true, 14),
+ (1, 14, 1, 'Não especificado', true, 15),
+ (1, 14, 2, '0% de tecido adiposo', true, 15),
+ (1, 14, 3, 'Entre 1% e 24%', true, 15),
+ (1, 14, 4, 'Entre 25% e 49%', true, 15),
+ (1, 14, 5, 'Entre 50% e 74%', true, 15),
+ (1, 14, 6, 'Entre 75% e 100%', true, 15),
+ (1, 15, 1, 'Sim', true, 16),
+ (1, 15, 2, 'Não', true, 16),
+ (1, 16, 1, 'Nunca usei', true, 18),
+ (1, 16, 2, 'Parou há 1-4 anos', true, 17),
+ (1, 16, 3, 'Parou há 5-9 anos', true, 17),
+ (1, 16, 4, 'Atualmente em uso', true, 17),
+ (1, 16, 5, 'Parou a há 10-14 anos', true, 17),
+ (1, 16, 6, 'Parou há 15 anos ou mais', true, 17),
+ (1, 17, 1, 'Menos que 20 anos', true, 18),
+ (1, 17, 2, 'Entre 20 e 24 anos', true, 18),
+ (1, 17, 3, 'Entre 25 e 29 anos', true, 18),
+ (1, 17, 4, 'Mais que 29 anos', true, 18),
+ (1, 18, 1, 'Nenhum', true, 19),
+ (1, 18, 2, 'Um', true, 19),
+ (1, 18, 3, 'Dois ou mais', true, 19),
+ (1, 19, 1, 'Nenhum', true, NULL),
+ (1, 19, 2, 'Menos que 20 anos', true, NULL),
+ (1, 19, 3, 'Entre 20 e 24 anos', true,NULL),
+ (1, 19, 4, 'Entre 25 e 29 anos', true, NULL),
+ (1, 19, 5, 'Mais que 30 anos', true, NULL);
+
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20121004011017')[0m
+  [1m[35m (14.0ms)[0m  COMMIT
+Migrating to CreateTbPacienteReposta (20121004015006)
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35m (48.4ms)[0m   CREATE TABLE tb_pacientes_respostas(
+ paciente_id INTEGER NOT NULL,
+ questao_id INTEGER NOT NULL,
+ avaliacao_id INTEGER NOT NULL,
+ alternativa_id INTEGER NOT NULL,
+ PRIMARY KEY(paciente_id, questao_id, avaliacao_id, alternativa_id),
+ CONSTRAINT FK_TB_PACIENTE_RESPOSTA 
+ FOREIGN KEY(alternativa_id, questao_id, avaliacao_id) REFERENCES tb_alternativas(alternativa_id, questao_id, avaliacao_id),
+ CONSTRAINT FK_TB_PACIENTE_RESPOSTA_1 
+ FOREIGN KEY(paciente_id) REFERENCES tb_pacientes(id) 
+ );
+
+  [1m[36m (0.6ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20121004015006')[0m
+  [1m[35m (13.1ms)[0m  COMMIT
+Migrating to AddSessionsTable (20140303143801)
+  [1m[36m (0.5ms)[0m  [1mBEGIN[0m
+  [1m[35m (125.1ms)[0m  CREATE TABLE "sessions" ("id" serial primary key, "session_id" character varying(255) NOT NULL, "data" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (2.4ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'sessions'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35m (38.4ms)[0m  CREATE INDEX "index_sessions_on_session_id" ON "sessions" ("session_id")
+  [1m[36m (2.7ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'sessions'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35mColumns for index index_sessions_on_session_id on sessions (1.0ms)[0m   SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 16705
+ AND a.attnum IN (2)
+
+  [1m[36m (53.6ms)[0m  [1mCREATE INDEX "index_sessions_on_updated_at" ON "sessions" ("updated_at")[0m
+  [1m[35m (0.7ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20140303143801')
+  [1m[36m (13.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (1.3ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+  [1m[36mPK and serial sequence (17.8ms)[0m  [1m SELECT attr.attname, seq.relname
+ FROM pg_class seq,
+ pg_attribute attr,
+ pg_depend dep,
+ pg_namespace name,
+ pg_constraint cons
+ WHERE seq.oid = dep.objid
+ AND seq.relkind = 'S'
+ AND attr.attrelid = dep.refobjid
+ AND attr.attnum = dep.refobjsubid
+ AND attr.attrelid = cons.conrelid
+ AND attr.attnum = cons.conkey[1]
+ AND cons.contype = 'p'
+ AND dep.refobjid = '"sessions"'::regclass
+[0m
+  [1m[35m (6.2ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'sessions'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36mColumns for index index_sessions_on_session_id on sessions (1.1ms)[0m  [1m SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 16705
+ AND a.attnum IN (2)
+[0m
+  [1m[35mColumns for index index_sessions_on_updated_at on sessions (0.8ms)[0m   SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 16705
+ AND a.attnum IN (5)
+
+  [1m[36mPK and serial sequence (4.5ms)[0m  [1m SELECT attr.attname, seq.relname
+ FROM pg_class seq,
+ pg_attribute attr,
+ pg_depend dep,
+ pg_namespace name,
+ pg_constraint cons
+ WHERE seq.oid = dep.objid
+ AND seq.relkind = 'S'
+ AND attr.attrelid = dep.refobjid
+ AND attr.attnum = dep.refobjsubid
+ AND attr.attrelid = cons.conrelid
+ AND attr.attnum = cons.conkey[1]
+ AND cons.contype = 'p'
+ AND dep.refobjid = '"tb_alternativas"'::regclass
+[0m
+  [1m[35mPK and custom sequence (3.6ms)[0m   SELECT attr.attname,
+ CASE
+ WHEN split_part(def.adsrc, '''', 2) ~ '.' THEN
+ substr(split_part(def.adsrc, '''', 2),
+ strpos(split_part(def.adsrc, '''', 2), '.')+1)
+ ELSE split_part(def.adsrc, '''', 2)
+ END
+ FROM pg_class t
+ JOIN pg_attribute attr ON (t.oid = attrelid)
+ JOIN pg_attrdef def ON (adrelid = attrelid AND adnum = attnum)
+ JOIN pg_constraint cons ON (conrelid = adrelid AND adnum = conkey[1])
+ WHERE t.oid = '"tb_alternativas"'::regclass
+ AND cons.contype = 'p'
+ AND def.adsrc ~* 'nextval'
+
+  [1m[36m (2.5ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'tb_alternativas'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35mPK and serial sequence (4.3ms)[0m   SELECT attr.attname, seq.relname
+ FROM pg_class seq,
+ pg_attribute attr,
+ pg_depend dep,
+ pg_namespace name,
+ pg_constraint cons
+ WHERE seq.oid = dep.objid
+ AND seq.relkind = 'S'
+ AND attr.attrelid = dep.refobjid
+ AND attr.attnum = dep.refobjsubid
+ AND attr.attrelid = cons.conrelid
+ AND attr.attnum = cons.conkey[1]
+ AND cons.contype = 'p'
+ AND dep.refobjid = '"tb_avaliacoes"'::regclass
+
+  [1m[36mPK and custom sequence (2.5ms)[0m  [1m SELECT attr.attname,
+ CASE
+ WHEN split_part(def.adsrc, '''', 2) ~ '.' THEN
+ substr(split_part(def.adsrc, '''', 2),
+ strpos(split_part(def.adsrc, '''', 2), '.')+1)
+ ELSE split_part(def.adsrc, '''', 2)
+ END
+ FROM pg_class t
+ JOIN pg_attribute attr ON (t.oid = attrelid)
+ JOIN pg_attrdef def ON (adrelid = attrelid AND adnum = attnum)
+ JOIN pg_constraint cons ON (conrelid = adrelid AND adnum = conkey[1])
+ WHERE t.oid = '"tb_avaliacoes"'::regclass
+ AND cons.contype = 'p'
+ AND def.adsrc ~* 'nextval'
+[0m
+  [1m[35m (2.7ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'tb_avaliacoes'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36mColumns for index tb_avaliacoes_descricao_key on tb_avaliacoes (0.9ms)[0m  [1m SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 16609
+ AND a.attnum IN (2)
+[0m
+  [1m[35mPK and serial sequence (4.4ms)[0m   SELECT attr.attname, seq.relname
+ FROM pg_class seq,
+ pg_attribute attr,
+ pg_depend dep,
+ pg_namespace name,
+ pg_constraint cons
+ WHERE seq.oid = dep.objid
+ AND seq.relkind = 'S'
+ AND attr.attrelid = dep.refobjid
+ AND attr.attnum = dep.refobjsubid
+ AND attr.attrelid = cons.conrelid
+ AND attr.attnum = cons.conkey[1]
+ AND cons.contype = 'p'
+ AND dep.refobjid = '"tb_enderecos"'::regclass
+
+  [1m[36m (2.3ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'tb_enderecos'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35mPK and serial sequence (4.2ms)[0m   SELECT attr.attname, seq.relname
+ FROM pg_class seq,
+ pg_attribute attr,
+ pg_depend dep,
+ pg_namespace name,
+ pg_constraint cons
+ WHERE seq.oid = dep.objid
+ AND seq.relkind = 'S'
+ AND attr.attrelid = dep.refobjid
+ AND attr.attnum = dep.refobjsubid
+ AND attr.attrelid = cons.conrelid
+ AND attr.attnum = cons.conkey[1]
+ AND cons.contype = 'p'
+ AND dep.refobjid = '"tb_escolaridades"'::regclass
+
+  [1m[36mPK and custom sequence (2.4ms)[0m  [1m SELECT attr.attname,
+ CASE
+ WHEN split_part(def.adsrc, '''', 2) ~ '.' THEN
+ substr(split_part(def.adsrc, '''', 2),
+ strpos(split_part(def.adsrc, '''', 2), '.')+1)
+ ELSE split_part(def.adsrc, '''', 2)
+ END
+ FROM pg_class t
+ JOIN pg_attribute attr ON (t.oid = attrelid)
+ JOIN pg_attrdef def ON (adrelid = attrelid AND adnum = attnum)
+ JOIN pg_constraint cons ON (conrelid = adrelid AND adnum = conkey[1])
+ WHERE t.oid = '"tb_escolaridades"'::regclass
+ AND cons.contype = 'p'
+ AND def.adsrc ~* 'nextval'
+[0m
+  [1m[35m (2.2ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'tb_escolaridades'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36mPK and serial sequence (4.3ms)[0m  [1m SELECT attr.attname, seq.relname
+ FROM pg_class seq,
+ pg_attribute attr,
+ pg_depend dep,
+ pg_namespace name,
+ pg_constraint cons
+ WHERE seq.oid = dep.objid
+ AND seq.relkind = 'S'
+ AND attr.attrelid = dep.refobjid
+ AND attr.attnum = dep.refobjsubid
+ AND attr.attrelid = cons.conrelid
+ AND attr.attnum = cons.conkey[1]
+ AND cons.contype = 'p'
+ AND dep.refobjid = '"tb_estados"'::regclass
+[0m
+  [1m[35mPK and custom sequence (2.4ms)[0m   SELECT attr.attname,
+ CASE
+ WHEN split_part(def.adsrc, '''', 2) ~ '.' THEN
+ substr(split_part(def.adsrc, '''', 2),
+ strpos(split_part(def.adsrc, '''', 2), '.')+1)
+ ELSE split_part(def.adsrc, '''', 2)
+ END
+ FROM pg_class t
+ JOIN pg_attribute attr ON (t.oid = attrelid)
+ JOIN pg_attrdef def ON (adrelid = attrelid AND adnum = attnum)
+ JOIN pg_constraint cons ON (conrelid = adrelid AND adnum = conkey[1])
+ WHERE t.oid = '"tb_estados"'::regclass
+ AND cons.contype = 'p'
+ AND def.adsrc ~* 'nextval'
+
+  [1m[36m (2.2ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'tb_estados'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35mPK and serial sequence (4.2ms)[0m   SELECT attr.attname, seq.relname
+ FROM pg_class seq,
+ pg_attribute attr,
+ pg_depend dep,
+ pg_namespace name,
+ pg_constraint cons
+ WHERE seq.oid = dep.objid
+ AND seq.relkind = 'S'
+ AND attr.attrelid = dep.refobjid
+ AND attr.attnum = dep.refobjsubid
+ AND attr.attrelid = cons.conrelid
+ AND attr.attnum = cons.conkey[1]
+ AND cons.contype = 'p'
+ AND dep.refobjid = '"tb_pacientes"'::regclass
+
+  [1m[36m (2.2ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'tb_pacientes'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+  [1m[35mPK and serial sequence (4.1ms)[0m   SELECT attr.attname, seq.relname
+ FROM pg_class seq,
+ pg_attribute attr,
+ pg_depend dep,
+ pg_namespace name,
+ pg_constraint cons
+ WHERE seq.oid = dep.objid
+ AND seq.relkind = 'S'
+ AND attr.attrelid = dep.refobjid
+ AND attr.attnum = dep.refobjsubid
+ AND attr.attrelid = cons.conrelid
+ AND attr.attnum = cons.conkey[1]
+ AND cons.contype = 'p'
+ AND dep.refobjid = '"tb_pacientes_respostas"'::regclass
+
+  [1m[36mPK and custom sequence (2.4ms)[0m  [1m SELECT attr.attname,
+ CASE
+ WHEN split_part(def.adsrc, '''', 2) ~ '.' THEN
+ substr(split_part(def.adsrc, '''', 2),
+ strpos(split_part(def.adsrc, '''', 2), '.')+1)
+ ELSE split_part(def.adsrc, '''', 2)
+ END
+ FROM pg_class t
+ JOIN pg_attribute attr ON (t.oid = attrelid)
+ JOIN pg_attrdef def ON (adrelid = attrelid AND adnum = attnum)
+ JOIN pg_constraint cons ON (conrelid = adrelid AND adnum = conkey[1])
+ WHERE t.oid = '"tb_pacientes_respostas"'::regclass
+ AND cons.contype = 'p'
+ AND def.adsrc ~* 'nextval'
+[0m
+  [1m[35m (2.4ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'tb_pacientes_respostas'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+
+  [1m[36mPK and serial sequence (4.3ms)[0m  [1m SELECT attr.attname, seq.relname
+ FROM pg_class seq,
+ pg_attribute attr,
+ pg_depend dep,
+ pg_namespace name,
+ pg_constraint cons
+ WHERE seq.oid = dep.objid
+ AND seq.relkind = 'S'
+ AND attr.attrelid = dep.refobjid
+ AND attr.attnum = dep.refobjsubid
+ AND attr.attrelid = cons.conrelid
+ AND attr.attnum = cons.conkey[1]
+ AND cons.contype = 'p'
+ AND dep.refobjid = '"tb_questoes"'::regclass
+[0m
+  [1m[35mPK and custom sequence (2.5ms)[0m   SELECT attr.attname,
+ CASE
+ WHEN split_part(def.adsrc, '''', 2) ~ '.' THEN
+ substr(split_part(def.adsrc, '''', 2),
+ strpos(split_part(def.adsrc, '''', 2), '.')+1)
+ ELSE split_part(def.adsrc, '''', 2)
+ END
+ FROM pg_class t
+ JOIN pg_attribute attr ON (t.oid = attrelid)
+ JOIN pg_attrdef def ON (adrelid = attrelid AND adnum = attnum)
+ JOIN pg_constraint cons ON (conrelid = adrelid AND adnum = conkey[1])
+ WHERE t.oid = '"tb_questoes"'::regclass
+ AND cons.contype = 'p'
+ AND def.adsrc ~* 'nextval'
+
+  [1m[36m (2.4ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'tb_questoes'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname = ANY (current_schemas(false)) )
+ ORDER BY i.relname
+[0m
+Connecting to database specified by database.yml
+
+
+Started GET "/" for 127.0.0.1 at 2014-03-04 13:01:59 -0300
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (2.2ms)
+Completed 200 OK in 62ms (Views: 34.9ms | ActiveRecord: 26.3ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-03-04 13:02:00 -0300
+Served asset /application.css - 200 OK (2ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-04 13:02:00 -0300
+Served asset /application.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/bggail.jpg" for 127.0.0.1 at 2014-03-04 13:02:00 -0300
+Served asset /bggail.jpg - 304 Not Modified (13ms)
+
+
+Started GET "/alternativas" for 127.0.0.1 at 2014-03-04 13:02:05 -0300
+
+ActionController::RoutingError (No route matches [GET] "/alternativas"):
+  actionpack (3.2.6) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (3.2.6) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.6) lib/rails/rack/logger.rb:26:in `call_app'
+  railties (3.2.6) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.6) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.5) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.5) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.6) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.5) lib/rack/lock.rb:15:in `call'
+  actionpack (3.2.6) lib/action_dispatch/middleware/static.rb:62:in `call'
+  railties (3.2.6) lib/rails/engine.rb:479:in `call'
+  railties (3.2.6) lib/rails/application.rb:220:in `call'
+  rack (1.4.5) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.6) lib/rails/rack/log_tailer.rb:17:in `call'
+  thin (1.4.1) lib/thin/connection.rb:80:in `block in pre_process'
+  thin (1.4.1) lib/thin/connection.rb:78:in `catch'
+  thin (1.4.1) lib/thin/connection.rb:78:in `pre_process'
+  thin (1.4.1) lib/thin/connection.rb:53:in `process'
+  thin (1.4.1) lib/thin/connection.rb:38:in `receive_data'
+  eventmachine (1.0.3) lib/eventmachine.rb:187:in `run_machine'
+  eventmachine (1.0.3) lib/eventmachine.rb:187:in `run'
+  thin (1.4.1) lib/thin/backends/base.rb:63:in `start'
+  thin (1.4.1) lib/thin/server.rb:159:in `start'
+  rack (1.4.5) lib/rack/handler/thin.rb:13:in `run'
+  rack (1.4.5) lib/rack/server.rb:268:in `start'
+  railties (3.2.6) lib/rails/commands/server.rb:70:in `start'
+  railties (3.2.6) lib/rails/commands.rb:55:in `block in <top (required)>'
+  railties (3.2.6) lib/rails/commands.rb:50:in `tap'
+  railties (3.2.6) lib/rails/commands.rb:50:in `<top (required)>'
+  script/rails:6:in `require'
+  script/rails:6:in `<main>'
+
+
+  Rendered /home/divecch/.rvm/gems/ruby-2.1.0/gems/actionpack-3.2.6/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (0.6ms)
+
+
+Started GET "/alternativa" for 127.0.0.1 at 2014-03-04 13:02:10 -0300
+
+ActionController::RoutingError (No route matches [GET] "/alternativa"):
+  actionpack (3.2.6) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (3.2.6) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.6) lib/rails/rack/logger.rb:26:in `call_app'
+  railties (3.2.6) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.6) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.5) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.5) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.6) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.5) lib/rack/lock.rb:15:in `call'
+  actionpack (3.2.6) lib/action_dispatch/middleware/static.rb:62:in `call'
+  railties (3.2.6) lib/rails/engine.rb:479:in `call'
+  railties (3.2.6) lib/rails/application.rb:220:in `call'
+  rack (1.4.5) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.6) lib/rails/rack/log_tailer.rb:17:in `call'
+  thin (1.4.1) lib/thin/connection.rb:80:in `block in pre_process'
+  thin (1.4.1) lib/thin/connection.rb:78:in `catch'
+  thin (1.4.1) lib/thin/connection.rb:78:in `pre_process'
+  thin (1.4.1) lib/thin/connection.rb:53:in `process'
+  thin (1.4.1) lib/thin/connection.rb:38:in `receive_data'
+  eventmachine (1.0.3) lib/eventmachine.rb:187:in `run_machine'
+  eventmachine (1.0.3) lib/eventmachine.rb:187:in `run'
+  thin (1.4.1) lib/thin/backends/base.rb:63:in `start'
+  thin (1.4.1) lib/thin/server.rb:159:in `start'
+  rack (1.4.5) lib/rack/handler/thin.rb:13:in `run'
+  rack (1.4.5) lib/rack/server.rb:268:in `start'
+  railties (3.2.6) lib/rails/commands/server.rb:70:in `start'
+  railties (3.2.6) lib/rails/commands.rb:55:in `block in <top (required)>'
+  railties (3.2.6) lib/rails/commands.rb:50:in `tap'
+  railties (3.2.6) lib/rails/commands.rb:50:in `<top (required)>'
+  script/rails:6:in `require'
+  script/rails:6:in `<main>'
+
+
+  Rendered /home/divecch/.rvm/gems/ruby-2.1.0/gems/actionpack-3.2.6/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (4.9ms)
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+
+
+Started GET "/pacientes/1" for 127.0.0.1 at 2014-03-04 13:02:51 -0300
+Processing by PacientesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mPaciente Load (0.7ms)[0m  [1mSELECT "tb_pacientes".* FROM "tb_pacientes" WHERE "tb_pacientes"."id" = $1 LIMIT 1[0m  [["id", "1"]]
+Completed 500 Internal Server Error in 6ms
+
+ActiveRecord::RecordNotFound (Couldn't find Paciente with id=1):
+  app/controllers/pacientes_controller.rb:16:in `show'
+
+
+  Rendered /home/divecch/.rvm/gems/ruby-2.1.0/gems/actionpack-3.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.erb (2.5ms)
+  Rendered /home/divecch/.rvm/gems/ruby-2.1.0/gems/actionpack-3.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.0ms)
+  Rendered /home/divecch/.rvm/gems/ruby-2.1.0/gems/actionpack-3.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (70.2ms)
+
+
+Started GET "/pacientes/" for 127.0.0.1 at 2014-03-04 13:03:01 -0300
+Processing by PacientesController#index as HTML
+  [1m[35mPaciente Load (0.3ms)[0m  SELECT "tb_pacientes".* FROM "tb_pacientes" 
+  Rendered pacientes/index.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 21ms (Views: 19.3ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-04 13:03:01 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+
+
+Started GET "/" for 127.0.0.1 at 2014-03-04 13:27:06 -0300
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 12ms (Views: 11.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-04 13:27:06 -0300
+Served asset /application.js - 304 Not Modified (3ms)
+
+
+Started GET "/pacientes/new" for 127.0.0.1 at 2014-03-04 13:27:10 -0300
+Processing by PacientesController#new as HTML
+  [1m[36mEscolaridade Load (0.4ms)[0m  [1mSELECT "tb_escolaridades".* FROM "tb_escolaridades" [0m
+  Rendered pacientes/_form.html.erb (35.2ms)
+  Rendered pacientes/new.html.erb within layouts/application (56.7ms)
+Completed 200 OK in 93ms (Views: 69.5ms | ActiveRecord: 5.7ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-04 13:27:10 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started POST "/pacientes" for 127.0.0.1 at 2014-03-04 13:27:32 -0300
+Processing by PacientesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"nD5N91bvoWHJ5MNRlGK+DiTPqX9Aw7w1lqFEOoitYu4=", "paciente"=>{"nm_paciente"=>"reqwrqw", "idade"=>"12", "dt_nascimento(3i)"=>"4", "dt_nascimento(2i)"=>"3", "dt_nascimento(1i)"=>"1940", "naturalidade"=>"", "nr_rg"=>"", "convenio"=>"1", "ds_convenio"=>"erwqrw", "escolaridade_id"=>"1", "fg_ativo"=>"1"}, "commit"=>"Avançar"}
+Redirected to http://localhost:3000/enderecos/new
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/enderecos/new" for 127.0.0.1 at 2014-03-04 13:27:32 -0300
+Processing by EnderecosController#new as HTML
+  [1m[35mEstado Load (1.5ms)[0m  SELECT "tb_estados".* FROM "tb_estados" 
+  Rendered enderecos/_form.html.erb (8.6ms)
+  Rendered enderecos/new.html.erb within layouts/application (12.0ms)
+Completed 200 OK in 72ms (Views: 28.5ms | ActiveRecord: 11.0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-04 13:27:32 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started POST "/enderecos" for 127.0.0.1 at 2014-03-04 13:27:38 -0300
+Processing by EnderecosController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"nD5N91bvoWHJ5MNRlGK+DiTPqX9Aw7w1lqFEOoitYu4=", "endereco"=>{"rua"=>"", "nr"=>"", "bairro"=>"", "complemento"=>"casa", "estado_id"=>"1", "cidade"=>"", "fg_ativo"=>"1"}, "commit"=>"Avançar"}
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.8ms)[0m  INSERT INTO "tb_enderecos" ("bairro", "cep", "cidade", "complemento", "estado_id", "fg_ativo", "nr", "rua") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["bairro", ""], ["cep", nil], ["cidade", ""], ["complemento", "casa"], ["estado_id", 1], ["fg_ativo", true], ["nr", ""], ["rua", ""]]
+  [1m[36m (7.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  BEGIN
+  [1m[36mSQL (3.6ms)[0m  [1mINSERT INTO "tb_pacientes" ("convenio", "ds_convenio", "dt_nascimento", "endereco_id", "escolaridade_id", "fg_ativo", "idade", "naturalidade", "nm_paciente", "nr_rg") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"[0m  [["convenio", true], ["ds_convenio", "erwqrw"], ["dt_nascimento", Seg, 04 Mar 1940 00:00:00 UTC +00:00], ["endereco_id", 1], ["escolaridade_id", 1], ["fg_ativo", true], ["idade", 12], ["naturalidade", ""], ["nm_paciente", "reqwrqw"], ["nr_rg", ""]]
+  [1m[35m (8.3ms)[0m  COMMIT
+Redirected to http://localhost:3000/questoes/1,1
+Completed 302 Found in 35ms (ActiveRecord: 22.2ms)
+
+
+Started GET "/questoes/1,1" for 127.0.0.1 at 2014-03-04 13:27:38 -0300
+Processing by QuestoesController#show as HTML
+  Parameters: {"id"=>"1,1"}
+  [1m[36mQuestao Load (0.9ms)[0m  [1mSELECT "tb_questoes".* FROM "tb_questoes" WHERE "tb_questoes"."questao_id" = 1 AND "tb_questoes"."avaliacao_id" = 1[0m
+  [1m[35mAlternativa Load (0.6ms)[0m  SELECT "tb_alternativas".* FROM "tb_alternativas" WHERE "tb_alternativas"."questao_id" = 1 AND (fg_ativo = true)
+  Rendered pacientes_respostas/_form.html.erb (31.9ms)
+  Rendered questoes/show.html.erb within layouts/application (33.1ms)
+Completed 200 OK in 68ms (Views: 35.7ms | ActiveRecord: 5.6ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-04 13:27:38 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+
+
+Started GET "/" for 127.0.0.1 at 2014-03-04 13:32:40 -0300
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (1.4ms)
+Completed 200 OK in 11ms (Views: 10.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-04 13:32:40 -0300
+Served asset /application.js - 304 Not Modified (1ms)
+
+
+Started GET "/pacientes/new" for 127.0.0.1 at 2014-03-04 13:32:43 -0300
+Processing by PacientesController#new as HTML
+  [1m[36mEscolaridade Load (1.2ms)[0m  [1mSELECT "tb_escolaridades".* FROM "tb_escolaridades" [0m
+  Rendered pacientes/_form.html.erb (25.4ms)
+  Rendered pacientes/new.html.erb within layouts/application (27.7ms)
+Completed 200 OK in 32ms (Views: 24.3ms | ActiveRecord: 6.2ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-04 13:32:43 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started POST "/pacientes" for 127.0.0.1 at 2014-03-04 13:32:55 -0300
+Processing by PacientesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"nD5N91bvoWHJ5MNRlGK+DiTPqX9Aw7w1lqFEOoitYu4=", "paciente"=>{"nm_paciente"=>"reqw", "idade"=>"12", "dt_nascimento(3i)"=>"4", "dt_nascimento(2i)"=>"3", "dt_nascimento(1i)"=>"1940", "naturalidade"=>"", "nr_rg"=>"", "convenio"=>"1", "ds_convenio"=>"4312", "escolaridade_id"=>"1", "fg_ativo"=>"1"}, "commit"=>"Avançar"}
+Redirected to http://localhost:3000/enderecos/new
+Completed 302 Found in 5ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/enderecos/new" for 127.0.0.1 at 2014-03-04 13:32:55 -0300
+Processing by EnderecosController#new as HTML
+  [1m[35mEstado Load (0.9ms)[0m  SELECT "tb_estados".* FROM "tb_estados" 
+  Rendered enderecos/_form.html.erb (8.5ms)
+  Rendered enderecos/new.html.erb within layouts/application (10.2ms)
+Completed 200 OK in 57ms (Views: 13.1ms | ActiveRecord: 9.7ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-04 13:32:55 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started POST "/enderecos" for 127.0.0.1 at 2014-03-04 13:32:59 -0300
+Processing by EnderecosController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"nD5N91bvoWHJ5MNRlGK+DiTPqX9Aw7w1lqFEOoitYu4=", "endereco"=>{"rua"=>"", "nr"=>"", "bairro"=>"", "complemento"=>"casa", "estado_id"=>"1", "cidade"=>"", "fg_ativo"=>"1"}, "commit"=>"Avançar"}
+  [1m[36m (0.5ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (2.9ms)[0m  INSERT INTO "tb_enderecos" ("bairro", "cep", "cidade", "complemento", "estado_id", "fg_ativo", "nr", "rua") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["bairro", ""], ["cep", nil], ["cidade", ""], ["complemento", "casa"], ["estado_id", 1], ["fg_ativo", true], ["nr", ""], ["rua", ""]]
+  [1m[36m (14.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36mSQL (2.2ms)[0m  [1mINSERT INTO "tb_pacientes" ("convenio", "ds_convenio", "dt_nascimento", "endereco_id", "escolaridade_id", "fg_ativo", "idade", "naturalidade", "nm_paciente", "nr_rg") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"[0m  [["convenio", true], ["ds_convenio", "4312"], ["dt_nascimento", Seg, 04 Mar 1940 00:00:00 UTC +00:00], ["endereco_id", 2], ["escolaridade_id", 1], ["fg_ativo", true], ["idade", 12], ["naturalidade", ""], ["nm_paciente", "reqw"], ["nr_rg", ""]]
+  [1m[35m (8.7ms)[0m  COMMIT
+Redirected to http://localhost:3000/questoes/1,1
+Completed 302 Found in 42ms (ActiveRecord: 28.8ms)
+
+
+Started GET "/questoes/1,1" for 127.0.0.1 at 2014-03-04 13:33:00 -0300
+Processing by QuestoesController#show as HTML
+  Parameters: {"id"=>"1,1"}
+  [1m[36mQuestao Load (0.6ms)[0m  [1mSELECT "tb_questoes".* FROM "tb_questoes" WHERE "tb_questoes"."questao_id" = 1 AND "tb_questoes"."avaliacao_id" = 1[0m
+  [1m[35mAlternativa Load (0.6ms)[0m  SELECT "tb_alternativas".* FROM "tb_alternativas" WHERE "tb_alternativas"."questao_id" = 1 AND (fg_ativo = true)
+  Rendered pacientes_respostas/_form.html.erb (14.8ms)
+  Rendered questoes/show.html.erb within layouts/application (15.7ms)
+Completed 200 OK in 37ms (Views: 17.2ms | ActiveRecord: 4.6ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-04 13:33:00 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+Connecting to database specified by database.yml
+
+
+Started GET "/questoes/1,1" for 127.0.0.1 at 2014-03-04 13:34:37 -0300
+Processing by QuestoesController#show as HTML
+  Parameters: {"id"=>"1,1"}
+  [1m[36mQuestao Load (1.2ms)[0m  [1mSELECT "tb_questoes".* FROM "tb_questoes" WHERE "tb_questoes"."questao_id" = 1 AND "tb_questoes"."avaliacao_id" = 1[0m
+  [1m[35mAlternativa Load (0.9ms)[0m  SELECT "tb_alternativas".* FROM "tb_alternativas" WHERE "tb_alternativas"."questao_id" = 1 AND (fg_ativo = true)
+  Rendered pacientes_respostas/_form.html.erb (35.5ms)
+  Rendered questoes/show.html.erb within layouts/application (38.8ms)
+Completed 200 OK in 67ms (Views: 45.4ms | ActiveRecord: 9.4ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-03-04 13:34:38 -0300
+Served asset /application.css - 304 Not Modified (2ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-04 13:34:38 -0300
+Served asset /application.js - 304 Not Modified (1ms)
+
+
+Started GET "/questoes/1,1" for 127.0.0.1 at 2014-03-04 13:34:40 -0300
+Processing by QuestoesController#show as HTML
+  Parameters: {"id"=>"1,1"}
+  [1m[36mQuestao Load (1.1ms)[0m  [1mSELECT "tb_questoes".* FROM "tb_questoes" WHERE "tb_questoes"."questao_id" = 1 AND "tb_questoes"."avaliacao_id" = 1[0m
+  [1m[35mAlternativa Load (1.1ms)[0m  SELECT "tb_alternativas".* FROM "tb_alternativas" WHERE "tb_alternativas"."questao_id" = 1 AND (fg_ativo = true)
+  Rendered pacientes_respostas/_form.html.erb (9.0ms)
+  Rendered questoes/show.html.erb within layouts/application (10.3ms)
+Completed 200 OK in 18ms (Views: 13.2ms | ActiveRecord: 2.2ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-03-04 13:34:40 -0300
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-04 13:34:40 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/questoes/1,1" for 127.0.0.1 at 2014-03-04 13:34:40 -0300
+Processing by QuestoesController#show as HTML
+  Parameters: {"id"=>"1,1"}
+  [1m[36mQuestao Load (1.0ms)[0m  [1mSELECT "tb_questoes".* FROM "tb_questoes" WHERE "tb_questoes"."questao_id" = 1 AND "tb_questoes"."avaliacao_id" = 1[0m
+  [1m[35mAlternativa Load (1.0ms)[0m  SELECT "tb_alternativas".* FROM "tb_alternativas" WHERE "tb_alternativas"."questao_id" = 1 AND (fg_ativo = true)
+  Rendered pacientes_respostas/_form.html.erb (7.8ms)
+  Rendered questoes/show.html.erb within layouts/application (9.4ms)
+Completed 200 OK in 19ms (Views: 14.4ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-03-04 13:34:40 -0300
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-04 13:34:40 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+
+
+Started GET "/" for 127.0.0.1 at 2014-03-04 14:08:51 -0300
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 11ms (Views: 11.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-03-04 14:08:51 -0300
+Served asset /application.css - 304 Not Modified (4ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-04 14:08:51 -0300
+Served asset /application.js - 304 Not Modified (1ms)
+
+
+Started GET "/pacientes/new" for 127.0.0.1 at 2014-03-04 14:08:53 -0300
+Processing by PacientesController#new as HTML
+  [1m[36mEscolaridade Load (1.1ms)[0m  [1mSELECT "tb_escolaridades".* FROM "tb_escolaridades" [0m
+  Rendered pacientes/_form.html.erb (22.2ms)
+  Rendered pacientes/new.html.erb within layouts/application (24.5ms)
+Completed 200 OK in 31ms (Views: 22.9ms | ActiveRecord: 6.1ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-03-04 14:08:53 -0300
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-04 14:08:53 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started POST "/pacientes" for 127.0.0.1 at 2014-03-04 14:09:06 -0300
+Processing by PacientesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"nD5N91bvoWHJ5MNRlGK+DiTPqX9Aw7w1lqFEOoitYu4=", "paciente"=>{"nm_paciente"=>"fjdal", "idade"=>"21", "dt_nascimento(3i)"=>"4", "dt_nascimento(2i)"=>"3", "dt_nascimento(1i)"=>"1940", "naturalidade"=>"", "nr_rg"=>"", "convenio"=>"1", "ds_convenio"=>"fadsfasd", "escolaridade_id"=>"1", "fg_ativo"=>"1"}, "commit"=>"Avançar"}
+Redirected to http://localhost:3000/enderecos/new
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/enderecos/new" for 127.0.0.1 at 2014-03-04 14:09:06 -0300
+Processing by EnderecosController#new as HTML
+  [1m[35mEstado Load (0.6ms)[0m  SELECT "tb_estados".* FROM "tb_estados" 
+  Rendered enderecos/_form.html.erb (4.6ms)
+  Rendered enderecos/new.html.erb within layouts/application (5.2ms)
+Completed 200 OK in 34ms (Views: 7.7ms | ActiveRecord: 6.7ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-03-04 14:09:06 -0300
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-04 14:09:06 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started POST "/enderecos" for 127.0.0.1 at 2014-03-04 14:09:12 -0300
+Processing by EnderecosController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"nD5N91bvoWHJ5MNRlGK+DiTPqX9Aw7w1lqFEOoitYu4=", "endereco"=>{"rua"=>"", "nr"=>"", "bairro"=>"", "complemento"=>"casa", "estado_id"=>"1", "cidade"=>"", "fg_ativo"=>"1"}, "commit"=>"Avançar"}
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.2ms)[0m  INSERT INTO "tb_enderecos" ("bairro", "cep", "cidade", "complemento", "estado_id", "fg_ativo", "nr", "rua") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["bairro", ""], ["cep", nil], ["cidade", ""], ["complemento", "casa"], ["estado_id", 1], ["fg_ativo", true], ["nr", ""], ["rua", ""]]
+  [1m[36m (56.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (1.7ms)[0m  [1mINSERT INTO "tb_pacientes" ("convenio", "ds_convenio", "dt_nascimento", "endereco_id", "escolaridade_id", "fg_ativo", "idade", "naturalidade", "nm_paciente", "nr_rg") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"[0m  [["convenio", true], ["ds_convenio", "fadsfasd"], ["dt_nascimento", Seg, 04 Mar 1940 00:00:00 UTC +00:00], ["endereco_id", 3], ["escolaridade_id", 1], ["fg_ativo", true], ["idade", 21], ["naturalidade", ""], ["nm_paciente", "fjdal"], ["nr_rg", ""]]
+  [1m[35m (58.4ms)[0m  COMMIT
+Redirected to http://localhost:3000/questoes/1,1
+Completed 302 Found in 127ms (ActiveRecord: 118.1ms)
+
+
+Started GET "/questoes/1,1" for 127.0.0.1 at 2014-03-04 14:09:12 -0300
+Processing by QuestoesController#show as HTML
+  Parameters: {"id"=>"1,1"}
+  [1m[36mQuestao Load (0.6ms)[0m  [1mSELECT "tb_questoes".* FROM "tb_questoes" WHERE "tb_questoes"."questao_id" = 1 AND "tb_questoes"."avaliacao_id" = 1[0m
+  [1m[35mAlternativa Load (0.5ms)[0m  SELECT "tb_alternativas".* FROM "tb_alternativas" WHERE "tb_alternativas"."questao_id" = 1 AND (fg_ativo = true)
+  Rendered pacientes_respostas/_form.html.erb (14.4ms)
+  Rendered questoes/show.html.erb within layouts/application (15.1ms)
+Completed 200 OK in 37ms (Views: 16.2ms | ActiveRecord: 4.3ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-03-04 14:09:12 -0300
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-04 14:09:12 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started POST "/pacientes_respostas/responder" for 127.0.0.1 at 2014-03-04 14:09:16 -0300
+Processing by PacientesRespostasController#responder as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"nD5N91bvoWHJ5MNRlGK+DiTPqX9Aw7w1lqFEOoitYu4=", "paciente_resposta"=>{"alternativa_id"=>"1", "paciente_id"=>"3", "questao_id"=>"1", "avaliacao_id"=>"1"}, "commit"=>"Avançar"}
+  [1m[36mAlternativa Load (0.4ms)[0m  [1mSELECT "tb_alternativas".* FROM "tb_alternativas" WHERE "tb_alternativas"."alternativa_id" = 1 AND "tb_alternativas"."questao_id" = 1 AND "tb_alternativas"."avaliacao_id" = 1[0m
+  [1m[35mQuestao Load (0.3ms)[0m  SELECT "tb_questoes".* FROM "tb_questoes" WHERE "tb_questoes"."questao_id" = 2 AND "tb_questoes"."avaliacao_id" = 1
+Redirected to http://localhost:3000/questoes/2,1
+Completed 302 Found in 4ms (ActiveRecord: 0.7ms)
+
+
+Started GET "/questoes/2,1" for 127.0.0.1 at 2014-03-04 14:09:16 -0300
+Processing by QuestoesController#show as HTML
+  Parameters: {"id"=>"2,1"}
+  [1m[36mQuestao Load (0.8ms)[0m  [1mSELECT "tb_questoes".* FROM "tb_questoes" WHERE "tb_questoes"."questao_id" = 2 AND "tb_questoes"."avaliacao_id" = 1[0m
+  [1m[35mAlternativa Load (1.0ms)[0m  SELECT "tb_alternativas".* FROM "tb_alternativas" WHERE "tb_alternativas"."questao_id" = 2 AND (fg_ativo = true)
+  Rendered pacientes_respostas/_form.html.erb (4.5ms)
+  Rendered questoes/show.html.erb within layouts/application (5.8ms)
+Completed 200 OK in 13ms (Views: 8.9ms | ActiveRecord: 1.8ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-03-04 14:09:16 -0300
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-04 14:09:16 -0300
+Served asset /application.js - 304 Not Modified (0ms)
