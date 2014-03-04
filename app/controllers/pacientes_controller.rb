@@ -17,18 +17,14 @@ class PacientesController < ApplicationController
 
     @paciente = Paciente.new(params[:paciente])
 
-    session[:avaliacao_id] = 1
-
     respond_to do |format|
 
      if @paciente.valid?
       session[:paciente] = @paciente
       format.html{ redirect_to new_endereco_path }
-      format.json{render :json =>  @paciente, :status => :created, :location => @paciente}
 
      else
-	   format.html{render :action => "new"}
-       format.json{render :json =>  @paciente.errors, :status => :unprocessable_entity}
+	     format.html{render :action => "new"}
      end
     end
   end

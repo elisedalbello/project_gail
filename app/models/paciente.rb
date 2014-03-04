@@ -19,12 +19,14 @@ class Paciente < ActiveRecord::Base
 
   self.table_name = "tb_pacientes"
 
+  attr_accessible :nm_paciente, :idade, :dt_nascimento, :naturalidade, :nr_rg, :convenio, :ds_convenio, :fg_ativo, :escolaridade_id
+  
   #Relacionamentos
   has_one :escolaridade
-  has_one :endereco
-  has_one :paciente_resposta
+  belongs_to :endereco
+  has_many :paciente_resposta, :class_name => "PacienteResposta"
+  has_many :avaliacoes, :through => :paciente_resposta
 
-  attr_accessible :nm_paciente, :idade, :dt_nascimento, :naturalidade, :nr_rg, :convenio, :ds_convenio, :fg_ativo, :escolaridade_id
   validates :ds_convenio, :presence => true, :if => :has_convenio?
   validates :idade, :presence => true
 

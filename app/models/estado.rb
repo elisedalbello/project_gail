@@ -12,6 +12,4 @@ class Estado < ActiveRecord::Base
 
   self.table_name = "tb_estados"
 
-  has_many :enderecos, :conditions => "fg_ativo = true"
-
 end

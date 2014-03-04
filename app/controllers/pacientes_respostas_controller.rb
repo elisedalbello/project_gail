@@ -6,7 +6,7 @@ class PacientesRespostasController < ApplicationController
 
     @paciente_resposta = PacienteResposta.new(params[:paciente_resposta])
 
-    @alternativa_selecionada = Alternativa.find(@paciente_resposta.alternativa_id, @paciente_resposta.questao_id, @paciente_resposta.avaliacao_id)
+    @alternativa_selecionada = Alternativa.find(@paciente_resposta.alternativa_id, @paciente_resposta.questao_id ,@paciente_resposta.avaliacao_id)
 
     respond_to do |format|
 

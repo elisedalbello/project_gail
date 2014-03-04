@@ -27,25 +27,23 @@ class EnderecosController < ApplicationController
     @paciente = session[:paciente]
 
     respond_to do |format|
-      if @endereco.save
+      
+      @paciente.endereco = @endereco
 
-        @paciente.endereco_id = @endereco.id
+      if @paciente.save
 
-        if @paciente.save
+        session[:paciente] = @paciente
 
-          session[:paciente] = @paciente
+        session.delete(:respostas)
 
-          session.delete(:respostas)
-
-          format.html { redirect_to "/questoes/1,1", :notice => 'Cadastro efetuado com sucesso.' }
-          format.json { render :json => @paciente, :status => :created, location: @paciente }
-        end
-
+        format.html { redirect_to "/questoes/1,1", :notice => 'Cadastro efetuado com sucesso.' }
+      
       else
         format.html { render :action => "new" }
-        format.json { render :json => @endereco.errors, :status => :unprocessable_entity }
       end
+
     end
+  
   end
 
 end

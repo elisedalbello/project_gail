@@ -11,6 +11,4 @@ class Escolaridade < ActiveRecord::Base
 
   self.table_name = "tb_escolaridades"
 
-  has_many :pacientes, :conditions => "fg_ativo = true"
-
 end
