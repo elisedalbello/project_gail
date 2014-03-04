@@ -28061,3 +28061,346 @@ Served asset /application.css - 304 Not Modified (0ms)
 
 Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-03 15:11:57 -0300
 Served asset /application.js - 304 Not Modified (0ms)
+Connecting to database specified by database.yml
+
+
+Started GET "/" for 127.0.0.1 at 2014-03-04 12:54:06 -0300
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (2.0ms)
+Completed 200 OK in 137ms (Views: 136.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-03-04 12:54:06 -0300
+Served asset /application.css - 200 OK (1ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-04 12:54:06 -0300
+Served asset /application.js - 200 OK (1ms)
+
+
+Started GET "/assets/bggail.jpg" for 127.0.0.1 at 2014-03-04 12:54:06 -0300
+Served asset /bggail.jpg - 304 Not Modified (44ms)
+
+
+Started GET "/pacientes/new" for 127.0.0.1 at 2014-03-04 12:54:54 -0300
+Processing by PacientesController#new as HTML
+  [1m[36mEscolaridade Load (23.2ms)[0m  [1mSELECT "tb_escolaridades".* FROM "tb_escolaridades" [0m
+  Rendered pacientes/_form.html.erb (133.1ms)
+  Rendered pacientes/new.html.erb within layouts/application (142.0ms)
+Completed 200 OK in 171ms (Views: 142.5ms | ActiveRecord: 28.0ms)
+
+
+Started POST "/pacientes" for 127.0.0.1 at 2014-03-04 12:54:59 -0300
+Processing by PacientesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"JiszfXIVOnSRozFRLA7Cx7fKbTRrxR4ydZlnZAY3cCA=", "paciente"=>{"nm_paciente"=>"", "idade"=>"", "dt_nascimento(3i)"=>"4", "dt_nascimento(2i)"=>"3", "dt_nascimento(1i)"=>"1940", "naturalidade"=>"", "nr_rg"=>"", "convenio"=>"1", "ds_convenio"=>"", "escolaridade_id"=>"1", "fg_ativo"=>"1"}, "commit"=>"Avançar"}
+  [1m[35mEscolaridade Load (0.5ms)[0m  SELECT "tb_escolaridades".* FROM "tb_escolaridades" 
+  Rendered pacientes/_form.html.erb (10.1ms)
+  Rendered pacientes/new.html.erb within layouts/application (10.6ms)
+Completed 200 OK in 73ms (Views: 12.7ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/" for 127.0.0.1 at 2014-03-04 13:15:44 -0300
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 16ms (Views: 15.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/jquery.mask.min.js" for 127.0.0.1 at 2014-03-04 13:15:44 -0300
+Served asset /jquery.mask.min.js - 404 Not Found (2ms)
+
+ActionController::RoutingError (No route matches [GET] "/assets/jquery.mask.min.js"):
+  actionpack (3.2.6) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (3.2.6) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.6) lib/rails/rack/logger.rb:26:in `call_app'
+  railties (3.2.6) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.6) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.5) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.5) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.6) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.5) lib/rack/lock.rb:15:in `call'
+  actionpack (3.2.6) lib/action_dispatch/middleware/static.rb:62:in `call'
+  railties (3.2.6) lib/rails/engine.rb:479:in `call'
+  railties (3.2.6) lib/rails/application.rb:220:in `call'
+  rack (1.4.5) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.6) lib/rails/rack/log_tailer.rb:17:in `call'
+  thin (1.4.1) lib/thin/connection.rb:80:in `block in pre_process'
+  thin (1.4.1) lib/thin/connection.rb:78:in `catch'
+  thin (1.4.1) lib/thin/connection.rb:78:in `pre_process'
+  thin (1.4.1) lib/thin/connection.rb:53:in `process'
+  thin (1.4.1) lib/thin/connection.rb:38:in `receive_data'
+  eventmachine (1.0.3) lib/eventmachine.rb:187:in `run_machine'
+  eventmachine (1.0.3) lib/eventmachine.rb:187:in `run'
+  thin (1.4.1) lib/thin/backends/base.rb:63:in `start'
+  thin (1.4.1) lib/thin/server.rb:159:in `start'
+  rack (1.4.5) lib/rack/handler/thin.rb:13:in `run'
+  rack (1.4.5) lib/rack/server.rb:268:in `start'
+  railties (3.2.6) lib/rails/commands/server.rb:70:in `start'
+  railties (3.2.6) lib/rails/commands.rb:55:in `block in <top (required)>'
+  railties (3.2.6) lib/rails/commands.rb:50:in `tap'
+  railties (3.2.6) lib/rails/commands.rb:50:in `<top (required)>'
+  script/rails:6:in `require'
+  script/rails:6:in `<main>'
+
+
+  Rendered /Users/direx/.rvm/gems/ruby-2.1.0/gems/actionpack-3.2.6/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (1.4ms)
+
+
+Started GET "/" for 127.0.0.1 at 2014-03-04 13:15:45 -0300
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 12ms (Views: 11.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-03-04 13:15:45 -0300
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-04 13:15:45 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.mask.min.js" for 127.0.0.1 at 2014-03-04 13:15:45 -0300
+Served asset /jquery.mask.min.js - 404 Not Found (3ms)
+
+ActionController::RoutingError (No route matches [GET] "/assets/jquery.mask.min.js"):
+  actionpack (3.2.6) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (3.2.6) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.6) lib/rails/rack/logger.rb:26:in `call_app'
+  railties (3.2.6) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.6) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.5) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.5) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.6) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.5) lib/rack/lock.rb:15:in `call'
+  actionpack (3.2.6) lib/action_dispatch/middleware/static.rb:62:in `call'
+  railties (3.2.6) lib/rails/engine.rb:479:in `call'
+  railties (3.2.6) lib/rails/application.rb:220:in `call'
+  rack (1.4.5) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.6) lib/rails/rack/log_tailer.rb:17:in `call'
+  thin (1.4.1) lib/thin/connection.rb:80:in `block in pre_process'
+  thin (1.4.1) lib/thin/connection.rb:78:in `catch'
+  thin (1.4.1) lib/thin/connection.rb:78:in `pre_process'
+  thin (1.4.1) lib/thin/connection.rb:53:in `process'
+  thin (1.4.1) lib/thin/connection.rb:38:in `receive_data'
+  eventmachine (1.0.3) lib/eventmachine.rb:187:in `run_machine'
+  eventmachine (1.0.3) lib/eventmachine.rb:187:in `run'
+  thin (1.4.1) lib/thin/backends/base.rb:63:in `start'
+  thin (1.4.1) lib/thin/server.rb:159:in `start'
+  rack (1.4.5) lib/rack/handler/thin.rb:13:in `run'
+  rack (1.4.5) lib/rack/server.rb:268:in `start'
+  railties (3.2.6) lib/rails/commands/server.rb:70:in `start'
+  railties (3.2.6) lib/rails/commands.rb:55:in `block in <top (required)>'
+  railties (3.2.6) lib/rails/commands.rb:50:in `tap'
+  railties (3.2.6) lib/rails/commands.rb:50:in `<top (required)>'
+  script/rails:6:in `require'
+  script/rails:6:in `<main>'
+
+
+  Rendered /Users/direx/.rvm/gems/ruby-2.1.0/gems/actionpack-3.2.6/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (0.5ms)
+
+
+Started GET "/" for 127.0.0.1 at 2014-03-04 13:16:44 -0300
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.3ms)
+Compiled jquery.mask.min.js  (0ms)  (pid 27161)
+Completed 200 OK in 12ms (Views: 11.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-03-04 13:16:44 -0300
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.mask.min.js?body=1" for 127.0.0.1 at 2014-03-04 13:16:44 -0300
+Served asset /jquery.mask.min.js - 200 OK (1ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-04 13:16:44 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2014-03-04 13:18:05 -0300
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (0.3ms)
+Compiled jquery.js  (4ms)  (pid 27161)
+Completed 200 OK in 45ms (Views: 44.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-03-04 13:18:05 -0300
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-03-04 13:18:05 -0300
+Served asset /jquery.js - 200 OK (2ms)
+
+
+Started GET "/assets/jquery.mask.min.js?body=1" for 127.0.0.1 at 2014-03-04 13:18:05 -0300
+Served asset /jquery.mask.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-04 13:18:05 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/pacientes/new" for 127.0.0.1 at 2014-03-04 13:18:10 -0300
+Processing by PacientesController#new as HTML
+  [1m[36mEscolaridade Load (0.5ms)[0m  [1mSELECT "tb_escolaridades".* FROM "tb_escolaridades" [0m
+  Rendered pacientes/_form.html.erb (10.6ms)
+  Rendered pacientes/new.html.erb within layouts/application (40.1ms)
+Completed 200 OK in 43ms (Views: 42.6ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-03-04 13:18:10 -0300
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.mask.min.js?body=1" for 127.0.0.1 at 2014-03-04 13:18:10 -0300
+Served asset /jquery.mask.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-04 13:18:10 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started POST "/pacientes" for 127.0.0.1 at 2014-03-04 13:26:44 -0300
+Processing by PacientesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"JiszfXIVOnSRozFRLA7Cx7fKbTRrxR4ydZlnZAY3cCA=", "paciente"=>{"nm_paciente"=>"", "idade"=>"432", "dt_nascimento(3i)"=>"4", "dt_nascimento(2i)"=>"3", "dt_nascimento(1i)"=>"1940", "naturalidade"=>"", "nr_rg"=>"", "convenio"=>"1", "ds_convenio"=>"", "escolaridade_id"=>"1", "fg_ativo"=>"1"}, "commit"=>"Avançar"}
+  [1m[35mEscolaridade Load (0.5ms)[0m  SELECT "tb_escolaridades".* FROM "tb_escolaridades" 
+  Rendered pacientes/_form.html.erb (9.4ms)
+  Rendered pacientes/new.html.erb within layouts/application (9.9ms)
+Completed 200 OK in 14ms (Views: 12.5ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-03-04 13:26:44 -0300
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.mask.min.js?body=1" for 127.0.0.1 at 2014-03-04 13:26:44 -0300
+Served asset /jquery.mask.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-04 13:26:44 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started POST "/pacientes" for 127.0.0.1 at 2014-03-04 13:26:53 -0300
+Processing by PacientesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"JiszfXIVOnSRozFRLA7Cx7fKbTRrxR4ydZlnZAY3cCA=", "paciente"=>{"nm_paciente"=>"", "idade"=>"432", "dt_nascimento(3i)"=>"4", "dt_nascimento(2i)"=>"3", "dt_nascimento(1i)"=>"1940", "naturalidade"=>"", "nr_rg"=>"", "convenio"=>"1", "ds_convenio"=>"ahauhauahaua", "escolaridade_id"=>"1", "fg_ativo"=>"1"}, "commit"=>"Avançar"}
+Redirected to http://localhost:3000/enderecos/new
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/enderecos/new" for 127.0.0.1 at 2014-03-04 13:26:53 -0300
+Processing by EnderecosController#new as HTML
+  [1m[36mEstado Load (1.5ms)[0m  [1mSELECT "tb_estados".* FROM "tb_estados" [0m
+  Rendered enderecos/_form.html.erb (7.6ms)
+  Rendered enderecos/new.html.erb within layouts/application (9.5ms)
+Completed 200 OK in 72ms (Views: 41.2ms | ActiveRecord: 9.7ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-03-04 13:26:53 -0300
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.mask.min.js?body=1" for 127.0.0.1 at 2014-03-04 13:26:53 -0300
+Served asset /jquery.mask.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-04 13:26:53 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/enderecos/new" for 127.0.0.1 at 2014-03-04 13:32:04 -0300
+Processing by EnderecosController#new as HTML
+  [1m[35mEstado Load (0.5ms)[0m  SELECT "tb_estados".* FROM "tb_estados" 
+  Rendered enderecos/_form.html.erb (6.0ms)
+  Rendered enderecos/new.html.erb within layouts/application (6.7ms)
+Completed 200 OK in 16ms (Views: 12.1ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-03-04 13:32:04 -0300
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-03-04 13:32:04 -0300
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.mask.min.js?body=1" for 127.0.0.1 at 2014-03-04 13:32:04 -0300
+Served asset /jquery.mask.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-04 13:32:04 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/enderecos/new" for 127.0.0.1 at 2014-03-04 13:33:57 -0300
+Processing by EnderecosController#new as HTML
+  [1m[36mEstado Load (0.6ms)[0m  [1mSELECT "tb_estados".* FROM "tb_estados" [0m
+  Rendered enderecos/_form.html.erb (4.6ms)
+  Rendered enderecos/new.html.erb within layouts/application (5.2ms)
+Completed 200 OK in 10ms (Views: 8.2ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-03-04 13:33:57 -0300
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-03-04 13:33:57 -0300
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.mask.min.js?body=1" for 127.0.0.1 at 2014-03-04 13:33:57 -0300
+Served asset /jquery.mask.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-04 13:33:57 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/enderecos/new" for 127.0.0.1 at 2014-03-04 13:34:14 -0300
+Processing by EnderecosController#new as HTML
+  [1m[35mEstado Load (0.6ms)[0m  SELECT "tb_estados".* FROM "tb_estados" 
+  Rendered enderecos/_form.html.erb (3.8ms)
+  Rendered enderecos/new.html.erb within layouts/application (4.4ms)
+Completed 200 OK in 9ms (Views: 7.4ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-03-04 13:34:14 -0300
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-03-04 13:34:14 -0300
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.mask.min.js?body=1" for 127.0.0.1 at 2014-03-04 13:34:14 -0300
+Served asset /jquery.mask.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-04 13:34:14 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/enderecos/new" for 127.0.0.1 at 2014-03-04 14:11:18 -0300
+Processing by EnderecosController#new as HTML
+  [1m[36mEstado Load (0.6ms)[0m  [1mSELECT "tb_estados".* FROM "tb_estados" [0m
+  Rendered enderecos/_form.html.erb (3.7ms)
+  Rendered enderecos/new.html.erb within layouts/application (4.5ms)
+Completed 200 OK in 11ms (Views: 8.6ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-03-04 14:11:18 -0300
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-03-04 14:11:18 -0300
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.mask.min.js?body=1" for 127.0.0.1 at 2014-03-04 14:11:18 -0300
+Served asset /jquery.mask.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-03-04 14:11:18 -0300
+Served asset /application.js - 304 Not Modified (0ms)
+Connecting to database specified by database.yml
