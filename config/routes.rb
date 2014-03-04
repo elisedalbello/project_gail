@@ -8,13 +8,13 @@ Gail::Application.routes.draw do
 
   post "pacientes_respostas/responder"
 
-  resources :pacientes
+  get "pacientes/new" => "pacientes#new", :as => :new_paciente
+  post "pacientes" => "pacientes#create"
 
-  resources :enderecos
+  get "enderecos/new" => "enderecos#new", :as => :new_endereco
+  post "enderecos" => "enderecos#create"
 
-  resources :questoes do
-    resources :alternativas
-  end
+  get "questoes/:id" => "questoes#show", :as => :questao
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
