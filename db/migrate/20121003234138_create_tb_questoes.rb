@@ -17,7 +17,7 @@ class CreateTbQuestoes < ActiveRecord::Migration
       INSERT INTO tb_questoes(avaliacao_id, questao_id, ds_questao, fg_ativo)
       VALUES
       (1, 1, 'Qual a sua cor?', true),
-      (1, 2, 'Com qual idade ocorreu a sua primeira mentruação?', true),
+      (1, 2, 'Com qual idade ocorreu a sua primeira menstruação?', true),
       (1, 3, 'Com que idade você teve seu primeiro filho?', true),
       (1, 4, 'Quantas vezes você fez biópsias mamárias?', true),
       (1, 5, 'Já teve Hiperplásia Atípica?', true),

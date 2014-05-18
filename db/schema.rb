@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140303150616) do
+ActiveRecord::Schema.define(:version => 20140517174156) do
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
@@ -89,6 +89,13 @@ ActiveRecord::Schema.define(:version => 20140303150616) do
     t.integer "questao_id",   :null => false
     t.text    "ds_questao"
     t.boolean "fg_ativo",     :null => false
+  end
+
+  create_table "tb_resultado", :id => false, :force => true do |t|
+    t.integer  "paciente_id",   :null => false
+    t.integer  "avaliacao_id"
+    t.decimal  "resultado"
+    t.datetime "data_gravacao", :null => false
   end
 
 end
